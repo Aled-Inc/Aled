@@ -11,7 +11,7 @@ namespace Aled.DbMigrator;
     typeof(AbpCachingStackExchangeRedisModule),
     typeof(AledEntityFrameworkCoreModule),
     typeof(AledApplicationContractsModule)
-    )]
+)]
 public class AledDbMigratorModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

@@ -15,7 +15,7 @@ namespace Aled.EntityFrameworkCore.Samples;
  * Only test your custom repository methods.
  */
 [Collection(AledTestConsts.CollectionDefinitionName)]
-public class SampleRepositoryTests : AledEntityFrameworkCoreTestBase
+public sealed class SampleRepositoryTests : AledEntityFrameworkCoreTestBase
 {
     private readonly IRepository<IdentityUser, Guid> _appUserRepository;
 

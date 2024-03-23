@@ -23,8 +23,8 @@ namespace Aled;
     typeof(AbpOpenIddictDomainSharedModule),
     typeof(AbpPermissionManagementDomainSharedModule),
     typeof(AbpSettingManagementDomainSharedModule),
-    typeof(AbpTenantManagementDomainSharedModule)    
-    )]
+    typeof(AbpTenantManagementDomainSharedModule)
+)]
 public class AledDomainSharedModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -35,10 +35,7 @@ public class AledDomainSharedModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        Configure<AbpVirtualFileSystemOptions>(options =>
-        {
-            options.FileSets.AddEmbedded<AledDomainSharedModule>();
-        });
+        Configure<AbpVirtualFileSystemOptions>(options => { options.FileSets.AddEmbedded<AledDomainSharedModule>(); });
 
         Configure<AbpLocalizationOptions>(options =>
         {

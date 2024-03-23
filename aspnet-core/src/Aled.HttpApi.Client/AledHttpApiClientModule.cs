@@ -4,8 +4,8 @@ using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
-using Volo.Abp.TenantManagement;
 using Volo.Abp.SettingManagement;
+using Volo.Abp.TenantManagement;
 using Volo.Abp.VirtualFileSystem;
 
 namespace Aled;
@@ -26,13 +26,9 @@ public class AledHttpApiClientModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         context.Services.AddHttpClientProxies(
-            typeof(AledApplicationContractsModule).Assembly,
-            RemoteServiceName
+            typeof(AledApplicationContractsModule).Assembly
         );
 
-        Configure<AbpVirtualFileSystemOptions>(options =>
-        {
-            options.FileSets.AddEmbedded<AledHttpApiClientModule>();
-        });
+        Configure<AbpVirtualFileSystemOptions>(options => { options.FileSets.AddEmbedded<AledHttpApiClientModule>(); });
     }
 }

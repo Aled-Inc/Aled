@@ -1,5 +1,5 @@
-﻿using Localization.Resources.AbpUi;
-using Aled.Localization;
+﻿using Aled.Localization;
+using Localization.Resources.AbpUi;
 using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
@@ -19,7 +19,7 @@ namespace Aled;
     typeof(AbpTenantManagementHttpApiModule),
     typeof(AbpFeatureManagementHttpApiModule),
     typeof(AbpSettingManagementHttpApiModule)
-    )]
+)]
 public class AledHttpApiModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

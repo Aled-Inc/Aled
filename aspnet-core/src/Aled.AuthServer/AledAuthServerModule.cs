@@ -1,6 +1,9 @@
 using System;
 using System.IO;
 using System.Linq;
+using Aled.EntityFrameworkCore;
+using Aled.Localization;
+using Aled.MultiTenancy;
 using Localization.Resources.AbpUi;
 using Medallion.Threading;
 using Medallion.Threading.Redis;
@@ -9,15 +12,11 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Aled.EntityFrameworkCore;
-using Aled.Localization;
-using Aled.MultiTenancy;
 using StackExchange.Redis;
 using Volo.Abp;
 using Volo.Abp.Account;
+using Volo.Abp.Account.Localization;
 using Volo.Abp.Account.Web;
-using Volo.Abp.AspNetCore.Mvc.UI;
-using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
@@ -34,9 +33,7 @@ using Volo.Abp.Modularity;
 using Volo.Abp.OpenIddict;
 using Volo.Abp.Security.Claims;
 using Volo.Abp.UI.Navigation.Urls;
-using Volo.Abp.UI;
 using Volo.Abp.VirtualFileSystem;
-using Volo.Abp.Account.Localization;
 
 namespace Aled;
 
@@ -50,7 +47,7 @@ namespace Aled;
     typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
     typeof(AledEntityFrameworkCoreModule),
     typeof(AbpAspNetCoreSerilogModule)
-    )]
+)]
 public class AledAuthServerModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -75,15 +72,14 @@ public class AledAuthServerModule : AbpModule
                 options.AddDevelopmentEncryptionAndSigningCertificate = false;
             });
         }
-        
+
 #if DEBUG
-        PreConfigure<OpenIddictServerBuilder>(options => 
+        PreConfigure<OpenIddictServerBuilder>(options =>
         {
             options.UseAspNetCore()
                 .DisableTransportSecurityRequirement();
         });
 #endif
-
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -105,46 +101,41 @@ public class AledAuthServerModule : AbpModule
         {
             options.StyleBundles.Configure(
                 LeptonXLiteThemeBundles.Styles.Global,
-                bundle =>
-                {
-                    bundle.AddFiles("/global-styles.css");
-                }
+                bundle => { bundle.AddFiles("/global-styles.css"); }
             );
         });
 
         Configure<AbpAuditingOptions>(options =>
         {
-                //options.IsEnabledForGetRequests = true;
-                options.ApplicationName = "AuthServer";
+            //options.IsEnabledForGetRequests = true;
+            options.ApplicationName = "AuthServer";
         });
 
         if (hostingEnvironment.IsDevelopment())
         {
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
-                options.FileSets.ReplaceEmbeddedByPhysical<AledDomainSharedModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Aled.Domain.Shared"));
-                options.FileSets.ReplaceEmbeddedByPhysical<AledDomainModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Aled.Domain"));
+                options.FileSets.ReplaceEmbeddedByPhysical<AledDomainSharedModule>(
+                    Path.Combine(hostingEnvironment.ContentRootPath,
+                        $"..{Path.DirectorySeparatorChar}Aled.Domain.Shared"));
+                options.FileSets.ReplaceEmbeddedByPhysical<AledDomainModule>(
+                    Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Aled.Domain"));
             });
         }
 
         Configure<AppUrlOptions>(options =>
         {
             options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
-            options.RedirectAllowedUrls.AddRange(configuration["App:RedirectAllowedUrls"]?.Split(',') ?? Array.Empty<string>());
+            options.RedirectAllowedUrls.AddRange(configuration["App:RedirectAllowedUrls"]?.Split(',') ??
+                                                 Array.Empty<string>());
 
             options.Applications["Angular"].RootUrl = configuration["App:ClientUrl"];
             options.Applications["Angular"].Urls[AccountUrlNames.PasswordReset] = "account/reset-password";
         });
 
-        Configure<AbpBackgroundJobOptions>(options =>
-        {
-            options.IsJobExecutionEnabled = false;
-        });
+        Configure<AbpBackgroundJobOptions>(options => { options.IsJobExecutionEnabled = false; });
 
-        Configure<AbpDistributedCacheOptions>(options =>
-        {
-            options.KeyPrefix = "Aled:";
-        });
+        Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "Aled:"; });
 
         var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("Aled");
         if (!hostingEnvironment.IsDevelopment())

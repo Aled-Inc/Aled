@@ -1,5 +1,8 @@
 ﻿using System;
 using System.IO;
+using Aled.Blazor.Menus;
+using Aled.Localization;
+using Aled.MultiTenancy;
 using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
 using Medallion.Threading;
@@ -14,23 +17,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.OpenApi.Models;
-using Aled.Blazor.Menus;
-using Aled.Localization;
-using Aled.MultiTenancy;
 using StackExchange.Redis;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Authentication.OpenIdConnect;
 using Volo.Abp.AspNetCore.Components.Server.LeptonXLiteTheme;
 using Volo.Abp.AspNetCore.Components.Server.LeptonXLiteTheme.Bundling;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
 using Volo.Abp.AspNetCore.Components.Web.Theming.Routing;
 using Volo.Abp.AspNetCore.Mvc.Client;
 using Volo.Abp.AspNetCore.Mvc.Localization;
-using Volo.Abp.AspNetCore.Mvc.UI;
-using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
-using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Toolbars;
 using Volo.Abp.AspNetCore.Serilog;
@@ -41,14 +38,12 @@ using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.DistributedLocking;
 using Volo.Abp.Http.Client.IdentityModel.Web;
 using Volo.Abp.Identity.Blazor.Server;
-using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Security.Claims;
 using Volo.Abp.SettingManagement.Blazor.Server;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.TenantManagement.Blazor.Server;
-using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
@@ -70,7 +65,7 @@ namespace Aled.Blazor;
     typeof(AbpIdentityBlazorServerModule),
     typeof(AbpTenantManagementBlazorServerModule),
     typeof(AbpSettingManagementBlazorServerModule)
-   )]
+)]
 public class AledBlazorModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -108,18 +103,12 @@ public class AledBlazorModule : AbpModule
 
     private void ConfigureUrls(IConfiguration configuration)
     {
-        Configure<AppUrlOptions>(options =>
-        {
-            options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
-        });
+        Configure<AppUrlOptions>(options => { options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"]; });
     }
 
     private void ConfigureCache()
     {
-        Configure<AbpDistributedCacheOptions>(options =>
-        {
-            options.KeyPrefix = "Aled:";
-        });
+        Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "Aled:"; });
     }
 
     private void ConfigureBundles()
@@ -129,10 +118,7 @@ public class AledBlazorModule : AbpModule
             // MVC UI
             options.StyleBundles.Configure(
                 LeptonXLiteThemeBundles.Styles.Global,
-                bundle =>
-                {
-                    bundle.AddFiles("/global-styles.css");
-                }
+                bundle => { bundle.AddFiles("/global-styles.css"); }
             );
 
             //BLAZOR UI
@@ -150,10 +136,7 @@ public class AledBlazorModule : AbpModule
 
     private void ConfigureMultiTenancy()
     {
-        Configure<AbpMultiTenancyOptions>(options =>
-        {
-            options.IsEnabled = MultiTenancyConsts.IsEnabled;
-        });
+        Configure<AbpMultiTenancyOptions>(options => { options.IsEnabled = MultiTenancyConsts.IsEnabled; });
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
@@ -185,49 +168,52 @@ public class AledBlazorModule : AbpModule
                 options.Scope.Add("phone");
                 options.Scope.Add("Aled");
             });
-            /*
-            * This configuration is used when the AuthServer is running on the internal network such as docker or k8s.
-            * Configuring the redirecting URLs for internal network and the web
-            * The login and the logout URLs are configured to redirect to the AuthServer real DNS for browser.
-            * The token acquired and validated from the the internal network AuthServer URL.
-            */
-            if (configuration.GetValue<bool>("AuthServer:IsContainerized"))
+        /*
+         * This configuration is used when the AuthServer is running on the internal network such as docker or k8s.
+         * Configuring the redirecting URLs for internal network and the web
+         * The login and the logout URLs are configured to redirect to the AuthServer real DNS for browser.
+         * The token acquired and validated from the the internal network AuthServer URL.
+         */
+        if (configuration.GetValue<bool>("AuthServer:IsContainerized"))
+        {
+            context.Services.Configure<OpenIdConnectOptions>("oidc", options =>
             {
-                context.Services.Configure<OpenIdConnectOptions>("oidc", options =>
+                options.TokenValidationParameters.ValidIssuers = new[]
                 {
-                    options.TokenValidationParameters.ValidIssuers = new[]
+                    configuration["AuthServer:MetaAddress"]!.EnsureEndsWith('/'),
+                    configuration["AuthServer:Authority"]!.EnsureEndsWith('/')
+                };
+
+                options.MetadataAddress = configuration["AuthServer:MetaAddress"]!.EnsureEndsWith('/') +
+                                          ".well-known/openid-configuration";
+
+                var previousOnRedirectToIdentityProvider = options.Events.OnRedirectToIdentityProvider;
+                options.Events.OnRedirectToIdentityProvider = async ctx =>
+                {
+                    // Intercept the redirection so the browser navigates to the right URL in your host
+                    ctx.ProtocolMessage.IssuerAddress = configuration["AuthServer:Authority"]!.EnsureEndsWith('/') +
+                                                        "connect/authorize";
+
+                    if (previousOnRedirectToIdentityProvider != null)
                     {
-                        configuration["AuthServer:MetaAddress"]!.EnsureEndsWith('/'),
-                        configuration["AuthServer:Authority"]!.EnsureEndsWith('/')
-                    };
+                        await previousOnRedirectToIdentityProvider(ctx);
+                    }
+                };
+                var previousOnRedirectToIdentityProviderForSignOut =
+                    options.Events.OnRedirectToIdentityProviderForSignOut;
+                options.Events.OnRedirectToIdentityProviderForSignOut = async ctx =>
+                {
+                    // Intercept the redirection for signout so the browser navigates to the right URL in your host
+                    ctx.ProtocolMessage.IssuerAddress =
+                        configuration["AuthServer:Authority"]!.EnsureEndsWith('/') + "connect/logout";
 
-                    options.MetadataAddress = configuration["AuthServer:MetaAddress"]!.EnsureEndsWith('/') +
-                                            ".well-known/openid-configuration";
-
-                    var previousOnRedirectToIdentityProvider = options.Events.OnRedirectToIdentityProvider;
-                    options.Events.OnRedirectToIdentityProvider = async ctx =>
+                    if (previousOnRedirectToIdentityProviderForSignOut != null)
                     {
-                        // Intercept the redirection so the browser navigates to the right URL in your host
-                        ctx.ProtocolMessage.IssuerAddress = configuration["AuthServer:Authority"]!.EnsureEndsWith('/') + "connect/authorize";
-
-                        if (previousOnRedirectToIdentityProvider != null)
-                        {
-                            await previousOnRedirectToIdentityProvider(ctx);
-                        }
-                    };
-                    var previousOnRedirectToIdentityProviderForSignOut = options.Events.OnRedirectToIdentityProviderForSignOut;
-                    options.Events.OnRedirectToIdentityProviderForSignOut = async ctx =>
-                    {
-                        // Intercept the redirection for signout so the browser navigates to the right URL in your host
-                        ctx.ProtocolMessage.IssuerAddress = configuration["AuthServer:Authority"]!.EnsureEndsWith('/') + "connect/logout";
-
-                        if (previousOnRedirectToIdentityProviderForSignOut != null)
-                        {
-                            await previousOnRedirectToIdentityProviderForSignOut(ctx);
-                        }
-                    };
-                });
-            }
+                        await previousOnRedirectToIdentityProviderForSignOut(ctx);
+                    }
+                };
+            });
+        }
 
         context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>
         {
@@ -241,8 +227,12 @@ public class AledBlazorModule : AbpModule
         {
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
-                options.FileSets.ReplaceEmbeddedByPhysical<AledDomainSharedModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Aled.Domain.Shared"));
-                options.FileSets.ReplaceEmbeddedByPhysical<AledApplicationContractsModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Aled.Application.Contracts"));
+                options.FileSets.ReplaceEmbeddedByPhysical<AledDomainSharedModule>(
+                    Path.Combine(hostingEnvironment.ContentRootPath,
+                        $"..{Path.DirectorySeparatorChar}Aled.Domain.Shared"));
+                options.FileSets.ReplaceEmbeddedByPhysical<AledApplicationContractsModule>(
+                    Path.Combine(hostingEnvironment.ContentRootPath,
+                        $"..{Path.DirectorySeparatorChar}Aled.Application.Contracts"));
                 options.FileSets.ReplaceEmbeddedByPhysical<AledBlazorModule>(hostingEnvironment.ContentRootPath);
             });
         }
@@ -262,26 +252,17 @@ public class AledBlazorModule : AbpModule
             options.MenuContributors.Add(new AledMenuContributor(configuration));
         });
 
-        Configure<AbpToolbarOptions>(options =>
-        {
-            options.Contributors.Add(new AledToolbarContributor());
-        });
+        Configure<AbpToolbarOptions>(options => { options.Contributors.Add(new AledToolbarContributor()); });
     }
 
     private void ConfigureRouter(ServiceConfigurationContext context)
     {
-        Configure<AbpRouterOptions>(options =>
-        {
-            options.AppAssembly = typeof(AledBlazorModule).Assembly;
-        });
+        Configure<AbpRouterOptions>(options => { options.AppAssembly = typeof(AledBlazorModule).Assembly; });
     }
 
     private void ConfigureAutoMapper()
     {
-        Configure<AbpAutoMapperOptions>(options =>
-        {
-            options.AddMaps<AledBlazorModule>();
-        });
+        Configure<AbpAutoMapperOptions>(options => { options.AddMaps<AledBlazorModule>(); });
     }
 
     private void ConfigureSwaggerServices(IServiceCollection services)
@@ -346,13 +327,11 @@ public class AledBlazorModule : AbpModule
         {
             app.UseMultiTenancy();
         }
+
         app.UseDynamicClaims();
         app.UseAuthorization();
         app.UseSwagger();
-        app.UseAbpSwaggerUI(options =>
-        {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Aled API");
-        });
+        app.UseAbpSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "Aled API"); });
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();
     }

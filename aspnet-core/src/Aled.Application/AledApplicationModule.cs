@@ -18,14 +18,11 @@ namespace Aled;
     typeof(AbpTenantManagementApplicationModule),
     typeof(AbpFeatureManagementApplicationModule),
     typeof(AbpSettingManagementApplicationModule)
-    )]
+)]
 public class AledApplicationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        Configure<AbpAutoMapperOptions>(options =>
-        {
-            options.AddMaps<AledApplicationModule>();
-        });
+        Configure<AbpAutoMapperOptions>(options => { options.AddMaps<AledApplicationModule>(); });
     }
 }

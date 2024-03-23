@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Aled.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Aled.Data;
 using Volo.Abp.DependencyInjection;
 
 namespace Aled.EntityFrameworkCore;

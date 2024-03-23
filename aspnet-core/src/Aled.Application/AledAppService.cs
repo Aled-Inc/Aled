@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Aled.Localization;
+﻿using Aled.Localization;
 using Volo.Abp.Application.Services;
 
 namespace Aled;

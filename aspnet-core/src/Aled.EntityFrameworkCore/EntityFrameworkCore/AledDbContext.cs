@@ -23,6 +23,35 @@ public class AledDbContext :
     IIdentityDbContext,
     ITenantManagementDbContext
 {
+    public AledDbContext(DbContextOptions<AledDbContext> options)
+        : base(options)
+    {
+    }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        /* Include modules to your migration db context */
+
+        builder.ConfigurePermissionManagement();
+        builder.ConfigureSettingManagement();
+        builder.ConfigureBackgroundJobs();
+        builder.ConfigureAuditLogging();
+        builder.ConfigureIdentity();
+        builder.ConfigureOpenIddict();
+        builder.ConfigureFeatureManagement();
+        builder.ConfigureTenantManagement();
+
+        /* Configure your own tables/entities inside here */
+
+        //builder.Entity<YourEntity>(b =>
+        //{
+        //    b.ToTable(AledConsts.DbTablePrefix + "YourEntities", AledConsts.DbSchema);
+        //    b.ConfigureByConvention(); //auto configure for the base class props
+        //    //...
+        //});
+    }
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
 
     #region Entities from the modules
@@ -52,35 +81,4 @@ public class AledDbContext :
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
     #endregion
-
-    public AledDbContext(DbContextOptions<AledDbContext> options)
-        : base(options)
-    {
-
-    }
-
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        base.OnModelCreating(builder);
-
-        /* Include modules to your migration db context */
-
-        builder.ConfigurePermissionManagement();
-        builder.ConfigureSettingManagement();
-        builder.ConfigureBackgroundJobs();
-        builder.ConfigureAuditLogging();
-        builder.ConfigureIdentity();
-        builder.ConfigureOpenIddict();
-        builder.ConfigureFeatureManagement();
-        builder.ConfigureTenantManagement();
-
-        /* Configure your own tables/entities inside here */
-
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(AledConsts.DbTablePrefix + "YourEntities", AledConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
-    }
 }

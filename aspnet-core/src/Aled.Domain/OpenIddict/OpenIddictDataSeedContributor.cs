@@ -23,12 +23,12 @@ namespace Aled.OpenIddict;
  */
 public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDependency
 {
+    private readonly IAbpApplicationManager _applicationManager;
     private readonly IConfiguration _configuration;
     private readonly IOpenIddictApplicationRepository _openIddictApplicationRepository;
-    private readonly IAbpApplicationManager _applicationManager;
     private readonly IOpenIddictScopeRepository _openIddictScopeRepository;
-    private readonly IOpenIddictScopeManager _scopeManager;
     private readonly IPermissionDataSeeder _permissionDataSeeder;
+    private readonly IOpenIddictScopeManager _scopeManager;
     private readonly IStringLocalizer<OpenIddictResponse> L;
 
     public OpenIddictDataSeedContributor(
@@ -38,7 +38,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         IOpenIddictScopeRepository openIddictScopeRepository,
         IOpenIddictScopeManager scopeManager,
         IPermissionDataSeeder permissionDataSeeder,
-        IStringLocalizer<OpenIddictResponse> l )
+        IStringLocalizer<OpenIddictResponse> l)
     {
         _configuration = configuration;
         _openIddictApplicationRepository = openIddictApplicationRepository;
@@ -60,14 +60,16 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
     {
         if (await _openIddictScopeRepository.FindByNameAsync("Aled") == null)
         {
-            await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor {
+            await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor
+            {
                 Name = "Aled", DisplayName = "Aled API", Resources = { "Aled" }
             });
         }
-        
+
         if (await _openIddictScopeRepository.FindByNameAsync("offline_access") == null)
         {
-            await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor {
+            await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor
+            {
                 Name = "offline_access", DisplayName = "Offline Access"
             });
         }
@@ -75,7 +77,8 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
 
     private async Task CreateApplicationsAsync()
     {
-        var commonScopes = new List<string> {
+        var commonScopes = new List<string>
+        {
             OpenIddictConstants.Permissions.Scopes.Address,
             OpenIddictConstants.Permissions.Scopes.Email,
             OpenIddictConstants.Permissions.Scopes.Phone,
@@ -85,24 +88,25 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         };
 
         var configurationSection = _configuration.GetSection("OpenIddict:Applications");
-        
+
         // Blazor Server Tiered Client
         var blazorServerTieredClientId = configurationSection["Aled_BlazorServerTiered:ClientId"];
         if (!blazorServerTieredClientId.IsNullOrWhiteSpace())
         {
-            var blazorServerTieredRootUrl = configurationSection["Aled_BlazorServerTiered:RootUrl"]!.EnsureEndsWith('/');
+            var blazorServerTieredRootUrl =
+                configurationSection["Aled_BlazorServerTiered:RootUrl"]!.EnsureEndsWith('/');
 
             await CreateApplicationAsync(
-                name: blazorServerTieredClientId!,
-                type: OpenIddictConstants.ClientTypes.Confidential,
-                consentType: OpenIddictConstants.ConsentTypes.Implicit,
-                displayName: "Blazor Server Application",
-                secret: configurationSection["Aled_BlazorServerTiered:ClientSecret"] ?? "1q2w3e*",
-                grantTypes: [
+                blazorServerTieredClientId!,
+                OpenIddictConstants.ClientTypes.Confidential,
+                OpenIddictConstants.ConsentTypes.Implicit,
+                "Blazor Server Application",
+                configurationSection["Aled_BlazorServerTiered:ClientSecret"] ?? "1q2w3e*",
+                [
                     OpenIddictConstants.GrantTypes.AuthorizationCode,
                     OpenIddictConstants.GrantTypes.Implicit
                 ],
-                scopes: commonScopes,
+                commonScopes,
                 redirectUri: $"{blazorServerTieredRootUrl}signin-oidc",
                 clientUri: blazorServerTieredRootUrl,
                 postLogoutRedirectUri: $"{blazorServerTieredRootUrl}signout-callback-oidc"
@@ -116,36 +120,35 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
             var swaggerRootUrl = configurationSection["Aled_Swagger:RootUrl"]?.TrimEnd('/');
 
             await CreateApplicationAsync(
-                name: swaggerClientId!,
-                type: OpenIddictConstants.ClientTypes.Public,
-                consentType: OpenIddictConstants.ConsentTypes.Implicit,
-                displayName: "Swagger Application",
-                secret: null,
-                grantTypes: [
+                swaggerClientId!,
+                OpenIddictConstants.ClientTypes.Public,
+                OpenIddictConstants.ConsentTypes.Implicit,
+                "Swagger Application",
+                null,
+                [
                     OpenIddictConstants.GrantTypes.AuthorizationCode
                 ],
-                scopes: commonScopes,
+                commonScopes,
                 redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
                 clientUri: swaggerRootUrl
             );
         }
-        
+
         // App Client
         var appClientId = configurationSection["Aled_App:ClientId"];
         if (!appClientId.IsNullOrWhiteSpace())
         {
             await CreateApplicationAsync(
-                name: appClientId!,
-                type: OpenIddictConstants.ClientTypes.Public,
-                consentType: OpenIddictConstants.ConsentTypes.Implicit,
-                displayName: "Aled Application",
-                secret: null,
-                grantTypes: [
+                appClientId!,
+                OpenIddictConstants.ClientTypes.Public,
+                OpenIddictConstants.ConsentTypes.Implicit,
+                "Aled Application",
+                null,
+                [
                     OpenIddictConstants.GrantTypes.AuthorizationCode,
                     OpenIddictConstants.GrantTypes.Password,
                     OpenIddictConstants.GrantTypes.RefreshToken
                 ],
-                scopes:
                 [
                     OpenIddictConstants.Permissions.Scopes.Address,
                     OpenIddictConstants.Permissions.Scopes.Email,
@@ -186,13 +189,14 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
 
         var client = await _openIddictApplicationRepository.FindByClientIdAsync(name);
 
-        var application = new AbpApplicationDescriptor {
+        var application = new AbpApplicationDescriptor
+        {
             ClientId = name,
             ClientType = type,
             ClientSecret = secret,
             ConsentType = consentType,
             DisplayName = displayName,
-            ClientUri = clientUri,
+            ClientUri = clientUri
         };
 
         Check.NotNullOrEmpty(grantTypes, nameof(grantTypes));
@@ -215,7 +219,8 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
             application.Permissions.Add(OpenIddictConstants.Permissions.Endpoints.Logout);
         }
 
-        var buildInGrantTypes = new[] {
+        var buildInGrantTypes = new[]
+        {
             OpenIddictConstants.GrantTypes.Implicit, OpenIddictConstants.GrantTypes.Password,
             OpenIddictConstants.GrantTypes.AuthorizationCode, OpenIddictConstants.GrantTypes.ClientCredentials,
             OpenIddictConstants.GrantTypes.DeviceCode, OpenIddictConstants.GrantTypes.RefreshToken
@@ -288,7 +293,8 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
             }
         }
 
-        var buildInScopes = new[] {
+        var buildInScopes = new[]
+        {
             OpenIddictConstants.Permissions.Scopes.Address, OpenIddictConstants.Permissions.Scopes.Email,
             OpenIddictConstants.Permissions.Scopes.Phone, OpenIddictConstants.Permissions.Scopes.Profile,
             OpenIddictConstants.Permissions.Scopes.Roles
@@ -344,8 +350,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
             await _permissionDataSeeder.SeedAsync(
                 ClientPermissionValueProvider.ProviderName,
                 name,
-                permissions,
-                null
+                permissions
             );
         }
 
@@ -357,8 +362,10 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
 
         if (!HasSameRedirectUris(client, application))
         {
-            client.RedirectUris = JsonSerializer.Serialize(application.RedirectUris.Select(q => q.ToString().TrimEnd('/')));
-            client.PostLogoutRedirectUris = JsonSerializer.Serialize(application.PostLogoutRedirectUris.Select(q => q.ToString().TrimEnd('/')));
+            client.RedirectUris =
+                JsonSerializer.Serialize(application.RedirectUris.Select(q => q.ToString().TrimEnd('/')));
+            client.PostLogoutRedirectUris =
+                JsonSerializer.Serialize(application.PostLogoutRedirectUris.Select(q => q.ToString().TrimEnd('/')));
 
             await _applicationManager.UpdateAsync(client.ToModel());
         }
@@ -372,11 +379,13 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
 
     private bool HasSameRedirectUris(OpenIddictApplication existingClient, AbpApplicationDescriptor application)
     {
-        return existingClient.RedirectUris == JsonSerializer.Serialize(application.RedirectUris.Select(q => q.ToString().TrimEnd('/')));
+        return existingClient.RedirectUris ==
+               JsonSerializer.Serialize(application.RedirectUris.Select(q => q.ToString().TrimEnd('/')));
     }
 
     private bool HasSameScopes(OpenIddictApplication existingClient, AbpApplicationDescriptor application)
     {
-        return existingClient.Permissions == JsonSerializer.Serialize(application.Permissions.Select(q => q.ToString().TrimEnd('/')));
+        return existingClient.Permissions ==
+               JsonSerializer.Serialize(application.Permissions.Select(q => q.ToString().TrimEnd('/')));
     }
 }
