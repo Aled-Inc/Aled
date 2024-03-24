@@ -39,9 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aled.DbMigrator", "src\Aled
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aled.Blazor", "src\Aled.Blazor\Aled.Blazor.csproj", "{C9F40C93-3DD0-4D6E-B98E-45A6F50FACDA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A6B5C483-56E1-4A0E-A2BE-DD6787DC6B24}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{654C4E4D-4DFA-4FC2-B78F-BA8B86B3633E}"
 	ProjectSection(SolutionItems) = preProject
-		build\docker-compose.yaml = build\docker-compose.yaml
+		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
 Global

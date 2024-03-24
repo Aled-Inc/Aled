@@ -1,0 +1,42 @@
+﻿version: "3.9"
+
+services:
+  aled.httpapi.host:
+    image: aled.httpapi.host
+    build:
+      context: .
+      dockerfile: src/Aled.HttpApi.Host/Dockerfile
+
+  aled.authserver:
+    image: aled.auth-server
+    build:
+      context: .
+      dockerfile: src/Aled.AuthServer/Dockerfile
+
+  aled.blazor:
+    image: aled.blazor
+    build:
+      context: .
+      dockerfile: src/Aled.Blazor/Dockerfile
+
+  aled.sqlserver:
+    container_name: Aled.SqlServer
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    environment:
+      - MSSQL_USER=sa
+      - MSSQL_SA_PASSWORD=2C6A9EE7-FE9E-4A79-BD4C-80C8C484B149
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+
+  aled.redis:
+    container_name: Aled.Redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  aled.noSql:
+    container_name: Aled.NoSql
+    image: mongo:latest
+    ports:
+      - "27017:27017"
