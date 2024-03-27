@@ -42,7 +42,7 @@ namespace Aled;
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule)
 )]
-public class AledHttpApiHostModule : AbpModule
+public abstract class AledHttpApiHostModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
