@@ -1,24 +1,6 @@
 ﻿version: "3.9"
 
 services:
-  aled.httpapi.host:
-    image: aled.httpapi.host
-    build:
-      context: .
-      dockerfile: src/Aled.HttpApi.Host/Dockerfile
-
-  aled.authserver:
-    image: aled.auth-server
-    build:
-      context: .
-      dockerfile: src/Aled.AuthServer/Dockerfile
-
-  aled.blazor:
-    image: aled.blazor
-    build:
-      context: .
-      dockerfile: src/Aled.Blazor/Dockerfile
-
   aled.sqlserver:
     container_name: Aled.SqlServer
     image: mcr.microsoft.com/azure-sql-edge:latest

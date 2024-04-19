@@ -1,9 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Aled.AggregateRoots.Inventories;
+using Aled.Entities.Products;
+using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -43,14 +46,19 @@ public class AledDbContext :
         builder.ConfigureFeatureManagement();
         builder.ConfigureTenantManagement();
 
-        /* Configure your own tables/entities inside here */
+        builder.Entity<Inventory>(e =>
+        {
+            e.ToTable(AledConsts.DbTablePrefix + "Inventories", AledConsts.DbSchema);
+            e.ConfigureByConvention();
+            e.HasMany(f => f.Products)
+                .WithMany();
+        });
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(AledConsts.DbTablePrefix + "YourEntities", AledConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        builder.Entity<Product>(e =>
+        {
+            e.ToTable(AledConsts.DbTablePrefix + "Products", AledConsts.DbSchema);
+            e.ConfigureByConvention();
+        });
     }
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
 
@@ -79,6 +87,10 @@ public class AledDbContext :
     // Tenant Management
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
+
+    // Inventory
+    public DbSet<Inventory> Inventories { get; set; }
+    public DbSet<Product> Products { get; set; }
 
     #endregion
 }

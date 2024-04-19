@@ -1,4 +1,8 @@
-﻿using AutoMapper;
+﻿using Aled.AggregateRoots.Inventories;
+using Aled.Entities.Products;
+using Aled.Inventories.Dtos;
+using Aled.Products.Dtos;
+using AutoMapper;
 
 namespace Aled;
 
@@ -6,8 +10,7 @@ public class AledApplicationAutoMapperProfile : Profile
 {
     public AledApplicationAutoMapperProfile()
     {
-        /* You can configure your AutoMapper mapping configuration here.
-         * Alternatively, you can split your mapping configurations
-         * into multiple profile classes for a better organization. */
+        CreateMap<Inventory, InventoryDto>();
+        CreateMap<Product, ProductDto>();
     }
 }

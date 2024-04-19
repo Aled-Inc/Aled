@@ -392,6 +392,192 @@ namespace Aled.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppGeneralInformation",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Creator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedT = table.Column<int>(type: "int", nullable: false),
+                    CreatedDatetime = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastModifiedT = table.Column<int>(type: "int", nullable: false),
+                    LastModifiedDatetime = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GenericName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Quantity = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppGeneralInformation", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppIngredients",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IngredientsText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Traces = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TracesTags = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppIngredients", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppInventories",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppInventories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppMinerals",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Silica100G = table.Column<int>(type: "int", nullable: false),
+                    Bicarbonate100G = table.Column<int>(type: "int", nullable: false),
+                    Potassium100G = table.Column<int>(type: "int", nullable: false),
+                    Chloride100G = table.Column<int>(type: "int", nullable: false),
+                    Calcium100G = table.Column<int>(type: "int", nullable: false),
+                    Phosphorus100G = table.Column<int>(type: "int", nullable: false),
+                    Iron100G = table.Column<int>(type: "int", nullable: false),
+                    Magnesium100G = table.Column<int>(type: "int", nullable: false),
+                    Zinc100G = table.Column<int>(type: "int", nullable: false),
+                    Copper100G = table.Column<int>(type: "int", nullable: false),
+                    Manganese100G = table.Column<int>(type: "int", nullable: false),
+                    Fluoride100G = table.Column<int>(type: "int", nullable: false),
+                    Selenium100G = table.Column<int>(type: "int", nullable: false),
+                    Chromium100G = table.Column<int>(type: "int", nullable: false),
+                    Molybdenum100G = table.Column<int>(type: "int", nullable: false),
+                    Iodine100G = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppMinerals", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppMiscDatas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ServingSize = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NoNutriments = table.Column<bool>(type: "bit", nullable: false),
+                    AdditivesN = table.Column<int>(type: "int", nullable: false),
+                    Additives = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AdditivesTags = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IngredientsFromPalmOilN = table.Column<int>(type: "int", nullable: false),
+                    IngredientsFromPalmOil = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IngredientsFromPalmOilTags = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IngredientsThatMayBeFromPalmOilN = table.Column<int>(type: "int", nullable: false),
+                    IngredientsThatMayBeFromPalmOil = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IngredientsThatMayBeFromPalmOilTags = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NutritionGradeFr = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MainCategory = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MainCategoryFr = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageSmallUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppMiscDatas", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppOtherNutritionalSubstances",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Caffeine100G = table.Column<int>(type: "int", nullable: false),
+                    Taurine100G = table.Column<int>(type: "int", nullable: false),
+                    Ph100G = table.Column<int>(type: "int", nullable: false),
+                    FruitsVegetablesNuts100G = table.Column<int>(type: "int", nullable: false),
+                    CarbonFootprint100G = table.Column<int>(type: "int", nullable: false),
+                    NutritionScoreFr100G = table.Column<int>(type: "int", nullable: false),
+                    NutritionScoreUk100G = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppOtherNutritionalSubstances", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppTags",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Packaging = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PackagingTags = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Brands = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BrandsTags = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Categories = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoriesTags = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoriesFr = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Origins = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OriginsTags = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ManufacturingPlaces = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ManufacturingPlacesTags = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Labels = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LabelsTags = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LabelsFr = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmbCodes = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmbCodesTags = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstPackagingCodeGeo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Cities = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CitiesTags = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PurchasePlaces = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Stores = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Countries = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CountriesTags = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CountriesFr = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppTags", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppVitamins",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VitaminA100G = table.Column<int>(type: "int", nullable: false),
+                    VitaminD100G = table.Column<int>(type: "int", nullable: false),
+                    VitaminE100G = table.Column<int>(type: "int", nullable: false),
+                    VitaminK100G = table.Column<int>(type: "int", nullable: false),
+                    VitaminC100G = table.Column<int>(type: "int", nullable: false),
+                    VitaminB1100G = table.Column<int>(type: "int", nullable: false),
+                    VitaminB2100G = table.Column<int>(type: "int", nullable: false),
+                    VitaminPp100G = table.Column<int>(type: "int", nullable: false),
+                    VitaminB6100G = table.Column<int>(type: "int", nullable: false),
+                    VitaminB9100G = table.Column<int>(type: "int", nullable: false),
+                    VitaminB12100G = table.Column<int>(type: "int", nullable: false),
+                    Biotin100G = table.Column<int>(type: "int", nullable: false),
+                    PantothenicAcid100G = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppVitamins", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpenIddictApplications",
                 columns: table => new
                 {
@@ -687,6 +873,68 @@ namespace Aled.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppNutritionFacts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Energy100G = table.Column<int>(type: "int", nullable: false),
+                    EnergyKj100G = table.Column<int>(type: "int", nullable: false),
+                    EnergyKcal100G = table.Column<int>(type: "int", nullable: false),
+                    Proteins100G = table.Column<int>(type: "int", nullable: false),
+                    Casein100G = table.Column<int>(type: "int", nullable: false),
+                    SerumProteins100G = table.Column<int>(type: "int", nullable: false),
+                    Nucleotides100G = table.Column<int>(type: "int", nullable: false),
+                    Carbohydrates100G = table.Column<int>(type: "int", nullable: false),
+                    Sugars100G = table.Column<int>(type: "int", nullable: false),
+                    Sucrose100G = table.Column<int>(type: "int", nullable: false),
+                    Glucose100G = table.Column<int>(type: "int", nullable: false),
+                    Fructose100G = table.Column<int>(type: "int", nullable: false),
+                    Lactose100G = table.Column<int>(type: "int", nullable: false),
+                    Maltose100G = table.Column<int>(type: "int", nullable: false),
+                    Maltodextrins100G = table.Column<int>(type: "int", nullable: false),
+                    Starch100G = table.Column<int>(type: "int", nullable: false),
+                    Polyols100G = table.Column<int>(type: "int", nullable: false),
+                    Fat100G = table.Column<int>(type: "int", nullable: false),
+                    SaturatedFat100G = table.Column<int>(type: "int", nullable: false),
+                    MonounsaturatedFat100G = table.Column<int>(type: "int", nullable: false),
+                    PolyunsaturatedFat100G = table.Column<int>(type: "int", nullable: false),
+                    Omega3Fat100G = table.Column<int>(type: "int", nullable: false),
+                    Omega6Fat100G = table.Column<int>(type: "int", nullable: false),
+                    Omega9Fat100G = table.Column<int>(type: "int", nullable: false),
+                    TransFat100G = table.Column<int>(type: "int", nullable: false),
+                    Cholesterol100G = table.Column<int>(type: "int", nullable: false),
+                    Fiber100G = table.Column<int>(type: "int", nullable: false),
+                    Sodium100G = table.Column<int>(type: "int", nullable: false),
+                    Alcohol100G = table.Column<int>(type: "int", nullable: false),
+                    VitaminsId = table.Column<int>(type: "int", nullable: false),
+                    MineralsId = table.Column<int>(type: "int", nullable: false),
+                    OtherNutritionalSubstancesId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppNutritionFacts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppNutritionFacts_AppMinerals_MineralsId",
+                        column: x => x.MineralsId,
+                        principalTable: "AppMinerals",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppNutritionFacts_AppOtherNutritionalSubstances_OtherNutritionalSubstancesId",
+                        column: x => x.OtherNutritionalSubstancesId,
+                        principalTable: "AppOtherNutritionalSubstances",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppNutritionFacts_AppVitamins_VitaminsId",
+                        column: x => x.VitaminsId,
+                        principalTable: "AppVitamins",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpenIddictAuthorizations",
                 columns: table => new
                 {
@@ -742,6 +990,52 @@ namespace Aled.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppProducts",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    GeneralInformationId = table.Column<int>(type: "int", nullable: false),
+                    TagsId = table.Column<int>(type: "int", nullable: false),
+                    IngredientsId = table.Column<int>(type: "int", nullable: false),
+                    MiscDataId = table.Column<int>(type: "int", nullable: false),
+                    NutritionFactsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppProducts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppProducts_AppGeneralInformation_GeneralInformationId",
+                        column: x => x.GeneralInformationId,
+                        principalTable: "AppGeneralInformation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppProducts_AppIngredients_IngredientsId",
+                        column: x => x.IngredientsId,
+                        principalTable: "AppIngredients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppProducts_AppMiscDatas_MiscDataId",
+                        column: x => x.MiscDataId,
+                        principalTable: "AppMiscDatas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppProducts_AppNutritionFacts_NutritionFactsId",
+                        column: x => x.NutritionFactsId,
+                        principalTable: "AppNutritionFacts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppProducts_AppTags_TagsId",
+                        column: x => x.TagsId,
+                        principalTable: "AppTags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpenIddictTokens",
                 columns: table => new
                 {
@@ -780,6 +1074,30 @@ namespace Aled.Migrations
                         column: x => x.AuthorizationId,
                         principalTable: "OpenIddictAuthorizations",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InventoryProduct",
+                columns: table => new
+                {
+                    InventoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductsId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InventoryProduct", x => new { x.InventoryId, x.ProductsId });
+                    table.ForeignKey(
+                        name: "FK_InventoryProduct_AppInventories_InventoryId",
+                        column: x => x.InventoryId,
+                        principalTable: "AppInventories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InventoryProduct_AppProducts_ProductsId",
+                        column: x => x.ProductsId,
+                        principalTable: "AppProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -986,6 +1304,51 @@ namespace Aled.Migrations
                 column: "UserName");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppNutritionFacts_MineralsId",
+                table: "AppNutritionFacts",
+                column: "MineralsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppNutritionFacts_OtherNutritionalSubstancesId",
+                table: "AppNutritionFacts",
+                column: "OtherNutritionalSubstancesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppNutritionFacts_VitaminsId",
+                table: "AppNutritionFacts",
+                column: "VitaminsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppProducts_GeneralInformationId",
+                table: "AppProducts",
+                column: "GeneralInformationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppProducts_IngredientsId",
+                table: "AppProducts",
+                column: "IngredientsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppProducts_MiscDataId",
+                table: "AppProducts",
+                column: "MiscDataId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppProducts_NutritionFactsId",
+                table: "AppProducts",
+                column: "NutritionFactsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppProducts_TagsId",
+                table: "AppProducts",
+                column: "TagsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InventoryProduct_ProductsId",
+                table: "InventoryProduct",
+                column: "ProductsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
                 table: "OpenIddictApplications",
                 column: "ClientId");
@@ -1089,6 +1452,9 @@ namespace Aled.Migrations
                 name: "AbpUserTokens");
 
             migrationBuilder.DropTable(
+                name: "InventoryProduct");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
 
             migrationBuilder.DropTable(
@@ -1110,13 +1476,43 @@ namespace Aled.Migrations
                 name: "AbpUsers");
 
             migrationBuilder.DropTable(
+                name: "AppInventories");
+
+            migrationBuilder.DropTable(
+                name: "AppProducts");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictAuthorizations");
 
             migrationBuilder.DropTable(
                 name: "AbpAuditLogs");
 
             migrationBuilder.DropTable(
+                name: "AppGeneralInformation");
+
+            migrationBuilder.DropTable(
+                name: "AppIngredients");
+
+            migrationBuilder.DropTable(
+                name: "AppMiscDatas");
+
+            migrationBuilder.DropTable(
+                name: "AppNutritionFacts");
+
+            migrationBuilder.DropTable(
+                name: "AppTags");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictApplications");
+
+            migrationBuilder.DropTable(
+                name: "AppMinerals");
+
+            migrationBuilder.DropTable(
+                name: "AppOtherNutritionalSubstances");
+
+            migrationBuilder.DropTable(
+                name: "AppVitamins");
         }
     }
 }

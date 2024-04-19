@@ -47,7 +47,7 @@
         <Compile Remove="Logs\**"/>
         <Content Remove="Logs\**"/>
         <Content Include="..\..\.dockerignore">
-          <Link>.dockerignore</Link>
+            <Link>.dockerignore</Link>
         </Content>
         <EmbeddedResource Remove="Logs\**"/>
         <None Remove="Logs\**"/>

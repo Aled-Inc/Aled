@@ -13,7 +13,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Aled.Migrations
 {
     [DbContext(typeof(AledDbContext))]
-    [Migration("20240322181605_Initial")]
+    [Migration("20240419081025_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -26,6 +26,593 @@ namespace Aled.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Aled.AggregateRoots.Inventories.Inventory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppInventories", (string)null);
+                });
+
+            modelBuilder.Entity("Aled.Entities.Products.Details.GeneralInformation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedDatetime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CreatedT")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Creator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GenericName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastModifiedDatetime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LastModifiedT")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Quantity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppGeneralInformation", (string)null);
+                });
+
+            modelBuilder.Entity("Aled.Entities.Products.Details.Ingredients", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("IngredientsText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Traces")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TracesTags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppIngredients", (string)null);
+                });
+
+            modelBuilder.Entity("Aled.Entities.Products.Details.Minerals", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Bicarbonate100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Calcium100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Chloride100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Chromium100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Copper100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Fluoride100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Iodine100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Iron100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Magnesium100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Manganese100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Molybdenum100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Phosphorus100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Potassium100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Selenium100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Silica100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Zinc100G")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppMinerals", (string)null);
+                });
+
+            modelBuilder.Entity("Aled.Entities.Products.Details.MiscData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Additives")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("AdditivesN")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AdditivesTags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageSmallUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IngredientsFromPalmOil")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IngredientsFromPalmOilN")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IngredientsFromPalmOilTags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IngredientsThatMayBeFromPalmOil")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IngredientsThatMayBeFromPalmOilN")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IngredientsThatMayBeFromPalmOilTags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MainCategory")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MainCategoryFr")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("NoNutriments")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("NutritionGradeFr")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ServingSize")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppMiscDatas", (string)null);
+                });
+
+            modelBuilder.Entity("Aled.Entities.Products.Details.NutritionFacts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Alcohol100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Carbohydrates100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Casein100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cholesterol100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Energy100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EnergyKcal100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EnergyKj100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Fat100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Fiber100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Fructose100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Glucose100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Lactose100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Maltodextrins100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Maltose100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MineralsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MonounsaturatedFat100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Nucleotides100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Omega3Fat100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Omega6Fat100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Omega9Fat100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OtherNutritionalSubstancesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Polyols100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PolyunsaturatedFat100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Proteins100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SaturatedFat100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SerumProteins100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sodium100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Starch100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sucrose100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sugars100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TransFat100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VitaminsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MineralsId");
+
+                    b.HasIndex("OtherNutritionalSubstancesId");
+
+                    b.HasIndex("VitaminsId");
+
+                    b.ToTable("AppNutritionFacts", (string)null);
+                });
+
+            modelBuilder.Entity("Aled.Entities.Products.Details.OtherNutritionalSubstances", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Caffeine100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CarbonFootprint100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FruitsVegetablesNuts100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NutritionScoreFr100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NutritionScoreUk100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Ph100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Taurine100G")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppOtherNutritionalSubstances", (string)null);
+                });
+
+            modelBuilder.Entity("Aled.Entities.Products.Details.Tags", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Brands")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BrandsTags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Categories")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CategoriesFr")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CategoriesTags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cities")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CitiesTags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Countries")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CountriesFr")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CountriesTags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmbCodes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmbCodesTags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstPackagingCodeGeo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Labels")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LabelsFr")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LabelsTags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ManufacturingPlaces")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ManufacturingPlacesTags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Origins")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OriginsTags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Packaging")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PackagingTags")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PurchasePlaces")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Stores")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppTags", (string)null);
+                });
+
+            modelBuilder.Entity("Aled.Entities.Products.Details.Vitamins", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Biotin100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PantothenicAcid100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VitaminA100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VitaminB1100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VitaminB12100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VitaminB2100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VitaminB6100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VitaminB9100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VitaminC100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VitaminD100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VitaminE100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VitaminK100G")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VitaminPp100G")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppVitamins", (string)null);
+                });
+
+            modelBuilder.Entity("Aled.Entities.Products.Product", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("GeneralInformationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IngredientsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MiscDataId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NutritionFactsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GeneralInformationId");
+
+                    b.HasIndex("IngredientsId");
+
+                    b.HasIndex("MiscDataId");
+
+                    b.HasIndex("NutritionFactsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("AppProducts", (string)null);
+                });
+
+            modelBuilder.Entity("InventoryProduct", b =>
+                {
+                    b.Property<Guid>("InventoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ProductsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("InventoryId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("InventoryProduct");
+                });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
                 {
@@ -1770,6 +2357,91 @@ namespace Aled.Migrations
                     b.HasKey("TenantId", "Name");
 
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
+                });
+
+            modelBuilder.Entity("Aled.Entities.Products.Details.NutritionFacts", b =>
+                {
+                    b.HasOne("Aled.Entities.Products.Details.Minerals", "Minerals")
+                        .WithMany()
+                        .HasForeignKey("MineralsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aled.Entities.Products.Details.OtherNutritionalSubstances", "OtherNutritionalSubstances")
+                        .WithMany()
+                        .HasForeignKey("OtherNutritionalSubstancesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aled.Entities.Products.Details.Vitamins", "Vitamins")
+                        .WithMany()
+                        .HasForeignKey("VitaminsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Minerals");
+
+                    b.Navigation("OtherNutritionalSubstances");
+
+                    b.Navigation("Vitamins");
+                });
+
+            modelBuilder.Entity("Aled.Entities.Products.Product", b =>
+                {
+                    b.HasOne("Aled.Entities.Products.Details.GeneralInformation", "GeneralInformation")
+                        .WithMany()
+                        .HasForeignKey("GeneralInformationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aled.Entities.Products.Details.Ingredients", "Ingredients")
+                        .WithMany()
+                        .HasForeignKey("IngredientsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aled.Entities.Products.Details.MiscData", "MiscData")
+                        .WithMany()
+                        .HasForeignKey("MiscDataId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aled.Entities.Products.Details.NutritionFacts", "NutritionFacts")
+                        .WithMany()
+                        .HasForeignKey("NutritionFactsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aled.Entities.Products.Details.Tags", "Tags")
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GeneralInformation");
+
+                    b.Navigation("Ingredients");
+
+                    b.Navigation("MiscData");
+
+                    b.Navigation("NutritionFacts");
+
+                    b.Navigation("Tags");
+                });
+
+            modelBuilder.Entity("InventoryProduct", b =>
+                {
+                    b.HasOne("Aled.AggregateRoots.Inventories.Inventory", null)
+                        .WithMany()
+                        .HasForeignKey("InventoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aled.Entities.Products.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>

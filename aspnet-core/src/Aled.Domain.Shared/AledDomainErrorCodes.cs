@@ -2,5 +2,6 @@
 
 public static class AledDomainErrorCodes
 {
-    /* You can add your business exception error codes here, as constants */
+    public const string ProductCodeLengthMustBe13 = "Aled:00001";
+    public const string ExpiryDateMustBeInTheFuture = "Aled:00002";
 }

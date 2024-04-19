@@ -4,5 +4,7 @@
     "Menu:Home": "Home",
     "Welcome": "Welcome",
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io."
-  }
+  },
+  "Aled:00000": "The given barcode is not valid: {0}.",
+  "Aled:00001": "The Expiry Date must be in the future."
 }
