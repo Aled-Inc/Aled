@@ -1,0 +1,3 @@
+[submodule "Aled.OpenFoodFactService"]
+	path = Aled.OpenFoodFactService
+	url = https://github.com/Antonin-Artaud/Aled.OpenFoodFactService.git
