@@ -5,5 +5,4 @@ namespace Aled.Products.Dtos;
 
 public class ProductDto : EntityDto<Guid>
 {
-    
 }

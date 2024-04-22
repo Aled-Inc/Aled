@@ -10,6 +10,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Aled.Domain.Shared\Aled.Domain.Shared.csproj"/>
+        <ProjectReference Include="..\Aled.HttpApi.Client\Aled.HttpApi.Client.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

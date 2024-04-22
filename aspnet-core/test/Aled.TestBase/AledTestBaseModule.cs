@@ -14,15 +14,12 @@ namespace Aled;
     typeof(AbpTestBaseModule),
     typeof(AbpAuthorizationModule),
     typeof(AbpBackgroundJobsAbstractionsModule)
-    )]
+)]
 public class AledTestBaseModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        Configure<AbpBackgroundJobOptions>(options =>
-        {
-            options.IsJobExecutionEnabled = false;
-        });
+        Configure<AbpBackgroundJobOptions>(options => { options.IsJobExecutionEnabled = false; });
 
         context.Services.AddAlwaysAllowAuthorization();
     }

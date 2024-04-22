@@ -8,5 +8,4 @@ namespace Aled;
 )]
 public class AledApplicationTestModule : AbpModule
 {
-
 }

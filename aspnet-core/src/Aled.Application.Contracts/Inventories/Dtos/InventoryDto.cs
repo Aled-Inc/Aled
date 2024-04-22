@@ -9,6 +9,6 @@ namespace Aled.Inventories.Dtos;
 [Serializable]
 public class InventoryDto : EntityDto<Guid>, IHasCreationTime
 {
-    public DateTime CreationTime { get; set; }
     public ICollection<ProductDto> Products { get; set; } = new List<ProductDto>();
+    public DateTime CreationTime { get; set; }
 }

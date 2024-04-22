@@ -1,81 +1,76 @@
-import { useFocusEffect } from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 import PropTypes from 'prop-types';
-import React, { useCallback, useState } from 'react';
-import {
-  createTenant,
-  getTenantById,
-  removeTenant,
-  updateTenant
-} from '../../api/TenantManagementAPI';
+import React, {useCallback, useState} from 'react';
+import {createTenant, getTenantById, removeTenant, updateTenant} from '../../api/TenantManagementAPI';
 import LoadingActions from '../../store/actions/LoadingActions';
-import { createLoadingSelector } from '../../store/selectors/LoadingSelectors';
-import { connectToRedux } from '../../utils/ReduxConnect';
+import {createLoadingSelector} from '../../store/selectors/LoadingSelectors';
+import {connectToRedux} from '../../utils/ReduxConnect';
 import CreateUpdateTenantForm from './CreateUpdateTenantForm';
 
-function CreateUpdateTenantScreen({ navigation, route, startLoading, stopLoading }) {
-  const [tenant, setTenant] = useState();
-  const tenantId = route.params?.tenantId;
+function CreateUpdateTenantScreen({navigation, route, startLoading, stopLoading}) {
+    const [tenant, setTenant] = useState();
+    const tenantId = route.params?.tenantId;
 
-  const remove = () => {
-    startLoading({ key: 'removeTenant' });
-    removeTenant(tenantId)
-      .then(() => navigation.goBack())
-      .finally(() => stopLoading({ key: 'removeTenant' }));
-  };
+    const remove = () => {
+        startLoading({key: 'removeTenant'});
+        removeTenant(tenantId)
+            .then(() => navigation.goBack())
+            .finally(() => stopLoading({key: 'removeTenant'}));
+    };
 
-  useFocusEffect(
-    useCallback(() => {
-      if (tenantId) {
-        getTenantById(tenantId).then((data = {}) => setTenant(data));
-      }
-    }, []),
-  );
+    useFocusEffect(
+        useCallback(() => {
+            if (tenantId) {
+                getTenantById(tenantId).then((data = {}) => setTenant(data));
+            }
+        }, []),
+    );
 
-  const submit = data => {
-    startLoading({ key: 'saveTenant' });
-    let request;
-    if (data.id) {
-      request = updateTenant(data, tenantId);
-    } else {
-      request = createTenant(data);
+    const submit = data => {
+        startLoading({key: 'saveTenant'});
+        let request;
+        if (data.id) {
+            request = updateTenant(data, tenantId);
+        } else {
+            request = createTenant(data);
+        }
+
+        request
+            .then(() => {
+                navigation.goBack();
+            })
+            .finally(() => stopLoading({key: 'saveTenant'}));
+    };
+
+    const renderForm = () => (
+        <CreateUpdateTenantForm
+            editingTenant={tenant}
+            submit={submit}
+            remove={remove}
+        />
+    );
+
+    if (tenantId && tenant) {
+        return renderForm();
     }
 
-    request
-      .then(() => {
-        navigation.goBack();
-      })
-      .finally(() => stopLoading({ key: 'saveTenant' }));
-  };
+    if (!tenantId) {
+        return renderForm();
+    }
 
-  const renderForm = () => (
-    <CreateUpdateTenantForm
-      editingTenant={tenant}
-      submit={submit}
-      remove={remove}
-    />
-  );
-
-  if (tenantId && tenant) {
-    return renderForm();
-  }
-
-  if (!tenantId) {
-    return renderForm();
-  }
-
-  return null;
+    return null;
 }
 
 CreateUpdateTenantScreen.propTypes = {
-  startLoading: PropTypes.func.isRequired,
-  stopLoading: PropTypes.func.isRequired,
+    startLoading: PropTypes.func.isRequired,
+    stopLoading: PropTypes.func.isRequired,
 };
 
 export default connectToRedux({
-  component: CreateUpdateTenantScreen,
-  stateProps: state => ({ loading: createLoadingSelector()(state) }),
-  dispatchProps: {
-    startLoading: LoadingActions.start,
-    stopLoading: LoadingActions.stop,
-  },
+    component: CreateUpdateTenantScreen,
+    stateProps: state => ({loading: createLoadingSelector()(state)}),
+    dispatchProps: {
+        startLoading: LoadingActions.start,
+        stopLoading: LoadingActions.stop,
+    },
 });

@@ -1,1 +1,1 @@
-export { default as FormButtons } from './FormButtons';
+export {default as FormButtons} from './FormButtons';

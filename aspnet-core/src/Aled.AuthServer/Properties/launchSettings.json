@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://10.6.2.108:44301",
+      "applicationUrl": "http://192.168.1.14:44301",
       "sslPort": 44301
     }
   },
@@ -18,7 +18,7 @@
     "Aled.AuthServer": {
       "commandName": "Project",
       "launchBrowser": false,
-      "applicationUrl": "http://10.6.2.108:44301",
+      "applicationUrl": "https://localhost:44301",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -1,8 +1,5 @@
-﻿using Volo.Abp;
-
-namespace Aled.EntityFrameworkCore;
+﻿namespace Aled.EntityFrameworkCore;
 
 public abstract class AledEntityFrameworkCoreTestBase : AledTestBase<AledEntityFrameworkCoreTestModule>
 {
-
 }

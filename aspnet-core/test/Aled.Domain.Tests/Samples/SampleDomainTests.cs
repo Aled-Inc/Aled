@@ -14,8 +14,8 @@ namespace Aled.Samples;
 public abstract class SampleDomainTests<TStartupModule> : AledDomainTestBase<TStartupModule>
     where TStartupModule : IAbpModule
 {
-    private readonly IIdentityUserRepository _identityUserRepository;
     private readonly IdentityUserManager _identityUserManager;
+    private readonly IIdentityUserRepository _identityUserRepository;
 
     protected SampleDomainTests()
     {

@@ -1,36 +1,29 @@
-using Microsoft.Extensions.Hosting;
 using System.Threading;
 using System.Threading.Tasks;
+using Aled.HttpApi.Client.ConsoleTestApp.OpenFoodFacts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Volo.Abp;
 
 namespace Aled.HttpApi.Client.ConsoleTestApp;
 
-public class ConsoleTestAppHostedService : IHostedService
+public class ConsoleTestAppHostedService(IConfiguration configuration) : IHostedService
 {
-    private readonly IConfiguration _configuration;
-
-    public ConsoleTestAppHostedService(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
-
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        using (var application = await AbpApplicationFactory.CreateAsync<AledConsoleApiClientModule>(options =>
+        using var application = await AbpApplicationFactory.CreateAsync<AledConsoleApiClientModule>(options =>
         {
-           options.Services.ReplaceConfiguration(_configuration);
-           options.UseAutofac();
-        }))
-        {
-            await application.InitializeAsync();
+            options.Services.ReplaceConfiguration(configuration);
+            options.UseAutofac();
+        });
 
-            var demo = application.ServiceProvider.GetRequiredService<ClientDemoService>();
-            await demo.RunAsync();
+        await application.InitializeAsync();
 
-            await application.ShutdownAsync();
-        }
+        var helloWorldAppService = application.ServiceProvider.GetRequiredService<HealthCheckAppService>();
+        await helloWorldAppService.RunAsync();
+
+        await application.ShutdownAsync();
     }
 
     public Task StopAsync(CancellationToken cancellationToken)

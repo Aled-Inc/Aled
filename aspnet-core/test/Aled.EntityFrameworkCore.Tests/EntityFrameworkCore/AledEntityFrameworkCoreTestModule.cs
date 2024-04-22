@@ -17,7 +17,7 @@ namespace Aled.EntityFrameworkCore;
     typeof(AledApplicationTestModule),
     typeof(AledEntityFrameworkCoreModule),
     typeof(AbpEntityFrameworkCoreSqliteModule)
-    )]
+)]
 public class AledEntityFrameworkCoreTestModule : AbpModule
 {
     private SqliteConnection? _sqliteConnection;
@@ -45,10 +45,7 @@ public class AledEntityFrameworkCoreTestModule : AbpModule
 
         services.Configure<AbpDbContextOptions>(options =>
         {
-            options.Configure(context =>
-            {
-                context.DbContextOptions.UseSqlite(_sqliteConnection);
-            });
+            options.Configure(context => { context.DbContextOptions.UseSqlite(_sqliteConnection); });
         });
     }
 

@@ -1,9 +1,9 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
-export function connectToRedux({ component, stateProps = () => ({}), dispatchProps = () => ({}) }) {
-  const mapStateToProps = () => stateProps;
+export function connectToRedux({component, stateProps = () => ({}), dispatchProps = () => ({})}) {
+    const mapStateToProps = () => stateProps;
 
-  const mapDispatchToProps = dispatchProps;
+    const mapDispatchToProps = dispatchProps;
 
-  return connect(mapStateToProps, mapDispatchToProps)(component);
+    return connect(mapStateToProps, mapDispatchToProps)(component);
 }

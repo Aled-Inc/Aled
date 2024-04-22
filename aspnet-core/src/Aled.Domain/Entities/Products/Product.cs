@@ -5,5 +5,4 @@ namespace Aled.Entities.Products;
 
 public class Product : Entity<Guid>
 {
-    
 }

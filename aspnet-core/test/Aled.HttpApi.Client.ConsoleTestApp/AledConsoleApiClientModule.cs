@@ -12,7 +12,7 @@ namespace Aled.HttpApi.Client.ConsoleTestApp;
     typeof(AbpAutofacModule),
     typeof(AledHttpApiClientModule),
     typeof(AbpHttpClientIdentityModelModule)
-    )]
+)]
 public class AledConsoleApiClientModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)

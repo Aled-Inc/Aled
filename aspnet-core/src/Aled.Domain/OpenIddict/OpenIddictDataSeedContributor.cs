@@ -149,15 +149,9 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                     OpenIddictConstants.GrantTypes.Password,
                     OpenIddictConstants.GrantTypes.RefreshToken
                 ],
-                [
-                    OpenIddictConstants.Permissions.Scopes.Address,
-                    OpenIddictConstants.Permissions.Scopes.Email,
-                    OpenIddictConstants.Permissions.Scopes.Phone,
-                    OpenIddictConstants.Permissions.Scopes.Profile,
-                    OpenIddictConstants.Permissions.Scopes.Roles,
-                    "Aled",
+                commonScopes.Union([
                     "offline_access"
-                ]
+                ]).ToList()
             );
         }
     }

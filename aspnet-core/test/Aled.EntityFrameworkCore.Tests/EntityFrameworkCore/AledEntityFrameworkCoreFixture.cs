@@ -6,6 +6,5 @@ public class AledEntityFrameworkCoreFixture : IDisposable
 {
     public void Dispose()
     {
-
     }
 }

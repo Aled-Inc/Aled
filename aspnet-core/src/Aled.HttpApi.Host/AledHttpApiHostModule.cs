@@ -40,7 +40,8 @@ namespace Aled;
     typeof(AledApplicationModule),
     typeof(AledEntityFrameworkCoreModule),
     typeof(AbpAspNetCoreSerilogModule),
-    typeof(AbpSwashbuckleModule)
+    typeof(AbpSwashbuckleModule),
+    typeof(AledHttpApiClientModule)
 )]
 public class AledHttpApiHostModule : AbpModule
 {

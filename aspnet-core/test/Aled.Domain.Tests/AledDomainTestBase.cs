@@ -6,5 +6,4 @@ namespace Aled;
 public abstract class AledDomainTestBase<TStartupModule> : AledTestBase<TStartupModule>
     where TStartupModule : IAbpModule
 {
-
 }
