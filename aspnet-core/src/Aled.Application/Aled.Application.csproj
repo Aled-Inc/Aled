@@ -6,6 +6,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <RootNamespace>Aled</RootNamespace>
+        <UserSecretsId>4edf9bf7-f727-41d7-bc41-d33ee0bb3209</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>

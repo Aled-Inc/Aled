@@ -52,7 +52,7 @@ public class AledHttpApiHostModule : AbpModule
 
         ConfigureConventionalControllers();
         ConfigureAuthentication(context, configuration);
-        ConfigureCache(configuration);
+        ConfigureCache();
         ConfigureVirtualFileSystem(context);
         ConfigureDataProtection(context, configuration, hostingEnvironment);
         ConfigureDistributedLocking(context, configuration);
@@ -60,7 +60,7 @@ public class AledHttpApiHostModule : AbpModule
         ConfigureSwaggerServices(context, configuration);
     }
 
-    private void ConfigureCache(IConfiguration configuration)
+    private void ConfigureCache()
     {
         Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "Aled:"; });
     }
@@ -124,7 +124,7 @@ public class AledHttpApiHostModule : AbpModule
             options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Aled API", Version = "v1" });
-                options.DocInclusionPredicate((docName, description) => true);
+                options.DocInclusionPredicate((_, _) => true);
                 options.CustomSchemaIds(type => type.FullName);
             });
     }
@@ -146,7 +146,7 @@ public class AledHttpApiHostModule : AbpModule
         ServiceConfigurationContext context,
         IConfiguration configuration)
     {
-        context.Services.AddSingleton<IDistributedLockProvider>(sp =>
+        context.Services.AddSingleton<IDistributedLockProvider>(_ =>
         {
             var connection = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]!);
             return new RedisDistributedSynchronizationProvider(connection.GetDatabase());
@@ -163,7 +163,7 @@ public class AledHttpApiHostModule : AbpModule
                     .WithOrigins(configuration["App:CorsOrigins"]?
                         .Split(",", StringSplitOptions.RemoveEmptyEntries)
                         .Select(o => o.RemovePostFix("/"))
-                        .ToArray() ?? Array.Empty<string>())
+                        .ToArray() ?? [])
                     .WithAbpExposedHeaders()
                     .SetIsOriginAllowedToAllowWildcardSubdomains()
                     .AllowAnyHeader()
