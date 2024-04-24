@@ -18,7 +18,7 @@
     "Aled.AuthServer": {
       "commandName": "Project",
       "launchBrowser": false,
-      "applicationUrl": "https://localhost:44301",
+      "applicationUrl": "http://10.6.2.108:44301",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
