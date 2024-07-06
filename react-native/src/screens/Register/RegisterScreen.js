@@ -18,7 +18,8 @@ import ValidationMessage from '../../components/ValidationMessage/ValidationMess
 import AppActions from '../../store/actions/AppActions';
 import LoadingActions from '../../store/actions/LoadingActions';
 import { connectToRedux } from '../../utils/ReduxConnect';
-import { register } from '../../api/AccountAPI';
+import { login, register } from '../../api/AccountAPI';
+import PersistentStorageActions from '../../store/actions/PersistentStorageActions';
 
 const ValidationSchema = object().shape({
   username: string().required('AbpAccount::ThisFieldIsRequired.'),
@@ -26,20 +27,35 @@ const ValidationSchema = object().shape({
   password: string().required('AbpAccount::ThisFieldIsRequired.'),
 });
 
-function RegisterScreen({ startLoading, stopLoading, fetchAppConfig }) {
+function RegisterScreen({
+  startLoading,
+  stopLoading,
+  setToken,
+  fetchAppConfig,
+}) {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  const submit = ({username, email, password}) => {
+  const submit = ({ username, email, password }) => {
     startLoading({ key: 'register' });
-    register({username, email, password})
-      .then(
-        () =>
-          new Promise(resolve =>
-            fetchAppConfig({
-              showLoading: false,
-              callback: () => resolve(true),
+    register({ username, email, password })
+      .then(() =>
+        login({ username, password })
+          .then(data =>
+            setToken({
+              ...data,
+              expire_time: new Date().valueOf() + data.expires_in,
+              scope: undefined,
             }),
+          )
+          .then(
+            () =>
+              new Promise(resolve =>
+                fetchAppConfig({
+                  showLoading: false,
+                  callback: () => resolve(true),
+                }),
+              ),
           ),
       )
       .finally(() => stopLoading({ key: 'register' }));
@@ -85,7 +101,9 @@ function RegisterScreen({ startLoading, stopLoading, fetchAppConfig }) {
 
         <FormControl isRequired my="2">
           <Stack mx="4">
-            <FormControl.Label>{i18n.t('AbpAccount::EmailAddress')}</FormControl.Label>
+            <FormControl.Label>
+              {i18n.t('AbpAccount::EmailAddress')}
+            </FormControl.Label>
             <Input
               onChangeText={formik.handleChange('email')}
               onBlur={formik.handleBlur('email')}
@@ -134,6 +152,7 @@ function RegisterScreen({ startLoading, stopLoading, fetchAppConfig }) {
 RegisterScreen.propTypes = {
   startLoading: PropTypes.func.isRequired,
   stopLoading: PropTypes.func.isRequired,
+  setToken: PropTypes.func.isRequired,
   fetchAppConfig: PropTypes.func.isRequired,
 };
 
@@ -142,6 +161,7 @@ export default connectToRedux({
   dispatchProps: {
     startLoading: LoadingActions.start,
     stopLoading: LoadingActions.stop,
+    setToken: PersistentStorageActions.setToken,
     fetchAppConfig: AppActions.fetchAppConfigAsync,
   },
 });
