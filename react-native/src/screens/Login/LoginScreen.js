@@ -17,7 +17,7 @@ const ValidationSchema = object().shape({
     password: string().required('AbpAccount::ThisFieldIsRequired.'),
 });
 
-function LoginScreen({startLoading, stopLoading, setToken, fetchAppConfig}) {
+function LoginScreen({navigation, startLoading, stopLoading, setToken, fetchAppConfig}) {
     const passwordRef = useRef(null);
 
     const submit = ({username, password}) => {
@@ -107,7 +107,7 @@ function LoginScreen({startLoading, stopLoading, setToken, fetchAppConfig}) {
                         <Text style={styles.button.text}>Login</Text>
                     </Button>
                     <Text style={styles.dontHaveAccount}>Maybe you don't have any account ?</Text>
-                    <Text style={styles.registerHere}>Register here</Text>
+                    <Text onPress={() => navigation.navigate('Register')} style={styles.registerHere}>Register here</Text>
                 </View>
             </Box>
         </Center>

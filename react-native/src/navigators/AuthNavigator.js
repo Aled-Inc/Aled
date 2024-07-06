@@ -18,14 +18,14 @@ export default function AuthNavigator() {
                 },
             }}>
             <Stack.Screen
-                name="Login"
+                name='Login'
                 component={LoginScreen}
                 options={() => ({
                     title: t('AbpAccount::Login'),
                 })}
             />
             <Stack.Screen
-                name="Register"
+                name='Register'
                 component={RegisterScreen}
                 options={() => ({
                     title: t('AbpAccount::Register'),
