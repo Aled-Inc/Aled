@@ -1,13 +1,15 @@
 using System.Threading.Tasks;
 using Aled.AggregateRoots.Inventories;
 using Aled.Inventories.Dtos;
+using Aled.OpenFoodFactService;
 using Aled.Services.Inventories;
 using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.Identity;
 
 namespace Aled.Inventories;
 
 [Authorize]
-public class InventoryAppService(IInventoryService inventoryService) : AledAppService, IInventoryAppService
+public class InventoryAppService(IInventoryService inventoryService, IHealthCheckAppService healthCheckAppService) : AledAppService, IInventoryAppService
 {
     public async Task<InventoryDto> GetAsync()
     {

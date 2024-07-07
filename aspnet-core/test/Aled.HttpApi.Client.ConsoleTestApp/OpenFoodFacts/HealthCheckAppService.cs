@@ -5,11 +5,18 @@ using Volo.Abp.DependencyInjection;
 
 namespace Aled.HttpApi.Client.ConsoleTestApp.OpenFoodFacts;
 
-public class HealthCheckAppService(IHealthCheckAppService healthCheckAppService) : ITransientDependency
+
+public class HealthCheckAppService : ITransientDependency
 {
+    private readonly IHealthCheckAppService _healthCheckAppService;
+    public HealthCheckAppService(IHealthCheckAppService healthCheckAppService)
+    {
+        _healthCheckAppService = healthCheckAppService;
+    }
+
     public async Task RunAsync()
     {
-        var result = await healthCheckAppService.CheckAsync();
+        var result = await _healthCheckAppService.GetStatusAsync();
         Console.WriteLine(result);
     }
 }

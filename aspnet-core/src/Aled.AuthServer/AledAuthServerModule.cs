@@ -4,12 +4,14 @@ using System.Linq;
 using Aled.EntityFrameworkCore;
 using Aled.Localization;
 using Aled.MultiTenancy;
+using HealthChecks.UI.Client;
 using Localization.Resources.AbpUi;
 using Medallion.Threading;
 using Medallion.Threading.Redis;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StackExchange.Redis;
@@ -144,6 +146,8 @@ public class AledAuthServerModule : AbpModule
             dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "Aled-Protection-Keys");
         }
 
+        context.Services.AddHealthChecks();
+
         context.Services.AddSingleton<IDistributedLockProvider>(sp =>
         {
             var connection = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]!);
@@ -210,6 +214,14 @@ public class AledAuthServerModule : AbpModule
 
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
+        
+        app.UseHealthChecks("/health", new HealthCheckOptions()
+        {
+            Predicate = _ => true,
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        });
+        
+        app.UseHealthChecksUI();
         app.UseConfiguredEndpoints();
     }
 }
