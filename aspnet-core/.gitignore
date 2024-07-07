@@ -263,3 +263,6 @@ src/Aled.Blazor/Logs/*
 
 # Use abp install-libs to restore.
 **/wwwroot/libs/*
+
+# PackageLocks
+package-lock.json

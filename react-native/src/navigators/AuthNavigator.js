@@ -8,9 +8,15 @@ const Stack = createNativeStackNavigator();
 
 export default function AuthNavigator() {
     const {t} = useContext(LocalizationContext);
-
+    
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+            screenOptions={{
+                headerShown: false,
+                contentStyle: {
+                    backgroundColor: '#F1EEF1',
+                },
+            }}>
             <Stack.Screen
                 name="Login"
                 component={LoginScreen}

@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -102,11 +102,10 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 OpenIddictConstants.ConsentTypes.Implicit,
                 "Blazor Server Application",
                 configurationSection["Aled_BlazorServerTiered:ClientSecret"] ?? "1q2w3e*",
-                new List<string>
-                {
+                [
                     OpenIddictConstants.GrantTypes.AuthorizationCode,
                     OpenIddictConstants.GrantTypes.Implicit
-                },
+                ],
                 commonScopes,
                 redirectUri: $"{blazorServerTieredRootUrl}signin-oidc",
                 clientUri: blazorServerTieredRootUrl,
@@ -126,10 +125,9 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 OpenIddictConstants.ConsentTypes.Implicit,
                 "Swagger Application",
                 null,
-                new List<string>
-                {
+                [
                     OpenIddictConstants.GrantTypes.AuthorizationCode
-                },
+                ],
                 commonScopes,
                 redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
                 clientUri: swaggerRootUrl
@@ -146,13 +144,14 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 OpenIddictConstants.ConsentTypes.Implicit,
                 "Aled Application",
                 null,
-                new List<string>
-                {
+                [
                     OpenIddictConstants.GrantTypes.AuthorizationCode,
                     OpenIddictConstants.GrantTypes.Password,
                     OpenIddictConstants.GrantTypes.RefreshToken
-                },
-                commonScopes.Union(new List<string>{"offline_access"}).ToList()
+                ],
+                commonScopes.Union([
+                    "offline_access"
+                ]).ToList()
             );
         }
     }
