@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Http.Client;
+using Volo.Abp.Http.Client.IdentityModel;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
@@ -17,7 +19,8 @@ namespace Aled;
     typeof(AbpPermissionManagementHttpApiClientModule),
     typeof(AbpTenantManagementHttpApiClientModule),
     typeof(AbpFeatureManagementHttpApiClientModule),
-    typeof(AbpSettingManagementHttpApiClientModule)
+    typeof(AbpSettingManagementHttpApiClientModule),
+    typeof(AbpHttpClientIdentityModelModule)
 )]
 public class AledHttpApiClientModule : AbpModule
 {
@@ -25,9 +28,7 @@ public class AledHttpApiClientModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        context.Services.AddStaticHttpClientProxies(
-            typeof(AledHttpApiClientModule).Assembly
-        );
+        context.Services.AddStaticHttpClientProxies(typeof(AledHttpApiClientModule).Assembly);
 
         Configure<AbpVirtualFileSystemOptions>(options => { options.FileSets.AddEmbedded<AledHttpApiClientModule>(); });
     }

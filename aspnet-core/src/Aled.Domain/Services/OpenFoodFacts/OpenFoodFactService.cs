@@ -8,6 +8,6 @@ public class OpenFoodFactService(IHealthCheckAppService healthCheckAppService) :
 {
     public async Task<string> CheckHealthAsync()
     {
-        return await healthCheckAppService.CheckAsync();
+        return await healthCheckAppService.GetStatusAsync();
     }
 }

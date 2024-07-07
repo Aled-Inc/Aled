@@ -17,8 +17,8 @@ namespace Aled.OpenFoodFactService;
 [ExposeServices(typeof(IHealthCheckAppService), typeof(HealthCheckClientProxy))]
 public partial class HealthCheckClientProxy : ClientProxyBase<IHealthCheckAppService>, IHealthCheckAppService
 {
-    public virtual async Task<string> CheckAsync()
+    public virtual async Task<string> GetStatusAsync()
     {
-        return await RequestAsync<string>(nameof(CheckAsync));
+        return await RequestAsync<string>(nameof(GetStatusAsync));
     }
 }

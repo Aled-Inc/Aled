@@ -8,13 +8,20 @@ using Volo.Abp;
 
 namespace Aled.HttpApi.Client.ConsoleTestApp;
 
-public class ConsoleTestAppHostedService(IConfiguration configuration) : IHostedService
+public class ConsoleTestAppHostedService : IHostedService
 {
+    private readonly IConfiguration _configuration;
+
+    public ConsoleTestAppHostedService(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         using var application = await AbpApplicationFactory.CreateAsync<AledConsoleApiClientModule>(options =>
         {
-            options.Services.ReplaceConfiguration(configuration);
+            options.Services.ReplaceConfiguration(_configuration);
             options.UseAutofac();
         });
 

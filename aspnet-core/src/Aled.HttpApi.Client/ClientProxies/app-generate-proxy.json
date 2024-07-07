@@ -17,7 +17,7 @@
               "name": "IHealthCheckAppService",
               "methods": [
                 {
-                  "name": "CheckAsync",
+                  "name": "GetStatusAsync",
                   "parametersOnMethod": [],
                   "returnValue": {
                     "type": "System.String",
@@ -28,11 +28,11 @@
             }
           ],
           "actions": {
-            "CheckAsync": {
-              "uniqueName": "CheckAsync",
-              "name": "CheckAsync",
-              "httpMethod": "POST",
-              "url": "api/app/health-check/check",
+            "GetStatusAsync": {
+              "uniqueName": "GetStatusAsync",
+              "name": "GetStatusAsync",
+              "httpMethod": "GET",
+              "url": "api/app/health-check/status",
               "supportedVersions": [],
               "parametersOnMethod": [],
               "parameters": [],
