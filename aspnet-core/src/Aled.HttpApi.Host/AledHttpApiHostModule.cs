@@ -163,7 +163,7 @@ public class AledHttpApiHostModule : AbpModule
                     .WithOrigins(configuration["App:CorsOrigins"]?
                         .Split(",", StringSplitOptions.RemoveEmptyEntries)
                         .Select(o => o.RemovePostFix("/"))
-                        .ToArray() ?? Array.Empty<string>())
+                        .ToArray() ?? [])
                     .WithAbpExposedHeaders()
                     .SetIsOriginAllowedToAllowWildcardSubdomains()
                     .AllowAnyHeader()
