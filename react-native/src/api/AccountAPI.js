@@ -29,6 +29,18 @@ export const login = ({username, password}) =>
         baseURL: oAuthConfig.issuer,
     }).then(({data}) => data);
 
+export const register = ({username, email, password}) => {
+  let body = JSON.stringify({
+    userName: username,
+    emailAddress: email,
+    password,
+    appName: 'Aled'
+  });
+
+  return api.post('/api/account/register', body).then(({data}) => data);
+}
+  
+
 export const Logout = (
     input = {client_id: '', token: '', token_type_hint: ''},
 ) => {
