@@ -24,6 +24,9 @@
         </Content>
         <EmbeddedResource Remove="Logs\**" />
         <None Remove="Logs\**" />
+        <Content Update="appsettings.Development.json">
+          <DependentUpon>appsettings.json</DependentUpon>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>

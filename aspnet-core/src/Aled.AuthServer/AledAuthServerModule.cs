@@ -215,13 +215,6 @@ public class AledAuthServerModule : AbpModule
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
         
-        app.UseHealthChecks("/health", new HealthCheckOptions()
-        {
-            Predicate = _ => true,
-            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-        });
-        
-        app.UseHealthChecksUI();
         app.UseConfiguredEndpoints();
     }
 }
