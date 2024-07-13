@@ -18,7 +18,6 @@
     "Aled.HttpApi.Host": {
       "commandName": "Project",
       "launchBrowser": false,
-      "applicationUrl": "https://192.0.0.2:44300",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
