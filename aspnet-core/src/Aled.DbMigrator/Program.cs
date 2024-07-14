@@ -1,7 +1,11 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using DotNetEnv;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NUglify.Helpers;
 using Serilog;
 using Serilog.Events;
 
@@ -33,6 +37,32 @@ internal class Program
         return Host.CreateDefaultBuilder(args)
             .AddAppSettingsSecretsJson()
             .ConfigureLogging((context, logging) => logging.ClearProviders())
-            .ConfigureServices((hostContext, services) => { services.AddHostedService<DbMigratorHostedService>(); });
+            .ConfigureServices((hostContext, services) =>
+            {
+                if (hostContext.HostingEnvironment.IsDevelopment())
+                {
+                    Env.Load();
+                    
+                    var envKeys = new Dictionary<string, string>
+                    {
+                        {"OpenIddict:Applications:Aled_BlazorServerTiered", "BLAZOR_URL"},
+                        {"OpenIddict:Applications:Aled_Swagger", "API_HOST_URL"},
+                    };
+                    
+                    envKeys.ForEach(pair =>
+                    {
+                        var value =  Env.GetString(pair.Value);
+                        
+                        if (string.IsNullOrEmpty(value))
+                        {
+                            throw new Exception($"ConfigurationError: an error occured on {pair.Value} env key. Ensure the .env file is correctly configured and placed in the root directory.");
+                        }
+                        
+                        hostContext.Configuration[pair.Key] = value;
+                    });
+                }
+                
+                services.AddHostedService<DbMigratorHostedService>();
+            });
     }
 }
