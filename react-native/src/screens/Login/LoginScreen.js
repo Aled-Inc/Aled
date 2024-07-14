@@ -66,12 +66,12 @@ function LoginScreen({
   return (
     <Center flex={0.6} px="3">
       <Box style={authStyles.titleBox}>
-        <Text style={authStyles.appTitle}>Aled.</Text>
+        <Text style={authStyles.appTitle}>{i18n.t('Aled::Aled')}</Text>
       </Box>
       <Box style={authStyles.formBox}>
         <View style={{ marginBottom: 20, alignItems: 'center' }}>
-          <Text style={authStyles.title}>Log In</Text>
-          <Text style={authStyles.subtitle}>Login to open your fridge</Text>
+          <Text style={authStyles.title}>{i18n.t('Aled::LoginTitle')}</Text>
+          <Text style={authStyles.subtitle}>{i18n.t('Aled::LoginSubPhrase')}</Text>
         </View>
         <FormControl isRequired my="2">
           <Stack mx="12">
@@ -83,7 +83,7 @@ function LoginScreen({
               autoCapitalize="none"
               onSubmitEditing={() => passwordRef?.current?.focus()}
               size="lg"
-              placeholder="email"
+              placeholder={i18n.t('Aled::Email').toLowerCase()}
               style={authStyles.input}
               variant={'rounded'}
               borderWidth={'0'}
@@ -102,12 +102,12 @@ function LoginScreen({
               ref={passwordRef}
               autoCapitalize="none"
               size="lg"
-              placeholder="password"
+              placeholder={i18n.t('Aled::Password').toLowerCase()}
               style={authStyles.input}
               variant={'rounded'}
               borderWidth={'0'}
             />
-            <Text style={authStyles.forgotPassword}>I forgot my password</Text>
+            <Text style={authStyles.forgotPassword}>{i18n.t('Aled::ForgotMyPassword')}</Text>
             <FormControl.ErrorMessage
               leftIcon={<WarningOutlineIcon size="xs" />}>
               {formik.errors.password}
@@ -121,15 +121,15 @@ function LoginScreen({
             width="40%"
             size="lg"
             style={authStyles.button}>
-            <Text style={authStyles.button.text}>Login</Text>
+            <Text style={authStyles.button.text}>{i18n.t('Aled::Login')}</Text>
           </Button>
           <Text style={authStyles.authPhrase}>
-            Maybe you don't have any account ?
+            {i18n.t('Aled::NoAccount')}
           </Text>
           <Text
             onPress={() => navigation.navigate('Register')}
             style={authStyles.authLink}>
-            Register here
+            {i18n.t('Aled::RegisterHere')}
           </Text>
         </View>
       </Box>

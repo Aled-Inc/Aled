@@ -71,13 +71,13 @@ function RegisterScreen({
   return (
     <Center flex={0.6} px="3">
       <Box style={authStyles.titleBox}>
-        <Text style={authStyles.appTitle}>Aled.</Text>
+        <Text style={authStyles.appTitle}>{i18n.t('Aled::Aled')}</Text>
       </Box>
       <Box style={authStyles.formBox}>
         <View style={{ marginBottom: 20, alignItems: 'center' }}>
-          <Text style={authStyles.title}>Register</Text>
+          <Text style={authStyles.title}>{i18n.t('Aled::RegisterTitle')}</Text>
           <Text style={authStyles.subtitle}>
-            Register to create your virtual fridge
+          {i18n.t('Aled::RegisterSubPhrase')}
           </Text>
         </View>
         <FormControl isRequired my="2">
@@ -90,7 +90,7 @@ function RegisterScreen({
               autoCapitalize="none"
               onSubmitEditing={() => emailRef?.current?.focus()}
               size="lg"
-              placeholder="username"
+              placeholder={i18n.t('Aled::Username').toLowerCase()}
               style={authStyles.input}
               variant={'rounded'}
               borderWidth={'0'}
@@ -110,7 +110,7 @@ function RegisterScreen({
               autoCapitalize="none"
               onSubmitEditing={() => passwordRef?.current?.focus()}
               size="lg"
-              placeholder="email"
+              placeholder={i18n.t('Aled::Email').toLowerCase()}
               style={authStyles.input}
               variant={'rounded'}
               borderWidth={'0'}
@@ -129,7 +129,7 @@ function RegisterScreen({
               ref={passwordRef}
               autoCapitalize="none"
               size="lg"
-              placeholder="password"
+              placeholder={i18n.t('Aled::Password').toLowerCase()}
               style={authStyles.input}
               variant={'rounded'}
               borderWidth={'0'}
@@ -147,15 +147,15 @@ function RegisterScreen({
             width="40%"
             size="lg"
             style={authStyles.button}>
-            <Text style={authStyles.button.text}>Register</Text>
+            <Text style={authStyles.button.text}>{i18n.t('Aled::Register')}</Text>
           </Button>
           <Text style={authStyles.authPhrase}>
-            Maybe you already have an account ?
+          {i18n.t('Aled::AlreadyHaveAccount')}
           </Text>
           <Text
             onPress={() => navigation.navigate('Login')}
             style={authStyles.authLink}>
-            Login here
+            {i18n.t('Aled::LoginHere')}
           </Text>
         </View>
       </Box>
