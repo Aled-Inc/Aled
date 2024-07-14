@@ -5,14 +5,13 @@ import {
   Button,
   Center,
   FormControl,
-  Image,
   Input,
   Stack,
   WarningOutlineIcon,
 } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { useRef } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { object, string } from 'yup';
 import ValidationMessage from '../../components/ValidationMessage/ValidationMessage';
 import AppActions from '../../store/actions/AppActions';
@@ -20,6 +19,7 @@ import LoadingActions from '../../store/actions/LoadingActions';
 import { connectToRedux } from '../../utils/ReduxConnect';
 import { login, register } from '../../api/AccountAPI';
 import PersistentStorageActions from '../../store/actions/PersistentStorageActions';
+import { authStyles } from '../../styles/authStyles';
 
 const ValidationSchema = object().shape({
   username: string().required('AbpAccount::ThisFieldIsRequired.'),
@@ -69,23 +69,18 @@ function RegisterScreen({
 
   return (
     <Center flex={0.6} px="3">
-      <Box
-        w={{
-          base: '100%',
-        }}
-        mb="50"
-        alignItems="center">
-        <Image alt="Image" source={require('../../../assets/logo.png')} />
+      <Box style={authStyles.titleBox}>
+        <Text style={authStyles.appTitle}>Aled.</Text>
       </Box>
-      <Box
-        w={{
-          base: '100%',
-        }}>
+      <Box style={authStyles.formBox}>
+        <View style={{ marginBottom: 20, alignItems: 'center' }}>
+          <Text style={authStyles.title}>Register</Text>
+          <Text style={authStyles.subtitle}>
+            Register to create your virtual fridge
+          </Text>
+        </View>
         <FormControl isRequired my="2">
-          <Stack mx="4">
-            <FormControl.Label>
-              {i18n.t('AbpAccount::UserName')}
-            </FormControl.Label>
+          <Stack mx="12">
             <Input
               onChangeText={formik.handleChange('username')}
               onBlur={formik.handleBlur('username')}
@@ -94,16 +89,17 @@ function RegisterScreen({
               autoCapitalize="none"
               onSubmitEditing={() => emailRef?.current?.focus()}
               size="lg"
+              placeholder="username"
+              style={authStyles.input}
+              variant={'rounded'}
+              borderWidth={'0'}
             />
             <ValidationMessage>{formik.errors.username}</ValidationMessage>
           </Stack>
         </FormControl>
 
         <FormControl isRequired my="2">
-          <Stack mx="4">
-            <FormControl.Label>
-              {i18n.t('AbpAccount::EmailAddress')}
-            </FormControl.Label>
+          <Stack mx="12">
             <Input
               onChangeText={formik.handleChange('email')}
               onBlur={formik.handleBlur('email')}
@@ -113,16 +109,17 @@ function RegisterScreen({
               autoCapitalize="none"
               onSubmitEditing={() => passwordRef?.current?.focus()}
               size="lg"
+              placeholder="email"
+              style={authStyles.input}
+              variant={'rounded'}
+              borderWidth={'0'}
             />
             <ValidationMessage>{formik.errors.email}</ValidationMessage>
           </Stack>
         </FormControl>
 
         <FormControl isRequired my="2">
-          <Stack mx="4">
-            <FormControl.Label>
-              {i18n.t('AbpAccount::Password')}
-            </FormControl.Label>
+          <Stack mx="12">
             <Input
               type="password"
               onChangeText={formik.handleChange('password')}
@@ -131,6 +128,10 @@ function RegisterScreen({
               ref={passwordRef}
               autoCapitalize="none"
               size="lg"
+              placeholder="password"
+              style={authStyles.input}
+              variant={'rounded'}
+              borderWidth={'0'}
             />
             <FormControl.ErrorMessage
               leftIcon={<WarningOutlineIcon size="xs" />}>
@@ -139,10 +140,21 @@ function RegisterScreen({
           </Stack>
         </FormControl>
 
-        <View style={{ marginTop: 20, alignItems: 'center' }}>
-          <Button onPress={formik.handleSubmit} width="30%" size="lg">
-            {i18n.t('AbpAccount::Register')}
+        <View style={authStyles.buttonBox}>
+          <Button
+            onPress={formik.handleSubmit}
+            width="40%"
+            size="lg"
+            style={authStyles.button}>
+            <Text style={authStyles.button.text}>Register</Text>
           </Button>
+          <Text style={authStyles.authPhrase}>
+            Maybe you already have an account ?
+          </Text>
+          <Text
+            style={authStyles.authLink}>
+            Login here
+          </Text>
         </View>
       </Box>
     </Center>
