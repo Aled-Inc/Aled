@@ -28,6 +28,7 @@ const ValidationSchema = object().shape({
 });
 
 function RegisterScreen({
+  navigation,
   startLoading,
   stopLoading,
   setToken,
@@ -152,6 +153,7 @@ function RegisterScreen({
             Maybe you already have an account ?
           </Text>
           <Text
+            onPress={() => navigation.navigate('Login')}
             style={authStyles.authLink}>
             Login here
           </Text>
