@@ -1,0 +1,8 @@
+export const Colors = {
+  Text: '#000000',
+  SubText: '#808080',
+  Element: '#FFC700',
+  BG: '#F1EEF1',
+  NavBG: '#FBFBFF',
+  White: '#FFFFFF'
+}
