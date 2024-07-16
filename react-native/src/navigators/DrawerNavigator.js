@@ -3,6 +3,7 @@ import React from 'react';
 import DrawerContent from '../components/DrawerContent/DrawerContent';
 import {LocalizationContext} from '../contexts/LocalizationContext';
 import HomeStackNavigator from './HomeNavigator';
+import { Colors } from '../styles/CommonStyle';
 
 const Drawer = createDrawerNavigator();
 
@@ -16,7 +17,7 @@ export default function DrawerNavigator() {
             screenOptions={{
               headerShown: false,
               contentStyle: {
-                  backgroundColor: '#F1EEF1',
+                  backgroundColor: Colors.BG,
               },
           }}>
             <Drawer.Screen

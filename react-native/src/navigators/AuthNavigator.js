@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { LocalizationContext } from '../contexts/LocalizationContext';
 import LoginScreen from '../screens/Login/LoginScreen';
 import RegisterScreen from '../screens/Register/RegisterScreen';
+import { Colors } from '../styles/CommonStyle';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +15,7 @@ export default function AuthNavigator() {
             screenOptions={{
                 headerShown: false,
                 contentStyle: {
-                    backgroundColor: '#F1EEF1',
+                    backgroundColor: Colors.BG,
                 },
             }}>
             <Stack.Screen

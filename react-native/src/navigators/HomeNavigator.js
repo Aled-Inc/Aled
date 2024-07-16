@@ -1,6 +1,7 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import HomeScreen from '../screens/Home/HomeScreen';
+import { Colors } from '../styles/CommonStyle';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,7 +12,7 @@ export default function HomeStackNavigator() {
           screenOptions={{
             headerShown: false,
             contentStyle: {
-                backgroundColor: '#F1EEF1',
+                backgroundColor: Colors.BG,
             },
         }}>
             <Stack.Screen

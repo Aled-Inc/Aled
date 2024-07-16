@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { Colors } from "./CommonStyle";
 
 export const homeStyle = StyleSheet.create({
   homeContainer: {
@@ -23,7 +24,7 @@ export const homeStyle = StyleSheet.create({
     fontSize: 24,
     lineHeight: 24,
     username: {
-      color: '#FFC700'
+      color: Colors.Element
     }
   },
   identitySubtitle: {

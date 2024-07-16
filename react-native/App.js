@@ -23,6 +23,7 @@ import { createUserSelector } from './src/store/selectors/AuthSelector';
 import AuthActions from './src/store/actions/AuthActions';
 import { isUserValid } from './src/utils/UserUtils';
 import HomeStackNavigator from './src/navigators/HomeNavigator';
+import BottomTabNavigator from './src/navigators/BottomTabNavigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -91,7 +92,7 @@ function AppContainer({ token, setToken, user, setUser }) {
     }
   }, [isValid, isValidUser]);
 
-  return isValid && isValidUser ? <HomeStackNavigator /> : <AuthNavigator />;
+  return isValid && isValidUser ? <BottomTabNavigator /> : <AuthNavigator />;
 }
 
 const ConnectedAppContainer = connectToRedux({

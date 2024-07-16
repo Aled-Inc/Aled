@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { Colors } from "./CommonStyle";
 
 export const authStyles = StyleSheet.create({
   titleBox: {
@@ -15,7 +16,7 @@ export const authStyles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: '#FFC700',
+    backgroundColor: Colors.Element,
     borderRadius: 25,
     height: 45,
     marginTop: 100,
@@ -23,14 +24,14 @@ export const authStyles = StyleSheet.create({
     text: {
       fontFamily: 'Inter-Light',
       fontSize: 14,
-      color: '#000'
+      color: Colors.Text
     }
   },
   input: {
     height: 40,
     paddingHorizontal: 15,
     fontSize: 14,
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.White,
   },
   title: {
     fontFamily: 'Inter-Medium',
@@ -39,14 +40,14 @@ export const authStyles = StyleSheet.create({
   subtitle: {
     fontFamily: 'Inter-Light',
     fontSize: 15,
-    color: '#808080',
+    color: Colors.SubText,
     marginTop: 5,
     marginBottom: 20
   },
   appTitle: {
     fontFamily: 'Inter-Light',
     fontSize: 16,
-    color: '#808080'
+    color: Colors.SubText
   },
   forgotPassword: {
     fontFamily: 'Inter-Light',
@@ -61,7 +62,7 @@ export const authStyles = StyleSheet.create({
   authLink: {
     fontFamily: 'Inter-Light',
     fontSize: 14,
-    color: '#808080',
+    color: Colors.SubText,
     textDecorationLine: 'underline'
   }
 });
