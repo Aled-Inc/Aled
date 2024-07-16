@@ -13,48 +13,21 @@ import PropTypes from 'prop-types';
 import React, { useRef } from 'react';
 import { Text, View } from 'react-native';
 import { object, string } from 'yup';
-import { login } from '../../api/AccountAPI';
 import ValidationMessage from '../../components/ValidationMessage/ValidationMessage';
-import AppActions from '../../store/actions/AppActions';
-import LoadingActions from '../../store/actions/LoadingActions';
-import PersistentStorageActions from '../../store/actions/PersistentStorageActions';
 import { connectToRedux } from '../../utils/ReduxConnect';
-import { authStyles } from '../../styles/authStyles';
+import { authStyles } from '../../styles/AuthStyle';
+import AuthActions from '../../store/actions/AuthActions';
 
 const ValidationSchema = object().shape({
   username: string().required('AbpAccount::ThisFieldIsRequired.'),
   password: string().required('AbpAccount::ThisFieldIsRequired.'),
 });
 
-function LoginScreen({
-  navigation,
-  startLoading,
-  stopLoading,
-  setToken,
-  fetchAppConfig,
-}) {
+function LoginScreen({ navigation, login }) {
   const passwordRef = useRef(null);
 
   const submit = ({ username, password }) => {
-    startLoading({ key: 'login' });
-    login({ username, password })
-      .then(data =>
-        setToken({
-          ...data,
-          expire_time: new Date().valueOf() + data.expires_in,
-          scope: undefined,
-        }),
-      )
-      .then(
-        () =>
-          new Promise(resolve =>
-            fetchAppConfig({
-              showLoading: false,
-              callback: () => resolve(true),
-            }),
-          ),
-      )
-      .finally(() => stopLoading({ key: 'login' }));
+    login({username, password});
   };
 
   const formik = useFormik({
@@ -70,8 +43,8 @@ function LoginScreen({
       </Box>
       <Box style={authStyles.formBox}>
         <View style={{ marginBottom: 20, alignItems: 'center' }}>
-          <Text style={authStyles.title}>{i18n.t('Aled::LoginTitle')}</Text>
-          <Text style={authStyles.subtitle}>{i18n.t('Aled::LoginSubPhrase')}</Text>
+          <Text style={authStyles.title}>{i18n.t('Aled::Login:Title')}</Text>
+          <Text style={authStyles.subtitle}>{i18n.t('Aled::Login:SubPhrase')}</Text>
         </View>
         <FormControl isRequired my="2">
           <Stack mx="12">
@@ -107,7 +80,7 @@ function LoginScreen({
               variant={'rounded'}
               borderWidth={'0'}
             />
-            <Text style={authStyles.forgotPassword}>{i18n.t('Aled::ForgotMyPassword')}</Text>
+            <Text style={authStyles.forgotPassword}>{i18n.t('Aled::Login:ForgotMyPassword')}</Text>
             <FormControl.ErrorMessage
               leftIcon={<WarningOutlineIcon size="xs" />}>
               {formik.errors.password}
@@ -121,15 +94,15 @@ function LoginScreen({
             width="40%"
             size="lg"
             style={authStyles.button}>
-            <Text style={authStyles.button.text}>{i18n.t('Aled::Login')}</Text>
+            <Text style={authStyles.button.text}>{i18n.t('Aled::Login:Login')}</Text>
           </Button>
           <Text style={authStyles.authPhrase}>
-            {i18n.t('Aled::NoAccount')}
+            {i18n.t('Aled::Login:NoAccount')}
           </Text>
           <Text
             onPress={() => navigation.navigate('Register')}
             style={authStyles.authLink}>
-            {i18n.t('Aled::RegisterHere')}
+            {i18n.t('Aled::Login:RegisterHere')}
           </Text>
         </View>
       </Box>
@@ -138,18 +111,12 @@ function LoginScreen({
 }
 
 LoginScreen.propTypes = {
-  startLoading: PropTypes.func.isRequired,
-  stopLoading: PropTypes.func.isRequired,
-  setToken: PropTypes.func.isRequired,
-  fetchAppConfig: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired
 };
 
 export default connectToRedux({
   component: LoginScreen,
   dispatchProps: {
-    startLoading: LoadingActions.start,
-    stopLoading: LoadingActions.stop,
-    fetchAppConfig: AppActions.fetchAppConfigAsync,
-    setToken: PersistentStorageActions.setToken,
+    login: AuthActions.loginAsync
   },
 });

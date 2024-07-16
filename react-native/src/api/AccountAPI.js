@@ -29,7 +29,7 @@ export const login = ({username, password}) =>
         baseURL: oAuthConfig.issuer,
     }).then(({data}) => data);
 
-export const register = ({username, email, password}) => {
+export const register = async ({username, email, password}) => {
   let body = JSON.stringify({
     userName: username,
     emailAddress: email,
@@ -37,11 +37,12 @@ export const register = ({username, email, password}) => {
     appName: 'Aled'
   });
 
-  return api.post('/api/account/register', body).then(({data}) => data);
+  const { data } = await api.post('/api/account/register', body);
+  return data;
 }
   
 
-export const Logout = (
+export const Logout = async (
     input = {client_id: '', token: '', token_type_hint: ''},
 ) => {
     if (!input.token_type_hint) {
@@ -52,13 +53,14 @@ export const Logout = (
         .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
         .join('&');
 
-    return api({
-        method: 'POST',
-        url: '/connect/revocat',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        data: _data,
-        baseURL: oAuthConfig.issuer,
-    }).then(({data}) => data);
+    const { data } = await api({
+    method: 'POST',
+    url: '/connect/revocat',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    data: _data,
+    baseURL: oAuthConfig.issuer,
+  });
+  return data;
 };
 
 export const getTenant = tenantName =>

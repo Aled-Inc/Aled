@@ -14,12 +14,9 @@ import React, { useRef } from 'react';
 import { Text, View } from 'react-native';
 import { object, string } from 'yup';
 import ValidationMessage from '../../components/ValidationMessage/ValidationMessage';
-import AppActions from '../../store/actions/AppActions';
-import LoadingActions from '../../store/actions/LoadingActions';
+import AuthActions from '../../store/actions/AuthActions';
 import { connectToRedux } from '../../utils/ReduxConnect';
-import { login, register } from '../../api/AccountAPI';
-import PersistentStorageActions from '../../store/actions/PersistentStorageActions';
-import { authStyles } from '../../styles/authStyles';
+import { authStyles } from '../../styles/AuthStyle';
 
 const ValidationSchema = object().shape({
   username: string().required('AbpAccount::ThisFieldIsRequired.'),
@@ -27,39 +24,12 @@ const ValidationSchema = object().shape({
   password: string().required('AbpAccount::ThisFieldIsRequired.'),
 });
 
-function RegisterScreen({
-  navigation,
-  startLoading,
-  stopLoading,
-  setToken,
-  fetchAppConfig,
-}) {
+function RegisterScreen({ navigation, register }) {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
   const submit = ({ username, email, password }) => {
-    startLoading({ key: 'register' });
-    register({ username, email, password })
-      .then(() =>
-        login({ username, password })
-          .then(data =>
-            setToken({
-              ...data,
-              expire_time: new Date().valueOf() + data.expires_in,
-              scope: undefined,
-            }),
-          )
-          .then(
-            () =>
-              new Promise(resolve =>
-                fetchAppConfig({
-                  showLoading: false,
-                  callback: () => resolve(true),
-                }),
-              ),
-          ),
-      )
-      .finally(() => stopLoading({ key: 'register' }));
+    register({username, email, password});
   };
 
   const formik = useFormik({
@@ -75,9 +45,9 @@ function RegisterScreen({
       </Box>
       <Box style={authStyles.formBox}>
         <View style={{ marginBottom: 20, alignItems: 'center' }}>
-          <Text style={authStyles.title}>{i18n.t('Aled::RegisterTitle')}</Text>
+          <Text style={authStyles.title}>{i18n.t('Aled::Register:Title')}</Text>
           <Text style={authStyles.subtitle}>
-          {i18n.t('Aled::RegisterSubPhrase')}
+          {i18n.t('Aled::Register:SubPhrase')}
           </Text>
         </View>
         <FormControl isRequired my="2">
@@ -147,15 +117,15 @@ function RegisterScreen({
             width="40%"
             size="lg"
             style={authStyles.button}>
-            <Text style={authStyles.button.text}>{i18n.t('Aled::Register')}</Text>
+            <Text style={authStyles.button.text}>{i18n.t('Aled::Register:Register')}</Text>
           </Button>
           <Text style={authStyles.authPhrase}>
-          {i18n.t('Aled::AlreadyHaveAccount')}
+          {i18n.t('Aled::Register:AlreadyHaveAccount')}
           </Text>
           <Text
             onPress={() => navigation.navigate('Login')}
             style={authStyles.authLink}>
-            {i18n.t('Aled::LoginHere')}
+            {i18n.t('Aled::Register:LoginHere')}
           </Text>
         </View>
       </Box>
@@ -164,18 +134,12 @@ function RegisterScreen({
 }
 
 RegisterScreen.propTypes = {
-  startLoading: PropTypes.func.isRequired,
-  stopLoading: PropTypes.func.isRequired,
-  setToken: PropTypes.func.isRequired,
-  fetchAppConfig: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired
 };
 
 export default connectToRedux({
   component: RegisterScreen,
   dispatchProps: {
-    startLoading: LoadingActions.start,
-    stopLoading: LoadingActions.stop,
-    setToken: PersistentStorageActions.setToken,
-    fetchAppConfig: AppActions.fetchAppConfigAsync,
+    register: AuthActions.registerAsync
   },
 });
