@@ -16,7 +16,7 @@ function* login({payload: {username, password, showLoading}}) {
   const user = yield call(AuthService.getCurrentUser);
   yield put(AuthActions.setUser(user));
 
-  yield put(AppActions.fetchAppConfigAsync({ showLoading: false }));
+  yield put(AppActions.fetchAppConfigAsync());
 
   if (showLoading) {
     yield put(LoadingActions.stop({ key: 'login' }));
@@ -29,11 +29,12 @@ function* register({payload: {username, email, password, showLoading}}) {
   }
 
   yield call(AuthService.register, username, email, password);
-  yield put(AuthActions.loginAsync({ username, password, showLoading: true}));
 
   if (showLoading) {
     yield put(LoadingActions.stop({ key: 'register' }));
   }
+
+  yield put(AuthActions.loginAsync({ username, password, showLoading: true}));
 }
 
 export default function* () {

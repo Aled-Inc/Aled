@@ -23,5 +23,8 @@ export const getProfileDetail = () => api.get('/api/account/my-profile').then(({
 export const updateProfileDetail = body =>
     api.put('/api/account/my-profile', body).then(({data}) => data);
 
-export const changePassword = body =>
-    api.post('/api/account/my-profile/change-password', body).then(({data}) => data);
+export const disableProfile = () =>
+    api.post('/api/account/my-profile/disable');
+
+export const deleteProfile = () =>
+  api.delete('/api/account/my-profile/delete');
