@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Aled.Controllers;
 using Aled.EntityFrameworkCore;
 using Aled.MultiTenancy;
 using Medallion.Threading;
@@ -94,6 +95,8 @@ public class AledHttpApiHostModule : AbpModule
         Configure<AbpAspNetCoreMvcOptions>(options =>
         {
             options.ConventionalControllers.Create(typeof(AledApplicationModule).Assembly);
+
+            // options.IgnoredControllersOnModelExclusion.AddIfNotContains(typeof(ProfileController));
         });
     }
 

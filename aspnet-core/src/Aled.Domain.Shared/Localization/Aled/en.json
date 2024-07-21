@@ -6,8 +6,14 @@
     "Username" : "Username",
     "Email" : "Email",
     "Password" : "Password",
+    "PhoneNumber" : "Phone",
     
+    "Menu:Scan": "Scan",
+    "Menu:Chat": "Chat",
     "Menu:Home": "Home",
+    "Menu:Fridge": "Fridge",
+    "Menu:Profile": "Profile",
+    
     "Home:Subtitle": "What's in my fridge ?",
     
     "Register:Title": "Registration",
@@ -21,7 +27,23 @@
     "Login:SubPhrase" : "Login to open your fridge",
     "Login:ForgotMyPassword" : "I forgo my password",
     "Login:NoAccount" : "You don't have any account ?",
-    "Login:RegisterHere" : "Register here"
+    "Login:RegisterHere" : "Register here",
+
+    "Settings:AccountSettings": "Account settings",
+    "Settings:Account:Information": "Account informations",
+    "Settings:Account:Logins": "How do you log to your account",
+    "Settings:Account:Manage": "Manage account",
+    "Settings:Account:Manage:Disable": "Disable account",
+    "Settings:Account:Manage:Delete": "Delete account",
+
+    "Settings:AppSettings": "App settings",
+    "Settings:AppSettings:Notification": "Notifications",
+
+    "Settings:Assistance": "Assistance",
+    "Settings:Assistance:ContactUs": "Contact us",
+    
+    "ErrorSave::Successful" : "Your modifications has been successfully changed !",
+    "ErrorSave::TryAgainOrLater": "An error occured, please try again or later !"
   },
   "Aled:00000": "The given barcode is not valid: {0}.",
   "Aled:00001": "The Expiry Date must be in the future."

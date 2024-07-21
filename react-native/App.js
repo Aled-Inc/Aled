@@ -11,7 +11,6 @@ import Loading from './src/components/Loading/Loading';
 import { LocalizationContext } from './src/contexts/LocalizationContext';
 import { initAPIInterceptor } from './src/interceptors/APIInterceptor';
 import AuthNavigator from './src/navigators/AuthNavigator';
-import DrawerNavigator from './src/navigators/DrawerNavigator';
 import { persistor, store } from './src/store';
 import AppActions from './src/store/actions/AppActions';
 import PersistentStorageActions from './src/store/actions/PersistentStorageActions';
@@ -22,8 +21,8 @@ import { isTokenValid } from './src/utils/TokenUtils';
 import { createUserSelector } from './src/store/selectors/AuthSelector';
 import AuthActions from './src/store/actions/AuthActions';
 import { isUserValid } from './src/utils/UserUtils';
-import HomeStackNavigator from './src/navigators/HomeNavigator';
 import BottomTabNavigator from './src/navigators/BottomTabNavigator';
+import ActionStatusModal from './src/components/ActionStatusModal/ActionStatusModal';
 
 const Stack = createNativeStackNavigator();
 
@@ -73,6 +72,7 @@ export default function App() {
                 <ConnectedAppContainer />
               </LocalizationContext.Provider>
             ) : null}
+            <ActionStatusModal />
             <Loading />
           </NativeBaseProvider>
         </PersistGate>

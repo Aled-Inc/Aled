@@ -1,4 +1,4 @@
-import { login, register } from "../api/AccountAPI";
+import { login, Logout, register } from "../api/AccountAPI";
 import { getProfileDetail } from "../api/IdentityAPI";
 
 class AuthService {
@@ -23,6 +23,15 @@ class AuthService {
       return await getProfileDetail();
     } catch (error) {
       console.error('An error occured during AuthService.getCurrentUser : ', error);
+    }
+  }
+
+  async logout(input = {client_id: '', token: '', token_type_hint: ''}) {
+    try {
+      return await Logout(input);
+    }
+    catch (error) {
+      console.error('An error occured during AuthService.logout : ', error);
     }
   }
 }

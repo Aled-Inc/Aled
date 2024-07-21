@@ -7,8 +7,8 @@ export function isUserValid(user) {
 }
 
 export function haveValidCommonName(user) {
-  if (!isString(user.Name)) return false;
-  if (!isString(user.Surname)) return false;
+  if (!isString(user.name)) return false;
+  if (!isString(user.surname)) return false;
 
   return true;
 }

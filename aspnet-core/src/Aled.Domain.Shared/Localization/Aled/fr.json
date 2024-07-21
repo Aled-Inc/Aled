@@ -6,8 +6,14 @@
     "Username" : "Nom d'utilisateur",
     "Email" : "Adresse mail",
     "Password" : "Mot de passe",
+    "PhoneNumber" : "Téléphone",
 
+    "Menu:Scan": "Scan",
+    "Menu:Chat": "Chat",
     "Menu:Home": "Accueil",
+    "Menu:Fridge": "Frigo",
+    "Menu:Profile": "Profil",
+    
     "Home:Subtitle": "Y'a quoi dans mon frigo ?",
 
     "Register:Title": "Inscription",
@@ -21,6 +27,22 @@
     "Login:SubPhrase" : "Connectez-vous pour accéder à votre frigo virtuel",
     "Login:ForgotMyPassword" : "J'ai oublié mon mot de passe",
     "Login:NoAccount" : "Vous n'avez pas de compte ?",
-    "Login:RegisterHere" : "Inscrivez-vous ici"
+    "Login:RegisterHere" : "Inscrivez-vous ici",
+
+    "Settings:AccountSettings": "Paramètres du compte",
+    "Settings:Account:Information": "Informations du compte",
+    "Settings:Account:Logins": "Comment tu te connectes à ton compte",
+    "Settings:Account:Manage": "Gestion du compte",
+    "Settings:Account:Manage:Disable": "Désactiver mon compte",
+    "Settings:Account:Manage:Delete": "Supprimer mon compte",
+
+    "Settings:AppSettings": "Paramètres de l'appli",
+    "Settings:AppSettings:Notification": "Notifications",
+
+    "Settings:Assistance": "Assisstance",
+    "Settings:Assistance:ContactUs": "Nous contacter",
+
+    "ErrorSave::Successful" : "Vos modifications ont été enregistrées avec succès !",
+    "ErrorSave::TryAgainOrLater": "Une erreur s'est produite, veuillez réessayer plus tard !"
   }
 }

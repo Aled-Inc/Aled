@@ -4,7 +4,7 @@ import { Colors } from "./CommonStyle";
 export const profileStyle = StyleSheet.create({
   identityBox: {
     width: '100%',
-    marginVertical: 20
+    flex: 0.2
   },
   identityRowView: {
     flexDirection: 'row',

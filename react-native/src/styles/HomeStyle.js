@@ -3,7 +3,8 @@ import { Colors } from "./CommonStyle";
 
 export const homeStyle = StyleSheet.create({
   homeContainer: {
-    flex: 0.25
+    flex: 1,
+    backgroundColor: Colors.BG
   },
   identityBox: {
     width: '100%'
