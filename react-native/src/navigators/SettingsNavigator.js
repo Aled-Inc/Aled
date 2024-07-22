@@ -6,6 +6,8 @@ import { Colors } from '../styles/CommonStyle';
 import EditPropertyScreen from '../screens/CommonScreen/EditPropertyScreen';
 import Wrapper from '../components/Wrapper/Wrapper';
 import I18n from 'i18n-js';
+import LanguageScreen from '../screens/Language/LanguageScreen';
+import ConfSecuScreen from '../screens/Conf&Security/ConfSecuScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,7 +38,8 @@ export default function SettingsNavigator() {
                 onPress={() => navigation.goBack()}
               />
             ),
-          })}></Stack.Screen>
+          })}>
+          </Stack.Screen>
         <Stack.Screen
           name="Account"
           component={AccountScreen}
@@ -50,7 +53,38 @@ export default function SettingsNavigator() {
                 onPress={() => navigation.goBack()}
               />
             ),
-          })}></Stack.Screen>
+          })}>
+          </Stack.Screen>
+          <Stack.Screen
+          name="Language"
+          component={LanguageScreen}
+          options={({ navigation }) => ({
+            title: I18n.t('AbpUi::Languages'),
+            headerLeft: () => (
+              <Entypo
+                name="chevron-thin-left"
+                size={24}
+                color={Colors.Text}
+                onPress={() => navigation.goBack()}
+              />
+            ),
+          })}>
+          </Stack.Screen>
+          <Stack.Screen
+          name="ConfSecu"
+          component={ConfSecuScreen}
+          options={({ navigation }) => ({
+            title: I18n.t('Aled::Settings:ConfidentialityAndSecurity'),
+            headerLeft: () => (
+              <Entypo
+                name="chevron-thin-left"
+                size={24}
+                color={Colors.Text}
+                onPress={() => navigation.goBack()}
+              />
+            ),
+          })}>
+          </Stack.Screen>
           <Stack.Screen 
             name='Edit' 
             component={EditPropertyScreen}
@@ -64,8 +98,7 @@ export default function SettingsNavigator() {
                   onPress={() => navigation.goBack()}
                 />
               ),
-              })}
-            >
+              })}>
           </Stack.Screen>
       </Stack.Navigator>
     </Wrapper>

@@ -25,7 +25,7 @@ function HomeScreen({ user }) {
   );
 }
 
-HomeScreen.prototype = {
+HomeScreen.propTypes = {
   user: PropTypes.object.isRequired,
 };
 

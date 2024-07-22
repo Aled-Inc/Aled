@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
   },
 });
 
-ActionStatusModal.prototype = {
-  setIdle: PropTypes.object.isRequired,
+ActionStatusModal.propTypes = {
+  setIdle: PropTypes.func.isRequired,
   actionLoading: PropTypes.string,
 };
 

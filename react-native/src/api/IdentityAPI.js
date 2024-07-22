@@ -18,6 +18,8 @@ export const updateUser = (body, id) =>
 
 export const removeUser = id => api.delete(`/api/identity/users/${id}`);
 
+export const getCurrentUser = async () => (await api.get('/api/account/information')).data;
+
 export const getProfileDetail = () => api.get('/api/account/my-profile').then(({data}) => data);
 
 export const updateProfileDetail = body =>

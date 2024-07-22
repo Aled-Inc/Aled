@@ -5,6 +5,6 @@ const initialState = { user: null };
 
 export default createReducer(initialState, builder =>
   builder.addCase(AuthActions.setUser, (state, action) => {
-    state.user = action.payload;
+    state.user = { ...state.user, ...action.payload};
   })
 );

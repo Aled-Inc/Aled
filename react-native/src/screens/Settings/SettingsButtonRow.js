@@ -8,6 +8,7 @@ import { Octicons } from '@expo/vector-icons';
 import { isString } from '../../utils/CommonUtils';
 import { ActivityIndicator } from 'react-native';
 import { Colors } from '../../styles/CommonStyle';
+import { Ionicons } from '@expo/vector-icons';
 import PropRoles from '../../utils/PropRoles';
 
 function SettingButtonRow() {
@@ -24,6 +25,26 @@ const Category = ({ iconName, label, onPress, as = MaterialCommunityIcons}) => {
           </Box>
           <Text style={settingsStyle.category.label}>{label}</Text>
           <Feather name="chevron-right" style={settingsStyle.buttonArrow} />
+        </HStack>
+      )}
+    </Pressable>
+  );
+};
+
+
+const Check = ({ iconName, label, isChecked, onPress, as = MaterialCommunityIcons}) => {
+  return (
+    <Pressable onPress={onPress}>
+      {({ pressed }) => (
+        <HStack py={3} style={pressed ? settingsStyle.pressed : {}}>
+          <Box style={settingsStyle.category.iconBox}>
+            <Icon size={8} style={settingsStyle.category.icon} name={iconName} as={as}/>
+          </Box>
+          <Text style={settingsStyle.category.label}>{label}</Text>
+          { isChecked ?
+            <Ionicons name="checkmark-circle" style={[settingsStyle.buttonArrow, {color: Colors.Green}]} /> :
+            <Ionicons name="close-circle" style={[settingsStyle.buttonArrow, {color: Colors.Red}]}  />
+          }
         </HStack>
       )}
     </Pressable>
@@ -111,5 +132,6 @@ SettingButtonRow.Category = Category;
 SettingButtonRow.Data = Data;
 SettingButtonRow.Button = Button;
 SettingButtonRow.Edit = Edit;
+SettingButtonRow.Check = Check;
 
 export default SettingButtonRow;

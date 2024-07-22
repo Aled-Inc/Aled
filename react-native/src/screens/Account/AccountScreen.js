@@ -100,16 +100,16 @@ function AccountScreen({
   );
 }
 
-AccountScreen.prototype = {
+AccountScreen.propTypes = {
   user: PropTypes.object.isRequired,
-  updateUsername: PropTypes.object.isRequired,
-  updateName: PropTypes.object.isRequired,
-  updateSurname: PropTypes.object.isRequired,
-  updateEmail: PropTypes.object.isRequired,
-  updatePhone: PropTypes.object.isRequired,
-  changePassword: PropTypes.object.isRequired,
-  disableProfile: PropTypes.object.isRequired,
-  deleteProfile: PropTypes.object.isRequired,
+  updateUsername: PropTypes.func.isRequired,
+  updateName: PropTypes.func.isRequired,
+  updateSurname: PropTypes.func.isRequired,
+  updateEmail: PropTypes.func.isRequired,
+  updatePhone: PropTypes.func.isRequired,
+  changePassword: PropTypes.func.isRequired,
+  disableProfile: PropTypes.func.isRequired,
+  deleteProfile: PropTypes.func.isRequired,
 };
 
 export default connectToRedux({

@@ -132,7 +132,7 @@ const saveButton = StyleSheet.create({
   },
 });
 
-EditPropertyScreen.prototype = {
+EditPropertyScreen.propTypes = {
   actionLoading: PropTypes.bool.isRequired,
   actionStatus: PropTypes.string.isRequired,
   actionError: PropTypes.string.isRequired,

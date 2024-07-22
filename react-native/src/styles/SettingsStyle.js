@@ -41,7 +41,7 @@ export const settingsStyle = StyleSheet.create({
     color: Colors.Red
   },
   pressed: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)'
+    backgroundColor: Colors.BGDarker
   },
   
   category: {

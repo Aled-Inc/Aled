@@ -40,7 +40,6 @@ export const register = async ({username, email, password}) => {
   const { data } = await api.post('/api/account/register', body);
   return data;
 }
-  
 
 export const Logout = async (
     input = {client_id: '', token: '', token_type_hint: ''},
@@ -62,15 +61,3 @@ export const Logout = async (
   });
   return data;
 };
-
-export const getTenant = tenantName =>
-    api({
-        method: 'GET',
-        url: `/api/abp/multi-tenancy/tenants/by-name/${tenantName}`,
-    }).then(({data}) => data);
-
-export const getTenantById = tenantId =>
-    api({
-        method: 'GET',
-        url: `/api/abp/multi-tenancy/tenants/by-id/${tenantId}`,
-    }).then(({data}) => data);

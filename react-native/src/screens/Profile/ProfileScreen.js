@@ -47,7 +47,7 @@ function ProfileScreen({ user }) {
   );
 }
 
-ProfileScreen.prototype = {
+ProfileScreen.propTypes = {
   user : PropTypes.object.isRequired,
 }
 

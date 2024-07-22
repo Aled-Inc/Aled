@@ -6,5 +6,6 @@ export const Colors = {
   NavBG: '#FBFBFF',
   White: '#FFFFFF',
   Red: '#C60000',
-  Green: '#4BD77B'
+  Green: '#4BD77B',
+  BGDarker: 'rgb(232, 229, 232)',
 }

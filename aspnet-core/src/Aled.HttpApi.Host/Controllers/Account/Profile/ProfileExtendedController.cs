@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Aled.Services.Account.Profile;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
@@ -7,29 +6,26 @@ using Volo.Abp.Account;
 using Volo.Abp.DependencyInjection;
 using IProfileAppService = Aled.Services.Account.Profile.IProfileAppService;
 
-namespace Aled.Controllers;
+namespace Aled.Controllers.Account.Profile;
 
 [Dependency(ReplaceServices = true)]
-// [ExposeServices(typeof(ProfileController), IncludeSelf = true)]
 [RemoteService(Name = AccountRemoteServiceConsts.RemoteServiceName)]
 [Area(AccountRemoteServiceConsts.ModuleName)]
 [ControllerName("Profile")]
 [Route("/api/account/my-profile")]
-public class ProfileExtendedController(IProfileAppService profileAppService)
+public class ProfileExtendedController(IProfileAppService profileAppService) : IProfileAppService
 {
-    private IProfileAppService ProfileAppService { get; } = profileAppService;
-
     [HttpPost]
     [Route("disable")]
-    public virtual Task DisableAsync()
+    public Task DisableAsync()
     {
-        return ProfileAppService.DisableAsync();
+        return profileAppService.DisableAsync();
     }
     
     [HttpDelete]
     [Route("delete")]
-    public virtual Task DeleteAsync()
+    public Task DeleteAsync()
     {
-        return ProfileAppService.DeleteAsync();
+        return profileAppService.DeleteAsync();
     }
 }

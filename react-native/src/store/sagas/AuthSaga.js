@@ -12,7 +12,7 @@ function* login({payload: {username, password, showLoading}}) {
   const data = yield call(AuthService.login, username, password);
 
   yield put(PersistentStorageActions.setToken({ ...data, expire_time: new Date().valueOf() + data.expires_in, scope: "Aled"}));
-  
+
   const user = yield call(AuthService.getCurrentUser);
   yield put(AuthActions.setUser(user));
 
