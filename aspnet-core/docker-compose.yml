@@ -22,3 +22,17 @@ services:
     image: mongo:latest
     ports:
       - "27017:27017"
+    
+  ngrok:
+    container_name: Aled.Ngrok
+    image: ngrok/ngrok:latest
+    restart: unless-stopped
+    command:
+      - "start"
+      - "--all"
+      - "--config"
+      - "/etc/ngrok.yml"
+    volumes:
+      - ./ngrok.yml:/etc/ngrok.yml
+    ports:
+      - "4040:4040"

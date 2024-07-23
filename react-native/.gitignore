@@ -14,5 +14,8 @@ _active.uusver
 *.lock
 package-lock.json
 
+# local env settings
+local.env.js
+
 # macOS
 .DS_Store
