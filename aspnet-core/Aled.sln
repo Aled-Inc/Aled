@@ -10,6 +10,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aled.EntityFrameworkCore", "src\Aled.EntityFrameworkCore\Aled.EntityFrameworkCore.csproj", "{C956DD76-69C8-4A9C-83EA-D17DF83340FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CA9AC87F-097E-4F15-8393-4BC07735A5B0}"
+	ProjectSection(SolutionItems) = preProject
+		src\.env = src\.env
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{04DBDB01-70F4-4E06-B468-8F87850B22BE}"
 EndProject
@@ -42,11 +45,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{654C4E4D-4DFA-4FC2-B78F-BA8B86B3633E}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
-		ssl\cert.conf = ssl\cert.conf
-		ssl\key.pem = ssl\key.pem
-		ssl\cert.pem = ssl\cert.pem
-		ssl\cert.pfx = ssl\cert.pfx
-		ssl\cert.crt = ssl\cert.crt
+		ngrok.yml = ngrok.yml
 	EndProjectSection
 EndProject
 Global

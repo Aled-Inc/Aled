@@ -1,8 +1,10 @@
+import { ngrokApiHostUrl, ngrokAuthServerUrl } from "./local.env";
+
 const ENV = {
     dev: {
-        apiUrl: 'https://192.0.0.2:44300',
+        apiUrl: ngrokApiHostUrl,
         oAuthConfig: {
-            issuer: 'https://192.0.0.2:44301',
+            issuer: ngrokAuthServerUrl,
             clientId: 'Aled_App',
             scope: 'offline_access Aled',
         },
@@ -11,9 +13,9 @@ const ENV = {
         },
     },
     prod: {
-        apiUrl: 'https://192.0.0.2:44300',
+        apiUrl: ngrokApiHostUrl,
         oAuthConfig: {
-            issuer: 'https://192.0.0.2:44301',
+            issuer: ngrokAuthServerUrl,
             clientId: 'Aled_App',
             scope: 'offline_access Aled',
         },

@@ -266,3 +266,10 @@ src/Aled.Blazor/Logs/*
 
 # PackageLocks
 package-lock.json
+
+#ssl
+ssl/
+
+#env
+.env
+ngrok.yml
