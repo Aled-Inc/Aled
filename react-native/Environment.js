@@ -1,8 +1,8 @@
 const ENV = {
     dev: {
-        apiUrl: 'http://192.0.0.2:44300',
+        apiUrl: 'https://192.0.0.2:44300',
         oAuthConfig: {
-            issuer: 'http://192.0.0.2:44301',
+            issuer: 'https://192.0.0.2:44301',
             clientId: 'Aled_App',
             scope: 'offline_access Aled',
         },
@@ -13,7 +13,7 @@ const ENV = {
     prod: {
         apiUrl: 'https://192.0.0.2:44300',
         oAuthConfig: {
-            issuer: 'http://192.0.0.2:44301',
+            issuer: 'https://192.0.0.2:44301',
             clientId: 'Aled_App',
             scope: 'offline_access Aled',
         },
