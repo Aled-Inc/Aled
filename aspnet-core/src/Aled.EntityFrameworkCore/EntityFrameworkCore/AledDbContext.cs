@@ -51,13 +51,17 @@ public class AledDbContext :
             e.ToTable(AledConsts.DbTablePrefix + "Inventories", AledConsts.DbSchema);
             e.ConfigureByConvention();
             e.HasMany(f => f.Products)
-                .WithMany();
+                .WithOne();
         });
 
+        // Configure Product entity
         builder.Entity<Product>(e =>
         {
             e.ToTable(AledConsts.DbTablePrefix + "Products", AledConsts.DbSchema);
             e.ConfigureByConvention();
+            e.HasOne(p => p.Inventory)
+                .WithMany(i => i.Products)
+                .HasForeignKey(p => p.InventoryId);
         });
     }
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
