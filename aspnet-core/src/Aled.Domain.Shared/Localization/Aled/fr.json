@@ -7,6 +7,7 @@
     "Email" : "Adresse mail",
     "Password" : "Mot de passe",
     "PhoneNumber" : "Téléphone",
+    "SeeMyFridge" : "Voir mon frigo !",
 
     "Menu:Scan": "Scan",
     "Menu:Chat": "Chat",
@@ -37,6 +38,8 @@
     "Settings:Account:Manage:Delete": "Supprimer mon compte",
 
     "Settings:ConfidentialityAndSecurity": "Confidentialité & Sécurité",
+    "Settings:ConfidentialityAndSecurity:VerifiedInformation": "Informations vérifées",
+    "Settings:ConfidentialityAndSecurity:Security": "Sécurité",
 
     "Settings:AppSettings": "Paramètres de l'appli",
     "Settings:AppSettings:Notification": "Notifications",
@@ -44,7 +47,17 @@
     "Settings:Assistance": "Assisstance",
     "Settings:Assistance:ContactUs": "Nous contacter",
 
-    "ErrorSave::Successful" : "Vos modifications ont été enregistrées avec succès !",
-    "ErrorSave::TryAgainOrLater": "Une erreur s'est produite, veuillez réessayer plus tard !"
+    "EmailConfirmation:Succeeded" : "Succès",
+    "EmailConfirmation:SucceededDescription" : "Ton e-mail a bien été vérifié !",
+
+    "EmailConfirmation:Failed" : "Echec",
+    "EmailConfirmation:FailedDescription" : "Ton e-mail n'a pas pu être vérifié :(",
+
+    "ErrorSave:Successful" : "Vos modifications ont été enregistrées avec succès !",
+    "ErrorSave:TryAgainOrLater": "Une erreur s'est produite, veuillez réessayer plus tard !",
+    
+    "Modal:EmailConfirmation" : "Un e-mail de confirmation vas vous être envoyer, souhaitez-vous continuer ?",
+
+    "Email:ConfirmEmailTitle": "Confirmation de votre adresse e-mail"
   }
 }

@@ -93,7 +93,7 @@ function* changePassword({payload: {value, extraValue }}) {
 }
 
 function* disableProfile() {
-  yield put(LoadingActions.start({ key: 'disableProfile', showLoading: true }));
+  yield put(LoadingActions.start({ key: 'disableProfile' }));
 
   yield call(AccountService.disableProfile);
   yield put(AppActions.logoutAsync({ showLoading: true }));
@@ -102,12 +102,16 @@ function* disableProfile() {
 }
 
 function* deleteProfile() {
-  yield put(LoadingActions.start({ key: 'deleteProfile', showLoading: true }));
+  yield put(LoadingActions.start({ key: 'deleteProfile' }));
 
   yield call(AccountService.deleteProfile);
   yield put(AppActions.logoutAsync({ showLoading: true }));
 
   yield put(LoadingActions.stop({ key: 'deleteProfile' }));
+}
+
+function* sendEmailVerificationCode() {
+  yield call(AccountService.sendEmailVerificationCode);
 }
 
 export default function* () {
@@ -120,5 +124,6 @@ export default function* () {
     takeLatest(AccountActions.changePasswordAsync.type, changePassword),
     takeLatest(AccountActions.disableProfileAsync.type, disableProfile),
     takeLatest(AccountActions.deleteProfileAsync.type, deleteProfile),
+    takeLatest(AccountActions.sendEmailVerificationCodeAsync.type, sendEmailVerificationCode),
   ]);
 }

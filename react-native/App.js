@@ -22,11 +22,15 @@ import { createUserSelector } from './src/store/selectors/AuthSelector';
 import AuthActions from './src/store/actions/AuthActions';
 import { isUserValid } from './src/utils/UserUtils';
 import BottomTabNavigator from './src/navigators/BottomTabNavigator';
-import ActionStatusModal from './src/components/ActionStatusModal/ActionStatusModal';
+import ActionStatusModal from './src/components/Modals/ActionStatusModal';
+import * as Linking from 'expo-linking';
+import BaseModal from './src/components/Modals/BaseModal';
 
 const Stack = createNativeStackNavigator();
 
 const { localization } = getEnvVars();
+
+const prefix = Linking.createURL('/');
 
 i18n.defaultSeparator = '::';
 
@@ -44,6 +48,16 @@ initAPIInterceptor(store);
 export default function App() {
   const language = createLanguageSelector()(store.getState());
   const [isReady, setIsReady] = useState(false);
+  const linking = {
+    prefixes: [prefix],
+    config: {
+      screens: {
+        EmailConfirmation: {
+          path: 'email-confirmation/:state',
+        }
+      },
+    },
+  };
 
   const localizationContextValue = useMemo(
     () => ({
@@ -63,7 +77,7 @@ export default function App() {
   }, []);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <NativeBaseProvider>
@@ -72,8 +86,9 @@ export default function App() {
                 <ConnectedAppContainer />
               </LocalizationContext.Provider>
             ) : null}
-            <ActionStatusModal />
             <Loading />
+            <BaseModal />
+            <ActionStatusModal />
           </NativeBaseProvider>
         </PersistGate>
       </Provider>

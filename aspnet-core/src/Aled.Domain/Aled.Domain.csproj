@@ -26,4 +26,15 @@
         <PackageReference Include="Volo.Abp.PermissionManagement.Domain.OpenIddict" Version="8.1.0-rc.3"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Emailing\Templates\EmailConfirmationTemplate.tpl" />
+      <EmbeddedResource Include="Emailing\Templates\EmailConfirmationTemplate.tpl">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="Emailing\Templates\EmailLayout.tpl" />
+      <EmbeddedResource Include="Emailing\Templates\EmailLayout.tpl">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
+
 </Project>

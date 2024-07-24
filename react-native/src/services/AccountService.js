@@ -1,4 +1,4 @@
-import { changePassword, deleteProfile, disableProfile, updateProfileDetail } from "../api/IdentityAPI";
+import { changePassword, deleteProfile, disableProfile, sendEmailVerificationCode, updateProfileDetail } from "../api/IdentityAPI";
 
 const prepareModel = (user) => {
   return {
@@ -95,6 +95,15 @@ class AccountService {
       return await deleteProfile();
     } catch (error) {
       console.error('An error occured during AccountService.deleteProfile : ', error);
+      throw error;
+    }
+  }
+
+  async sendEmailVerificationCode() {
+    try {
+      return await sendEmailVerificationCode();
+    } catch (error) {
+      console.error('An error occured during AccountService.sendEmailVerificationCode : ', error);
       throw error;
     }
   }

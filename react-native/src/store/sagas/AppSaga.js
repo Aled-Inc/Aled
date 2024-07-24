@@ -6,6 +6,7 @@ import PersistentStorageActions from '../actions/PersistentStorageActions';
 import { getEnvVars } from '../../../Environment';
 import AuthService from '../../services/AuthService';
 import { getPersistentStorage } from '../selectors/PersistentStorageSelectors';
+import { getApp } from '../selectors/AppSelectors';
 
 const env = getEnvVars();
 
@@ -54,10 +55,19 @@ function* logout({ payload: { showLoading }}) {
   if (showLoading) yield put(LoadingActions.stop({ key: 'logout' }));
 }
 
+function* requestConfirmationModal({ payload: { modalType }}) {
+  let app = yield select(getApp);
+
+  if (app.modalType != modalType){
+    yield put(AppActions.requestConfirmationModal({ modalType: modalType }));
+  }
+}
+
 export default function* () {
   yield all([
     takeLatest(AppActions.setLanguageAsync.type, setLanguage),
     takeLatest(AppActions.fetchAppConfigAsync.type, fetchAppConfig),
     takeLatest(AppActions.logoutAsync.type, logout),
+    takeLatest(AppActions.requestConfirmationModal.type, requestConfirmationModal),
   ]);
 }

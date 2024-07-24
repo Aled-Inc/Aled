@@ -14,8 +14,11 @@ const registerAsync = createAction('auth/register',
 
 const setUser = createAction('auth/setUser');
 
+const reloadCurrentUserInfoAsync = createAction('auth/reload-user');
+
 export default {
   loginAsync,
   registerAsync,
-  setUser
+  setUser,
+  reloadCurrentUserInfoAsync,
 };

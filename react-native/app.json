@@ -2,6 +2,7 @@
   "expo": {
     "name": "Aled",
     "slug": "Aled",
+    "scheme": "aled",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

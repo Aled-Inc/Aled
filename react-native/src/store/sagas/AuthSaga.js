@@ -37,9 +37,19 @@ function* register({payload: {username, email, password, showLoading}}) {
   yield put(AuthActions.loginAsync({ username, password, showLoading: true}));
 }
 
+function* reloadCurrentUserInfo() {
+  yield put(LoadingActions.start({ key: 'reloadCurrentUserInfo', opacity: 1 }));
+
+  const user = yield call(AuthService.getCurrentUser);
+  yield put(AuthActions.setUser(user));
+
+  yield put(LoadingActions.stop({ key: 'reloadCurrentUserInfo'}));
+}
+
 export default function* () {
   yield all([
     takeLatest(AuthActions.loginAsync.type, login),
     takeLatest(AuthActions.registerAsync.type, register),
+    takeLatest(AuthActions.reloadCurrentUserInfoAsync.type, reloadCurrentUserInfo),
   ]);
 }

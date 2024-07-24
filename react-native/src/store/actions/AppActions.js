@@ -19,9 +19,15 @@ const logoutAsync = createAction('app/logoutAsync', ({ showLoading = false } = {
   }),
 );
 
+const requestConfirmationModal = createAction('app/request-confirmation-modal', ({ modalType = null } = {}) => ({
+    payload: { modalType }
+  }),
+);
+
 export default {
     fetchAppConfigAsync,
     setAppConfig,
     setLanguageAsync,
     logoutAsync,
+    requestConfirmationModal,
 };

@@ -30,3 +30,5 @@ export const disableProfile = () =>
 
 export const deleteProfile = () =>
   api.delete('/api/account/my-profile/delete');
+
+export const sendEmailVerificationCode = () => api.post('/api/account/send-email-verification-code');

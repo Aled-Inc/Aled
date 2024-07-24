@@ -3,11 +3,12 @@ import { connectToRedux } from '../../utils/ReduxConnect';
 import React, {forwardRef, useEffect} from 'react';
 import { createActionStatusSelector } from '../../store/selectors/LoadingSelectors';
 import ActionStatus from '../../utils/ActionStatus';
-import { View, Modal, Text, StyleSheet } from 'react-native';
+import { View, Modal, Text } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Colors } from '../../styles/CommonStyle';
 import LoadingActions from '../../store/actions/LoadingActions';
 import i18n from 'i18n-js';
+import { modalStyles } from '../../styles/ModalStyles';
 
 function ActionStatusModal({ actionStatus, setIdle }) {
   useEffect(() => {
@@ -24,7 +25,7 @@ function ActionStatusModal({ actionStatus, setIdle }) {
     return (
       <>
         <Feather name="check-circle" size={75} color={Colors.Green} />
-        <Text style={styles.modalText}>{i18n.t('ErrorSave::Successful')}</Text>
+        <Text style={modalStyles.modalText}>{i18n.t('Aled::ErrorSave:Successful')}</Text>
       </>
     );
   };
@@ -33,13 +34,13 @@ function ActionStatusModal({ actionStatus, setIdle }) {
     return (
       <>
         <Feather name="x-circle" size={75} color={Colors.Red} />
-        <Text style={styles.modalText}>{i18n.t('Aled::ErrorSave::TryAgainOrLater')}</Text>
+        <Text style={modalStyles.modalText}>{i18n.t('Aled::ErrorSave:TryAgainOrLater')}</Text>
       </>
     );
   };
 
   return actionStatus == ActionStatus.idle || actionStatus == ActionStatus.pendging ? null : (
-    <View style={styles.centeredView}>
+    <View style={modalStyles.centeredView}>
       <Modal 
         animationType='fade'
         transparent={true}
@@ -48,8 +49,8 @@ function ActionStatusModal({ actionStatus, setIdle }) {
           setTimeout(() => setIdle(), 5000);
         }}
         >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
+        <View style={modalStyles.centeredView}>
+          <View style={modalStyles.modalView}>
             { actionStatus === ActionStatus.succeeded ? succeeded() : error() }
           </View>
         </View>
@@ -59,33 +60,6 @@ function ActionStatusModal({ actionStatus, setIdle }) {
 };
 
 const Forwarded = forwardRef((props, ref) => <ActionStatusModal {...props} forwardRef={ref} /> );
-
-const styles = StyleSheet.create({
-  centeredView: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.2)'
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 15,
-    padding: 35,
-    alignItems: 'center',
-    textAlign: 'center',
-    elevation: 5,
-  },
-  modalText: {
-    fontFamily: 'Inter-Regular',
-    marginTop: 20,
-    textAlign: 'center',
-  },
-});
 
 ActionStatusModal.propTypes = {
   setIdle: PropTypes.func.isRequired,

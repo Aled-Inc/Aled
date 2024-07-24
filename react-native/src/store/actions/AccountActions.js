@@ -34,6 +34,8 @@ const disableProfileAsync = createAction('account/disabled');
 
 const deleteProfileAsync = createAction('account/delete');
 
+const sendEmailVerificationCodeAsync = createAction('account/send-email-verification-code');
+
 export default {
   updateUsernameAsync,
   updateNameAsync,
@@ -42,5 +44,6 @@ export default {
   updatePhoneAsync,
   changePasswordAsync,
   disableProfileAsync,
-  deleteProfileAsync
+  deleteProfileAsync,
+  sendEmailVerificationCodeAsync,
 };

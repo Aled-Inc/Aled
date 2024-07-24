@@ -1,7 +1,7 @@
 const ActionStatus = {
   idle: 'idle',
   pendging: 'pending',
-  succeeded: 'suceeded',
+  succeeded: 'succeeded',
   failed: 'failed'
 };
 

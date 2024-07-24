@@ -7,35 +7,37 @@ import PropTypes from 'prop-types';
 import i18n from "i18n-js";
 import { connectToRedux } from "../../utils/ReduxConnect";
 import { createUserSelector } from "../../store/selectors/AuthSelector";
+import ModalTypes from "../../utils/ModalTypes";
+import AppActions from "../../store/actions/AppActions";
 
-function ConfSecuScreen({ user }) {
+function ConfSecuScreen({ user, requestConfirmationModal }) {
   return (
     <View flex={1} p={5} backgroundColor={Colors.BG}>
-      <SettingsSectionLayout title={'Informations vérifiées'}>
+      <SettingsSectionLayout title={i18n.t('Aled::Settings:ConfidentialityAndSecurity:VerifiedInformation')}>
         <SettingsButtonRow.Check
           iconName="email"
           isChecked={user.emailConfirmed}
           label={i18n.t('AbpIdentity::DisplayName:Email')}
           onPress={() =>
-            console.log("")
+            user.emailConfirmed ? null : requestConfirmationModal({ modalType: ModalTypes.EmailConfirmationModal })
           }></SettingsButtonRow.Check>
         <SettingsButtonRow.Check
           iconName="phone-portrait"
           isChecked={user.phoneNumberConfirmed}
           as={Ionicons}
           label={i18n.t('Aled::PhoneNumber')}
-          onPress={() => console.log("")}>
+          onPress={() => {}}>
         </SettingsButtonRow.Check>
       </SettingsSectionLayout>
 
-      <SettingsSectionLayout title={'Sécurité'}>
+      <SettingsSectionLayout title={i18n.t('Aled::Settings:ConfidentialityAndSecurity:Security')}>
         <SettingsButtonRow.Check
           iconName="lock-closed"
           as={Ionicons}
           isChecked={user.twoFactorEnabled}
           label={i18n.t('AbpIdentity::DisplayName:TwoFactorEnabled')}
           onPress={() =>
-            console.log("")
+            {}
           }></SettingsButtonRow.Check>
       </SettingsSectionLayout>
     </View>
@@ -43,7 +45,8 @@ function ConfSecuScreen({ user }) {
 };
 
 ConfSecuScreen.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  requestConfirmationModal: PropTypes.func.isRequired,
 }
 
 export default connectToRedux({
@@ -51,4 +54,7 @@ export default connectToRedux({
   stateProps: state => ({
     user: createUserSelector()(state)
   }),
+  dispatchProps: {
+    requestConfirmationModal: AppActions.requestConfirmationModal,
+  },
 });
