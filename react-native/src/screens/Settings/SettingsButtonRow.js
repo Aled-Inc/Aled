@@ -80,7 +80,7 @@ const Button = ({ label, loading, style, isTextCentered = false, onPress }) => {
         <Text
           py={3}
           paddingLeft={isTextCentered ? 0 : 5}
-          textAlign={isTextCentered}
+          textAlign={isTextCentered ? 'center' : undefined}
           style={[
             style ? style : settingsStyle.data.label,
             pressed ? settingsStyle.pressed : {},
