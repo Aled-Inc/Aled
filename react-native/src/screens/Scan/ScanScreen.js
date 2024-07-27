@@ -33,7 +33,9 @@ export default function ScanScreen() {
     getCameraPermissions();
   }, []);
 
-  const handleBarCodeScanned = ({ data, bounds }) => {
+  const handleBarCodeScanned = ({ data, bounds, boundingBox }) => {
+    bounds = bounds ?? boundingBox;
+
     if (
       bounds.origin.x >= scanBoxX &&
       bounds.origin.x + bounds.size.width <= scanBoxX + scanBoxWidth &&
@@ -54,6 +56,7 @@ export default function ScanScreen() {
       );
       setProducts([response.data.product, ...products]);
     } catch (error) {
+      setProducts([]);
       alert(i18n.t('Aled::Scan:ErrorOnFetchProduct'));
     } finally {
       setLoading(false);

@@ -46,6 +46,14 @@
 
     "Settings:Assistance": "Assistance",
     "Settings:Assistance:ContactUs": "Contact us",
+
+    "Scan:ErrorOnFetchProduct" : "Error on fetch product.",
+    "Scan:AuthorizationError:NoCamera" : "No camera",
+    "Scan:AuthorizationError:Permission" : "Please authorize access to the camera to use the scan function. Go to: Settings > Applications > Aled. > Authorizations.",
+    "Scan:Summary" : "Scanned products",
+    "Scan:Empty" : "No product scanned",
+    "Scan:NoProduct?" : "No product yet ?",
+    "Scan:ScanThem!" : "Scan them and manage your stock with ease !",
     
     "EmailConfirmation:Succeeded" : "Succeeded",
     "EmailConfirmation:SucceededDescription" : "Your email has been successfully verified !",
