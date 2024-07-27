@@ -47,6 +47,14 @@
     "Settings:Assistance": "Assisstance",
     "Settings:Assistance:ContactUs": "Nous contacter",
 
+    "Scan:ErrorOnFetchProduct" : "Erreur lors de la récupération du produit.",
+    "Scan:AuthorizationError:NoCamera" : "Aucun appareil photo",
+    "Scan:AuthorizationError:Permission" : "Veuillez autoriser l'accès à l'appareil photo pour utiliser la fonction de scan. Rendez-vous dans : Paramètres > Applications > Aled. > Autorisations.",
+    "Scan:Summary" : "Produits scannées",
+    "Scan:Empty" : "Aucun produit scanné",
+    "Scan:NoProduct?" : "Pas encore de produits ?",
+    "Scan:ScanThem!" : "Scannez les et gérez facilement vos stocks !",
+    
     "EmailConfirmation:Succeeded" : "Succès",
     "EmailConfirmation:SucceededDescription" : "Ton e-mail a bien été vérifié !",
 
