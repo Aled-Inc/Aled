@@ -2,7 +2,7 @@
   "culture": "fr",
   "texts": {
     "Aled": "Aled.",
-    "Welcome": "Bienvenue",
+    "Welcome": "Salut",
     "Username" : "Nom d'utilisateur",
     "Email" : "Adresse mail",
     "Password" : "Mot de passe",
@@ -15,7 +15,7 @@
     "Menu:Fridge": "Frigo",
     "Menu:Profile": "Profil",
     
-    "Home:Subtitle": "Y'a quoi dans mon frigo ?",
+    "Home:Subtitle": "Y'a quoi dans ton frigo ?",
 
     "Register:Title": "Inscription",
     "Register:Register": "S'inscrire",

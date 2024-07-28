@@ -22,14 +22,16 @@ export const homeStyle = StyleSheet.create({
   },
   identityText: {
     fontFamily: 'Inter-Bold',
-    fontSize: 24,
-    lineHeight: 24,
+    fontSize: 26,
+    lineHeight: 26,
+    color: Colors.Text,
     username: {
       color: Colors.Element
     }
   },
   identitySubtitle: {
     fontFamily: 'Inter-Medium',
-    fontSize: 14
+    fontSize: 16,
+    lineHeight: 16
   }
 })

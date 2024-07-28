@@ -2,7 +2,7 @@
   "culture": "en",
   "texts": {
     "Aled": "Aled.",
-    "Welcome": "Welcome",
+    "Welcome": "Hello",
     "Username" : "Username",
     "Email" : "Email",
     "Password" : "Password",
@@ -15,7 +15,7 @@
     "Menu:Fridge": "Fridge",
     "Menu:Profile": "Profile",
     
-    "Home:Subtitle": "What's in my fridge ?",
+    "Home:Subtitle": "What's in your fridge ?",
     
     "Register:Title": "Registration",
     "Register:Register": "Register",
