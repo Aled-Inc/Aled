@@ -29,7 +29,7 @@ function RegisterScreen({ navigation, register }) {
   const passwordRef = useRef(null);
 
   const submit = ({ username, email, password }) => {
-    register({username, email, password});
+    register({username, email, password, showLoading: true });
   };
 
   const formik = useFormik({

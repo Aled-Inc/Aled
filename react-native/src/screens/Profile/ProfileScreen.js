@@ -4,22 +4,22 @@ import { createUserSelector } from '../../store/selectors/AuthSelector';
 import { Avatar, Box, Center, Text, View } from 'native-base';
 import { profileStyle } from '../../styles/ProfileStyle';
 import { haveValidCommonName } from '../../utils/UserUtils';
+import { Colors } from '../../styles/CommonStyle';
 
 function ProfileScreen({ user }) {
   const userCommonName = () => {
-    return haveValidCommonName(user) ? <Text style={profileStyle.identityCommonName}>{`${user.Name} ${user.Surname}`}</Text> : <></>;
+    return haveValidCommonName(user) ? <Text style={profileStyle.identityCommonName}>{`${user.name} ${user.surname}`}</Text> : <></>;
   }
 
-
   return (
-    <Center px="3" py="3">
+    <View px="3" py="3" flex={1} backgroundColor={Colors.BG}>
       <Box style={profileStyle.identityBox}>
         <View style={profileStyle.identityRowView}>
           <Avatar ml="3" style={profileStyle.identityAvatar} source={require('../../../assets/avatar.png')} />
           <View ml="3" style={profileStyle.identityColView}>
             <Text style={profileStyle.identityUserName}>{ user.userName }</Text>
-            <Text style={profileStyle.identityEmail}>{ user.email }</Text>
             {userCommonName()}
+            <Text style={profileStyle.identityEmail}>{ user.email }</Text>
           </View>
         </View>
       </Box>
@@ -43,11 +43,11 @@ function ProfileScreen({ user }) {
           </View>
         </View>
       </Box>
-    </Center>
+    </View>
   );
 }
 
-ProfileScreen.prototype = {
+ProfileScreen.propTypes = {
   user : PropTypes.object.isRequired,
 }
 

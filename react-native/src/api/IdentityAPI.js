@@ -18,10 +18,17 @@ export const updateUser = (body, id) =>
 
 export const removeUser = id => api.delete(`/api/identity/users/${id}`);
 
+export const getCurrentUser = async () => (await api.get('/api/account/information')).data;
+
 export const getProfileDetail = () => api.get('/api/account/my-profile').then(({data}) => data);
 
 export const updateProfileDetail = body =>
     api.put('/api/account/my-profile', body).then(({data}) => data);
 
-export const changePassword = body =>
-    api.post('/api/account/my-profile/change-password', body).then(({data}) => data);
+export const disableProfile = () =>
+    api.post('/api/account/my-profile/disable');
+
+export const deleteProfile = () =>
+  api.delete('/api/account/my-profile/delete');
+
+export const sendEmailVerificationCode = () => api.post('/api/account/send-email-verification-code');

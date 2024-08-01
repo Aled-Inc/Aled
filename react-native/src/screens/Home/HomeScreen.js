@@ -8,7 +8,7 @@ import { homeStyle } from '../../styles/HomeStyle';
 
 function HomeScreen({ user }) {
   return (
-    <Center style={homeStyle.homeContainer} px="3">
+    <View style={homeStyle.homeContainer} px="3">
       <Box style={homeStyle.identityBox}>
         <View style={homeStyle.identityRowView}>
           <Avatar ml="3" style={homeStyle.identityAvatar} source={require('../../../assets/avatar.png')} />
@@ -21,11 +21,11 @@ function HomeScreen({ user }) {
           </View>
         </View>
       </Box>
-    </Center>
+    </View>
   );
 }
 
-HomeScreen.prototype = {
+HomeScreen.propTypes = {
   user: PropTypes.object.isRequired,
 };
 

@@ -1,9 +1,12 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/Home/HomeScreen';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Colors } from "../styles/CommonStyle";
-import ProfileScreen from "../screens/Profile/ProfileScreen";
+import { Colors } from '../styles/CommonStyle';
+import ProfileStackNavigator from './ProfileNavigator';
+import Wrapper from '../components/Wrapper/Wrapper';
+import I18n from 'i18n-js';
+import EmailConfirmationScreen from '../screens/EmailConfirmation/EmailConfirmationScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,43 +16,101 @@ function isTabActive(isFocused) {
 
 export default function BottomTabNavigator() {
   return (
-    <Tab.Navigator
+    <Wrapper>
+      <Tab.Navigator
         initialRouteName="Home"
         screenOptions={{
           tabBarShowLabel: false,
           tabBarStyle: {
             flex: 0.08,
-            backgroundColor: Colors.NavBG
+            backgroundColor: Colors.NavBG,
           },
           headerStyle: {
-            backgroundColor: 'transparent',
+            borderBottomWidth: 0,
+            backgroundColor: Colors.BG,
+            shadowOpacity: 0,
+            elevation: 0,
           },
           headerTitleStyle: {
             fontFamily: 'Inter-Light',
-            fontSize: 20,
-          }
-        }}
-      >
-      <Tab.Screen name="Scan" component={HomeScreen} 
-        options={{
-          tabBarIcon: ({ focused }) => <MaterialCommunityIcons name="barcode-scan" size={30} color={isTabActive(focused)} />
-          }}/>
-      <Tab.Screen name="Chat" component={HomeScreen} 
-        options={{
-          tabBarIcon: ({ focused }) => <MaterialCommunityIcons name="chat-outline" size={30} color={isTabActive(focused)} />
-          }}/>
-      <Tab.Screen name="Home" component={HomeScreen} 
-        options={{
-          tabBarIcon: ({ focused }) => <AntDesign name="home" size={30} color={isTabActive(focused)} />, headerShown: false,
-          }}/>
-      <Tab.Screen name="Fridge" component={HomeScreen} 
-        options={{
-          tabBarIcon: ({ focused }) => <MaterialCommunityIcons name="fridge-variant-outline" size={30} color={isTabActive(focused)} />
-          }}/>
-      <Tab.Screen name="Profile" component={ProfileScreen} 
-        options={{
-          tabBarIcon: ({ focused }) => <MaterialCommunityIcons name="account-circle-outline" size={30} color={isTabActive(focused)} />
-          }}/>
-    </Tab.Navigator>
-  )
+            fontSize: 24,
+          },
+        }}>
+        <Tab.Screen
+          name="Scan"
+          component={HomeScreen}
+          options={{
+            title: I18n.t('Aled::Menu:Scan'),
+            tabBarIcon: ({ focused }) => (
+              <MaterialCommunityIcons
+                name="barcode-scan"
+                size={30}
+                color={isTabActive(focused)}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Chat"
+          component={HomeScreen}
+          options={{
+            title: I18n.t('Aled::Menu:Chat'),
+            tabBarIcon: ({ focused }) => (
+              <MaterialCommunityIcons
+                name="chat-outline"
+                size={30}
+                color={isTabActive(focused)}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <AntDesign name="home" size={30} color={isTabActive(focused)} />
+            ),
+            title: '',
+          }}
+        />
+        <Tab.Screen
+          name="Fridge"
+          component={HomeScreen}
+          options={{
+            title: I18n.t('Aled::Menu:Fridge'),
+            tabBarIcon: ({ focused }) => (
+              <MaterialCommunityIcons
+                name="fridge-variant-outline"
+                size={30}
+                color={isTabActive(focused)}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="ProfileNav"
+          component={ProfileStackNavigator}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <MaterialCommunityIcons
+                name="account-circle-outline"
+                size={30}
+                color={isTabActive(focused)}
+              />
+            ),
+            headerShown: false,
+          }}
+        />
+        <Tab.Screen
+          name="EmailConfirmation"
+          component={EmailConfirmationScreen}
+          options={{
+            headerShown: false,
+            tabBarButton: () => null,
+            tabBarStyle: {display: 'none'}
+          }}></Tab.Screen>
+      </Tab.Navigator>
+    </Wrapper>
+  );
 }

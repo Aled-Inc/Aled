@@ -14,11 +14,14 @@ const setAppConfig = createAction('app/setAppConfig');
 
 const setLanguageAsync = createAction('app/setLanguageAsync');
 
-const logoutAsync = createAction(
-    'app/logoutAsync',
-    ({client_id = '', token = '', refresh_token = ''} = {}) => ({
-        payload: {client_id, token, refresh_token},
-    }),
+const logoutAsync = createAction('app/logoutAsync', ({ showLoading = false } = {}) => ({
+    payload: { showLoading }
+  }),
+);
+
+const requestConfirmationModal = createAction('app/request-confirmation-modal', ({ modalType = null } = {}) => ({
+    payload: { modalType }
+  }),
 );
 
 export default {
@@ -26,4 +29,5 @@ export default {
     setAppConfig,
     setLanguageAsync,
     logoutAsync,
+    requestConfirmationModal,
 };

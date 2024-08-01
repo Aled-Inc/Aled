@@ -11,7 +11,6 @@ import Loading from './src/components/Loading/Loading';
 import { LocalizationContext } from './src/contexts/LocalizationContext';
 import { initAPIInterceptor } from './src/interceptors/APIInterceptor';
 import AuthNavigator from './src/navigators/AuthNavigator';
-import DrawerNavigator from './src/navigators/DrawerNavigator';
 import { persistor, store } from './src/store';
 import AppActions from './src/store/actions/AppActions';
 import PersistentStorageActions from './src/store/actions/PersistentStorageActions';
@@ -22,12 +21,16 @@ import { isTokenValid } from './src/utils/TokenUtils';
 import { createUserSelector } from './src/store/selectors/AuthSelector';
 import AuthActions from './src/store/actions/AuthActions';
 import { isUserValid } from './src/utils/UserUtils';
-import HomeStackNavigator from './src/navigators/HomeNavigator';
 import BottomTabNavigator from './src/navigators/BottomTabNavigator';
+import ActionStatusModal from './src/components/Modals/ActionStatusModal';
+import * as Linking from 'expo-linking';
+import BaseModal from './src/components/Modals/BaseModal';
 
 const Stack = createNativeStackNavigator();
 
 const { localization } = getEnvVars();
+
+const prefix = Linking.createURL('/');
 
 i18n.defaultSeparator = '::';
 
@@ -45,6 +48,16 @@ initAPIInterceptor(store);
 export default function App() {
   const language = createLanguageSelector()(store.getState());
   const [isReady, setIsReady] = useState(false);
+  const linking = {
+    prefixes: [prefix],
+    config: {
+      screens: {
+        EmailConfirmation: {
+          path: 'email-confirmation/:state',
+        }
+      },
+    },
+  };
 
   const localizationContextValue = useMemo(
     () => ({
@@ -64,7 +77,7 @@ export default function App() {
   }, []);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <NativeBaseProvider>
@@ -74,6 +87,8 @@ export default function App() {
               </LocalizationContext.Provider>
             ) : null}
             <Loading />
+            <BaseModal />
+            <ActionStatusModal />
           </NativeBaseProvider>
         </PersistGate>
       </Provider>

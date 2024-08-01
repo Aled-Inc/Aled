@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -45,6 +46,11 @@ namespace Aled;
 )]
 public class AledHttpApiHostModule : AbpModule
 {
+    public override void PreConfigureServices(ServiceConfigurationContext context)
+    {
+        PreConfigure<IdentityBuilder>(builder => { builder.AddDefaultTokenProviders(); });
+    }
+
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         var configuration = context.Services.GetConfiguration();
@@ -133,11 +139,11 @@ public class AledHttpApiHostModule : AbpModule
             configuration["AuthServer:Authority"]!,
             new Dictionary<string, string>
             {
-                { "Aled", "Aled API" }
+                {"Aled", "Aled API"}
             },
             options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Aled API", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo {Title = "Aled API", Version = "v1"});
                 options.DocInclusionPredicate((_, _) => true);
                 options.CustomSchemaIds(type => type.FullName);
             });

@@ -1,6 +1,6 @@
 import {createSelector} from 'reselect';
 
-const getApp = state => state.app;
+export const getApp = state => state.app;
 
 export function createAppConfigSelector() {
     return createSelector([getApp], state => state.appConfig);
@@ -16,4 +16,8 @@ export function createLanguagesSelector() {
 
 export function createGrantedPolicySelector(key) {
     return createSelector([getApp], state => state?.appConfig?.auth?.grantedPolicies[key] ?? false);
+}
+
+export function createRequestedConfirmationModalSelector() {
+  return createSelector([getApp], state => state.modalType);
 }

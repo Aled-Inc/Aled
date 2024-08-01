@@ -4,6 +4,7 @@ import { LocalizationContext } from '../contexts/LocalizationContext';
 import LoginScreen from '../screens/Login/LoginScreen';
 import RegisterScreen from '../screens/Register/RegisterScreen';
 import { Colors } from '../styles/CommonStyle';
+import Wrapper from '../components/Wrapper/Wrapper';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,6 +12,7 @@ export default function AuthNavigator() {
   const { t } = useContext(LocalizationContext);
 
     return (
+      <Wrapper>
         <Stack.Navigator
             screenOptions={{
                 headerShown: false,
@@ -33,5 +35,6 @@ export default function AuthNavigator() {
                 })}
             />
         </Stack.Navigator>
+      </Wrapper>
     );
 }

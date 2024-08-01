@@ -12,11 +12,11 @@ function* login({payload: {username, password, showLoading}}) {
   const data = yield call(AuthService.login, username, password);
 
   yield put(PersistentStorageActions.setToken({ ...data, expire_time: new Date().valueOf() + data.expires_in, scope: "Aled"}));
-  
+
   const user = yield call(AuthService.getCurrentUser);
   yield put(AuthActions.setUser(user));
 
-  yield put(AppActions.fetchAppConfigAsync({ showLoading: false }));
+  yield put(AppActions.fetchAppConfigAsync());
 
   if (showLoading) {
     yield put(LoadingActions.stop({ key: 'login' }));
@@ -29,16 +29,27 @@ function* register({payload: {username, email, password, showLoading}}) {
   }
 
   yield call(AuthService.register, username, email, password);
-  yield put(AuthActions.loginAsync({ username, password, showLoading: true}));
 
   if (showLoading) {
     yield put(LoadingActions.stop({ key: 'register' }));
   }
+
+  yield put(AuthActions.loginAsync({ username, password, showLoading: true}));
+}
+
+function* reloadCurrentUserInfo() {
+  yield put(LoadingActions.start({ key: 'reloadCurrentUserInfo', opacity: 1 }));
+
+  const user = yield call(AuthService.getCurrentUser);
+  yield put(AuthActions.setUser(user));
+
+  yield put(LoadingActions.stop({ key: 'reloadCurrentUserInfo'}));
 }
 
 export default function* () {
   yield all([
     takeLatest(AuthActions.loginAsync.type, login),
     takeLatest(AuthActions.registerAsync.type, register),
+    takeLatest(AuthActions.reloadCurrentUserInfoAsync.type, reloadCurrentUserInfo),
   ]);
 }

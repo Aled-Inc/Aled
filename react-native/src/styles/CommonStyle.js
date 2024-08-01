@@ -4,5 +4,8 @@ export const Colors = {
   Element: '#FFC700',
   BG: '#F1EEF1',
   NavBG: '#FBFBFF',
-  White: '#FFFFFF'
+  White: '#FFFFFF',
+  Red: '#C60000',
+  Green: '#4BD77B',
+  BGDarker: 'rgb(232, 229, 232)',
 }

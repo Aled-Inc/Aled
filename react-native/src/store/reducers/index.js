@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
     loading: LoadingReducer,
     app: AppReducer,
     persistentStorage: PersistentStorageReducer,
-    auth: AuthReducer,
+    auth: AuthReducer
 });
 
 export default rootReducer;
