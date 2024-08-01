@@ -1,9 +1,27 @@
 {
   "culture": "en",
   "texts": {
-    "Menu:Home": "Home",
+    "Aled": "Aled.",
     "Welcome": "Welcome",
-    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io."
+    "Username" : "Username",
+    "Email" : "Email",
+    "Password" : "Password",
+    
+    "Menu:Home": "Home",
+    "Home:Subtitle": "What's in my fridge ?",
+    
+    "Register:Title": "Registration",
+    "Register:Register": "Register",
+    "Register:SubPhrase" : "Register to create your virtual fridge",
+    "Register:AlreadyHaveAccount": "You already have an account ?",
+    "Register:LoginHere" : "Login here !",
+    
+    "Login:Title" : "Connection",
+    "Login:Login" : "Login",
+    "Login:SubPhrase" : "Login to open your fridge",
+    "Login:ForgotMyPassword" : "I forgo my password",
+    "Login:NoAccount" : "You don't have any account ?",
+    "Login:RegisterHere" : "Register here"
   },
   "Aled:00000": "The given barcode is not valid: {0}.",
   "Aled:00001": "The Expiry Date must be in the future."

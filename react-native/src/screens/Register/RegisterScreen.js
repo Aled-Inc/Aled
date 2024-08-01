@@ -5,21 +5,18 @@ import {
   Button,
   Center,
   FormControl,
-  Image,
   Input,
   Stack,
   WarningOutlineIcon,
 } from 'native-base';
 import PropTypes from 'prop-types';
 import React, { useRef } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { object, string } from 'yup';
 import ValidationMessage from '../../components/ValidationMessage/ValidationMessage';
-import AppActions from '../../store/actions/AppActions';
-import LoadingActions from '../../store/actions/LoadingActions';
+import AuthActions from '../../store/actions/AuthActions';
 import { connectToRedux } from '../../utils/ReduxConnect';
-import { login, register } from '../../api/AccountAPI';
-import PersistentStorageActions from '../../store/actions/PersistentStorageActions';
+import { authStyles } from '../../styles/AuthStyle';
 
 const ValidationSchema = object().shape({
   username: string().required('AbpAccount::ThisFieldIsRequired.'),
@@ -27,38 +24,12 @@ const ValidationSchema = object().shape({
   password: string().required('AbpAccount::ThisFieldIsRequired.'),
 });
 
-function RegisterScreen({
-  startLoading,
-  stopLoading,
-  setToken,
-  fetchAppConfig,
-}) {
+function RegisterScreen({ navigation, register }) {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
   const submit = ({ username, email, password }) => {
-    startLoading({ key: 'register' });
-    register({ username, email, password })
-      .then(() =>
-        login({ username, password })
-          .then(data =>
-            setToken({
-              ...data,
-              expire_time: new Date().valueOf() + data.expires_in,
-              scope: undefined,
-            }),
-          )
-          .then(
-            () =>
-              new Promise(resolve =>
-                fetchAppConfig({
-                  showLoading: false,
-                  callback: () => resolve(true),
-                }),
-              ),
-          ),
-      )
-      .finally(() => stopLoading({ key: 'register' }));
+    register({username, email, password});
   };
 
   const formik = useFormik({
@@ -69,23 +40,18 @@ function RegisterScreen({
 
   return (
     <Center flex={0.6} px="3">
-      <Box
-        w={{
-          base: '100%',
-        }}
-        mb="50"
-        alignItems="center">
-        <Image alt="Image" source={require('../../../assets/logo.png')} />
+      <Box style={authStyles.titleBox}>
+        <Text style={authStyles.appTitle}>{i18n.t('Aled::Aled')}</Text>
       </Box>
-      <Box
-        w={{
-          base: '100%',
-        }}>
+      <Box style={authStyles.formBox}>
+        <View style={{ marginBottom: 20, alignItems: 'center' }}>
+          <Text style={authStyles.title}>{i18n.t('Aled::Register:Title')}</Text>
+          <Text style={authStyles.subtitle}>
+          {i18n.t('Aled::Register:SubPhrase')}
+          </Text>
+        </View>
         <FormControl isRequired my="2">
-          <Stack mx="4">
-            <FormControl.Label>
-              {i18n.t('AbpAccount::UserName')}
-            </FormControl.Label>
+          <Stack mx="12">
             <Input
               onChangeText={formik.handleChange('username')}
               onBlur={formik.handleBlur('username')}
@@ -94,16 +60,17 @@ function RegisterScreen({
               autoCapitalize="none"
               onSubmitEditing={() => emailRef?.current?.focus()}
               size="lg"
+              placeholder={i18n.t('Aled::Username').toLowerCase()}
+              style={authStyles.input}
+              variant={'rounded'}
+              borderWidth={'0'}
             />
             <ValidationMessage>{formik.errors.username}</ValidationMessage>
           </Stack>
         </FormControl>
 
         <FormControl isRequired my="2">
-          <Stack mx="4">
-            <FormControl.Label>
-              {i18n.t('AbpAccount::EmailAddress')}
-            </FormControl.Label>
+          <Stack mx="12">
             <Input
               onChangeText={formik.handleChange('email')}
               onBlur={formik.handleBlur('email')}
@@ -113,16 +80,17 @@ function RegisterScreen({
               autoCapitalize="none"
               onSubmitEditing={() => passwordRef?.current?.focus()}
               size="lg"
+              placeholder={i18n.t('Aled::Email').toLowerCase()}
+              style={authStyles.input}
+              variant={'rounded'}
+              borderWidth={'0'}
             />
             <ValidationMessage>{formik.errors.email}</ValidationMessage>
           </Stack>
         </FormControl>
 
         <FormControl isRequired my="2">
-          <Stack mx="4">
-            <FormControl.Label>
-              {i18n.t('AbpAccount::Password')}
-            </FormControl.Label>
+          <Stack mx="12">
             <Input
               type="password"
               onChangeText={formik.handleChange('password')}
@@ -131,6 +99,10 @@ function RegisterScreen({
               ref={passwordRef}
               autoCapitalize="none"
               size="lg"
+              placeholder={i18n.t('Aled::Password').toLowerCase()}
+              style={authStyles.input}
+              variant={'rounded'}
+              borderWidth={'0'}
             />
             <FormControl.ErrorMessage
               leftIcon={<WarningOutlineIcon size="xs" />}>
@@ -139,10 +111,22 @@ function RegisterScreen({
           </Stack>
         </FormControl>
 
-        <View style={{ marginTop: 20, alignItems: 'center' }}>
-          <Button onPress={formik.handleSubmit} width="30%" size="lg">
-            {i18n.t('AbpAccount::Register')}
+        <View style={authStyles.buttonBox}>
+          <Button
+            onPress={formik.handleSubmit}
+            width="40%"
+            size="lg"
+            style={authStyles.button}>
+            <Text style={authStyles.button.text}>{i18n.t('Aled::Register:Register')}</Text>
           </Button>
+          <Text style={authStyles.authPhrase}>
+          {i18n.t('Aled::Register:AlreadyHaveAccount')}
+          </Text>
+          <Text
+            onPress={() => navigation.navigate('Login')}
+            style={authStyles.authLink}>
+            {i18n.t('Aled::Register:LoginHere')}
+          </Text>
         </View>
       </Box>
     </Center>
@@ -150,18 +134,12 @@ function RegisterScreen({
 }
 
 RegisterScreen.propTypes = {
-  startLoading: PropTypes.func.isRequired,
-  stopLoading: PropTypes.func.isRequired,
-  setToken: PropTypes.func.isRequired,
-  fetchAppConfig: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired
 };
 
 export default connectToRedux({
   component: RegisterScreen,
   dispatchProps: {
-    startLoading: LoadingActions.start,
-    stopLoading: LoadingActions.stop,
-    setToken: PersistentStorageActions.setToken,
-    fetchAppConfig: AppActions.fetchAppConfigAsync,
+    register: AuthActions.registerAsync
   },
 });

@@ -1,194 +1,122 @@
-import {useFormik} from 'formik';
+import { useFormik } from 'formik';
 import i18n from 'i18n-js';
-import {Box, Button, Center, FormControl, Input, Stack, WarningOutlineIcon} from 'native-base';
+import {
+  Box,
+  Button,
+  Center,
+  FormControl,
+  Input,
+  Stack,
+  WarningOutlineIcon,
+} from 'native-base';
 import PropTypes from 'prop-types';
-import React, {useRef, useState} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import {object, string} from 'yup';
-import {login} from '../../api/AccountAPI';
+import React, { useRef } from 'react';
+import { Text, View } from 'react-native';
+import { object, string } from 'yup';
 import ValidationMessage from '../../components/ValidationMessage/ValidationMessage';
-import AppActions from '../../store/actions/AppActions';
-import LoadingActions from '../../store/actions/LoadingActions';
-import PersistentStorageActions from '../../store/actions/PersistentStorageActions';
-import {connectToRedux} from '../../utils/ReduxConnect';
+import { connectToRedux } from '../../utils/ReduxConnect';
+import { authStyles } from '../../styles/AuthStyle';
+import AuthActions from '../../store/actions/AuthActions';
 
 const ValidationSchema = object().shape({
-    username: string().required('AbpAccount::ThisFieldIsRequired.'),
-    password: string().required('AbpAccount::ThisFieldIsRequired.'),
+  username: string().required('AbpAccount::ThisFieldIsRequired.'),
+  password: string().required('AbpAccount::ThisFieldIsRequired.'),
 });
 
-function LoginScreen({startLoading, stopLoading, setToken, fetchAppConfig}) {
-    const passwordRef = useRef(null);
+function LoginScreen({ navigation, login }) {
+  const passwordRef = useRef(null);
 
-    const submit = ({username, password}) => {
-        startLoading({key: 'login'});
-        login({username, password})
-            .then((data) =>
-                setToken({
-                    ...data,
-                    expire_time: new Date().valueOf() + data.expires_in,
-                    scope: undefined,
-                })
-            )
-            .then(
-                () =>
-                    new Promise((resolve) =>
-                        fetchAppConfig({
-                            showLoading: false,
-                            callback: () => resolve(true),
-                        })
-                    )
-            )
-            .finally(() => stopLoading({key: 'login'}));
-    };
+  const submit = ({ username, password }) => {
+    login({username, password});
+  };
 
-    const formik = useFormik({
-        validationSchema: ValidationSchema,
-        initialValues: {username: '', password: ''},
-        onSubmit: submit,
-    });
+  const formik = useFormik({
+    validationSchema: ValidationSchema,
+    initialValues: { username: '', password: '' },
+    onSubmit: submit,
+  });
 
-    return (
-        <Center flex={0.6} px="3">
-            <Box style={styles.titleBox}>
-                <Text style={styles.appTitle}>Aled.</Text>
-            </Box>
-            <Box style={styles.formBox}>
-                <View style={{marginBottom: 20, alignItems: 'center'}}>
-                  <Text style={styles.title}>Log In</Text>
-                  <Text style={styles.subtitle}>Login to open your fridge</Text>
-                </View>
-                <FormControl isRequired my="2">
-                    <Stack mx="12">
-                        <Input
-                            onChangeText={formik.handleChange('username')}
-                            onBlur={formik.handleBlur('username')}
-                            value={formik.values.username}
-                            returnKeyType="next"
-                            autoCapitalize="none"
-                            onSubmitEditing={() => passwordRef?.current?.focus()}
-                            size="lg"
-                            placeholder='email'
-                            style={styles.input}
-                            variant={'rounded'}
-                            borderWidth={'0'}
-                        />
-                        <ValidationMessage>{formik.errors.username}</ValidationMessage>
-                    </Stack>
-                </FormControl>
+  return (
+    <Center flex={0.6} px="3">
+      <Box style={authStyles.titleBox}>
+        <Text style={authStyles.appTitle}>{i18n.t('Aled::Aled')}</Text>
+      </Box>
+      <Box style={authStyles.formBox}>
+        <View style={{ marginBottom: 20, alignItems: 'center' }}>
+          <Text style={authStyles.title}>{i18n.t('Aled::Login:Title')}</Text>
+          <Text style={authStyles.subtitle}>{i18n.t('Aled::Login:SubPhrase')}</Text>
+        </View>
+        <FormControl isRequired my="2">
+          <Stack mx="12">
+            <Input
+              onChangeText={formik.handleChange('username')}
+              onBlur={formik.handleBlur('username')}
+              value={formik.values.username}
+              returnKeyType="next"
+              autoCapitalize="none"
+              onSubmitEditing={() => passwordRef?.current?.focus()}
+              size="lg"
+              placeholder={i18n.t('Aled::Email').toLowerCase()}
+              style={authStyles.input}
+              variant={'rounded'}
+              borderWidth={'0'}
+            />
+            <ValidationMessage>{formik.errors.username}</ValidationMessage>
+          </Stack>
+        </FormControl>
 
-                <FormControl isRequired my="2">
-                    <Stack mx="12">
-                        <Input
-                            type="password"
-                            onChangeText={formik.handleChange('password')}
-                            onBlur={formik.handleBlur('password')}
-                            value={formik.values.password}
-                            ref={passwordRef}
-                            autoCapitalize="none"
-                            size="lg"
-                            placeholder='password'
-                            style={styles.input}
-                            variant={'rounded'}
-                            borderWidth={'0'}
-                        />
-                        <Text style={styles.forgotPassword}>I forgot my password</Text>
-                        <FormControl.ErrorMessage
-                            leftIcon={<WarningOutlineIcon size="xs"/>}
-                        >
-                            {formik.errors.password}
-                        </FormControl.ErrorMessage>
-                    </Stack>
-                </FormControl>
+        <FormControl isRequired my="2">
+          <Stack mx="12">
+            <Input
+              type="password"
+              onChangeText={formik.handleChange('password')}
+              onBlur={formik.handleBlur('password')}
+              value={formik.values.password}
+              ref={passwordRef}
+              autoCapitalize="none"
+              size="lg"
+              placeholder={i18n.t('Aled::Password').toLowerCase()}
+              style={authStyles.input}
+              variant={'rounded'}
+              borderWidth={'0'}
+            />
+            <Text style={authStyles.forgotPassword}>{i18n.t('Aled::Login:ForgotMyPassword')}</Text>
+            <FormControl.ErrorMessage
+              leftIcon={<WarningOutlineIcon size="xs" />}>
+              {formik.errors.password}
+            </FormControl.ErrorMessage>
+          </Stack>
+        </FormControl>
 
-                <View style={{marginTop: 20, alignItems: 'center'}}>
-                    <Button onPress={formik.handleSubmit} width="40%" size="lg" style={styles.button}>
-                        {/* {i18n.t('AbpAccount::Login')} */}
-                        <Text style={styles.button.text}>Login</Text>
-                    </Button>
-                    <Text style={styles.dontHaveAccount}>Maybe you don't have any account ?</Text>
-                    <Text style={styles.registerHere}>Register here</Text>
-                </View>
-            </Box>
-        </Center>
-    );
+        <View style={authStyles.buttonBox}>
+          <Button
+            onPress={formik.handleSubmit}
+            width="40%"
+            size="lg"
+            style={authStyles.button}>
+            <Text style={authStyles.button.text}>{i18n.t('Aled::Login:Login')}</Text>
+          </Button>
+          <Text style={authStyles.authPhrase}>
+            {i18n.t('Aled::Login:NoAccount')}
+          </Text>
+          <Text
+            onPress={() => navigation.navigate('Register')}
+            style={authStyles.authLink}>
+            {i18n.t('Aled::Login:RegisterHere')}
+          </Text>
+        </View>
+      </Box>
+    </Center>
+  );
 }
 
 LoginScreen.propTypes = {
-    startLoading: PropTypes.func.isRequired,
-    stopLoading: PropTypes.func.isRequired,
-    setToken: PropTypes.func.isRequired,
-    fetchAppConfig: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired
 };
 
-const styles = StyleSheet.create({
-  titleBox: {
-    width: '100%',
-    marginTop: '55%',
-    alignItems: 'center'
-  },
-  formBox: {
-    width: '100%',
-    marginTop: '35%',
-  },
-  button: {
-    backgroundColor: '#FFC700',
-    borderRadius: 25,
-    height: 45,
-    marginTop: 100,
-    marginBottom: 15,
-    text: {
-      fontFamily: 'Inter-Light',
-      fontSize: 14,
-      color: '#000'
-    }
-  },
-  input: {
-    height: 40,
-    paddingHorizontal: 15,
-    fontSize: 14,
-    backgroundColor: '#ffffff',
-  },
-  title: {
-    fontFamily: 'Inter-Medium',
-    fontSize: 40
-  },
-  subtitle: {
-    fontFamily: 'Inter-Light',
-    fontSize: 15,
-    color: '#808080',
-    marginTop: 5,
-    marginBottom: 20
-  },
-  appTitle: {
-    fontFamily: 'Inter-Light',
-    fontSize: 16,
-    color: '#808080'
-  },
-  forgotPassword: {
-    fontFamily: 'Inter-Light',
-    fontSize: 12,
-    paddingTop: 5,
-    paddingLeft: 10
-  },
-  dontHaveAccount: {
-    fontFamily: 'Inter-Light',
-    fontSize: 14,
-  },
-  registerHere: {
-    fontFamily: 'Inter-Light',
-    fontSize: 14,
-    color: '#808080',
-    textDecorationLine: 'underline'
-  }
-});
-
 export default connectToRedux({
-    component: LoginScreen,
-    dispatchProps: {
-        startLoading: LoadingActions.start,
-        stopLoading: LoadingActions.stop,
-        fetchAppConfig: AppActions.fetchAppConfigAsync,
-        setToken: PersistentStorageActions.setToken,
-    },
+  component: LoginScreen,
+  dispatchProps: {
+    login: AuthActions.loginAsync
+  },
 });

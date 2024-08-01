@@ -41,6 +41,7 @@ public static class Program
                 {
                     {"App:SelfUrl", "AUTH_SERVER_URL"},
                     {"App:CorsOrigins", "AUTH_SERVER_CORS_ORIGIN"},
+                    {"JwtSettings:ValidIssuer", "NGROK_AUTH_SERVER_URL"},
                     {"Kestrel:Endpoints:Https:Url", "AUTH_SERVER_URL"},
                     {"Kestrel:Endpoints:Https:Certificate:Path", "PFX_PATH"},
                     {"Kestrel:Endpoints:Https:Certificate:Password", "PFX_PASS"}

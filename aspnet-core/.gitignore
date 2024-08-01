@@ -273,3 +273,6 @@ ssl/
 #env
 .env
 ngrok.yml
+
+# JWK file
+*.jwk

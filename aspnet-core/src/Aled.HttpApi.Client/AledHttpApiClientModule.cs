@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
-using Volo.Abp.Http.Client;
-using Volo.Abp.Http.Client.IdentityModel;
+using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
@@ -13,14 +11,13 @@ using Volo.Abp.VirtualFileSystem;
 namespace Aled;
 
 [DependsOn(
-    typeof(AbpHttpClientModule),
     typeof(AledApplicationContractsModule),
     typeof(AbpAccountHttpApiClientModule),
+    typeof(AbpIdentityHttpApiClientModule),
     typeof(AbpPermissionManagementHttpApiClientModule),
     typeof(AbpTenantManagementHttpApiClientModule),
     typeof(AbpFeatureManagementHttpApiClientModule),
-    typeof(AbpSettingManagementHttpApiClientModule),
-    typeof(AbpHttpClientIdentityModelModule)
+    typeof(AbpSettingManagementHttpApiClientModule)
 )]
 public class AledHttpApiClientModule : AbpModule
 {

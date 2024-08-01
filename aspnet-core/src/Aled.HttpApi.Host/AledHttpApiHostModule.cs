@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
 using Volo.Abp;
@@ -40,8 +41,7 @@ namespace Aled;
     typeof(AledApplicationModule),
     typeof(AledEntityFrameworkCoreModule),
     typeof(AbpAspNetCoreSerilogModule),
-    typeof(AbpSwashbuckleModule),
-    typeof(AledHttpApiClientModule)
+    typeof(AbpSwashbuckleModule)
 )]
 public class AledHttpApiHostModule : AbpModule
 {
@@ -104,7 +104,21 @@ public class AledHttpApiHostModule : AbpModule
             {
                 options.Authority = configuration["AuthServer:Authority"];
                 options.RequireHttpsMetadata = configuration.GetValue<bool>("AuthServer:RequireHttpsMetadata");
-                options.Audience = "Aled";
+                options.Audience = configuration["JwtSettings:ValidAudience"];
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuers = new List<string>
+                    {
+                        configuration["AuthServer:Authority"]!.EnsureEndsWith('/'),
+                        configuration["JwtSettings:ValidIssuer"]!.EnsureEndsWith('/')
+                    },
+                    ValidateAudience = true,
+                    ValidAudience = configuration["JwtSettings:ValidAudience"],
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true
+                };
             });
 
         context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>

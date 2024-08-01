@@ -40,8 +40,8 @@ public class Program
                 var envKeys = new Dictionary<string, string>
                 {
                     {"AuthServer:Authority", "AUTH_SERVER_URL"},
-                    {"RemoteServices:Default:BaseUrl", "REMOTE_SERVICE_URL"},
-                    {"IdentityClients:Default:Authority", "AUTH_SERVER_URL"},
+                    {"RemoteServices:Default:BaseUrl", "AUTH_SERVER_URL"},
+                    {"JwtSettings:ValidIssuer", "NGROK_AUTH_SERVER_URL"},
                     {"Kestrel:Endpoints:Https:Url", "API_HOST_URL"},
                     {"Kestrel:Endpoints:Https:Certificate:Path", "PFX_PATH"},
                     {"Kestrel:Endpoints:Https:Certificate:Password", "PFX_PASS"}

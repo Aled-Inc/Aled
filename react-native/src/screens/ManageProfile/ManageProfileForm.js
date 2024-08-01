@@ -6,6 +6,7 @@ import React, {useRef} from 'react';
 import * as Yup from 'yup';
 import FormButtons from '../../components/FormButtons/FormButtons';
 import ValidationMessage from '../../components/ValidationMessage/ValidationMessage';
+import {Platform} from 'react-native';
 
 const ValidationSchema = Yup.object().shape({
     userName: Yup.string().required('AbpAccount::ThisFieldIsRequired.'),

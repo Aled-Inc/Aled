@@ -1,8 +1,26 @@
 {
   "culture": "fr",
   "texts": {
-    "Menu:Home": "Accueil",
+    "Aled": "Aled.",
     "Welcome": "Bienvenue",
-    "LongWelcomeMessage": "Bienvenue dans l'application. Il s'agit d'un projet de démarrage basé sur le framework ABP. Pour plus d'informations, visitez abp.io."
+    "Username" : "Nom d'utilisateur",
+    "Email" : "Adresse mail",
+    "Password" : "Mot de passe",
+
+    "Menu:Home": "Accueil",
+    "Home:Subtitle": "Y'a quoi dans mon frigo ?",
+
+    "Register:Title": "Inscription",
+    "Register:Register": "S'inscrire",
+    "Register:SubPhrase" : "Inscivez-vous pour créer votre frigo virtuel",
+    "Register:AlreadyHaveAccount": "Vous avez déjà un compte ?",
+    "Register:LoginHere" : "Connectez-vous ici",
+    
+    "Login:Title" : "Connexion",
+    "Login:Login" : "Se connecter",
+    "Login:SubPhrase" : "Connectez-vous pour accéder à votre frigo virtuel",
+    "Login:ForgotMyPassword" : "J'ai oublié mon mot de passe",
+    "Login:NoAccount" : "Vous n'avez pas de compte ?",
+    "Login:RegisterHere" : "Inscrivez-vous ici"
   }
 }

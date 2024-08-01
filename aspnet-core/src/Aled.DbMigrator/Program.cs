@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using DotNetEnv;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,12 +42,14 @@ internal class Program
             {
                 if (hostContext.HostingEnvironment.IsDevelopment())
                 {
-                    Env.Load();
+                    var srcFolderPath = Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent!.Parent!.FullName;
+                    
+                    Env.Load($"{srcFolderPath}/.env");
                     
                     var envKeys = new Dictionary<string, string>
                     {
-                        {"OpenIddict:Applications:Aled_BlazorServerTiered", "BLAZOR_URL"},
-                        {"OpenIddict:Applications:Aled_Swagger", "API_HOST_URL"},
+                        {"OpenIddict:Applications:Aled_BlazorServerTiered:RootUrl", "BLAZOR_URL"},
+                        {"OpenIddict:Applications:Aled_Swagger:RootUrl", "API_HOST_URL"},
                     };
                     
                     envKeys.ForEach(pair =>
