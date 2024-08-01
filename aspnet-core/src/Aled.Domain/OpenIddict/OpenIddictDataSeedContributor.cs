@@ -306,36 +306,29 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
             }
         }
 
-        if (redirectUri != null)
+        if (redirectUri != null && !redirectUri.IsNullOrEmpty())
         {
-            if (!redirectUri.IsNullOrEmpty())
+            if (!Uri.TryCreate(redirectUri, UriKind.Absolute, out var uri) || !uri.IsWellFormedOriginalString())
             {
-                if (!Uri.TryCreate(redirectUri, UriKind.Absolute, out var uri) || !uri.IsWellFormedOriginalString())
-                {
-                    throw new BusinessException(L["InvalidRedirectUri", redirectUri]);
-                }
+                throw new BusinessException(L["InvalidRedirectUri", redirectUri]);
+            }
 
-                if (application.RedirectUris.All(x => x != uri))
-                {
-                    application.RedirectUris.Add(uri);
-                }
+            if (application.RedirectUris.All(x => x != uri))
+            {
+                application.RedirectUris.Add(uri);
             }
         }
 
-        if (postLogoutRedirectUri != null)
+        if (postLogoutRedirectUri != null && !postLogoutRedirectUri.IsNullOrEmpty())
         {
-            if (!postLogoutRedirectUri.IsNullOrEmpty())
+            if (!Uri.TryCreate(postLogoutRedirectUri, UriKind.Absolute, out var uri) || !uri.IsWellFormedOriginalString())
             {
-                if (!Uri.TryCreate(postLogoutRedirectUri, UriKind.Absolute, out var uri) ||
-                    !uri.IsWellFormedOriginalString())
-                {
-                    throw new BusinessException(L["InvalidPostLogoutRedirectUri", postLogoutRedirectUri]);
-                }
+                throw new BusinessException(L["InvalidPostLogoutRedirectUri", postLogoutRedirectUri]);
+            }
 
-                if (application.PostLogoutRedirectUris.All(x => x != uri))
-                {
-                    application.PostLogoutRedirectUris.Add(uri);
-                }
+            if (application.PostLogoutRedirectUris.All(x => x != uri))
+            {
+                application.PostLogoutRedirectUris.Add(uri);
             }
         }
 

@@ -376,6 +376,7 @@ namespace Aled.Migrations
                     ShouldChangePasswordOnNextLogin = table.Column<bool>(type: "bit", nullable: false),
                     EntityVersion = table.Column<int>(type: "int", nullable: false),
                     LastPasswordChangeTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    InventoryId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 128, nullable: false),
                     ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -389,30 +390,6 @@ namespace Aled.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AbpUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AppInventories",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppInventories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AppProducts",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppProducts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -711,25 +688,22 @@ namespace Aled.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InventoryProduct",
+                name: "AppInventories",
                 columns: table => new
                 {
-                    InventoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InventoryProduct", x => new { x.InventoryId, x.ProductsId });
+                    table.PrimaryKey("PK_AppInventories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InventoryProduct_AppInventories_InventoryId",
-                        column: x => x.InventoryId,
-                        principalTable: "AppInventories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_InventoryProduct_AppProducts_ProductsId",
-                        column: x => x.ProductsId,
-                        principalTable: "AppProducts",
+                        name: "FK_AppInventories_AbpUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AbpUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -785,6 +759,27 @@ namespace Aled.Migrations
                         name: "FK_AbpEntityPropertyChanges_AbpEntityChanges_EntityChangeId",
                         column: x => x.EntityChangeId,
                         principalTable: "AbpEntityChanges",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppProducts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    InventoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppProducts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppProducts_AppInventories_InventoryId",
+                        column: x => x.InventoryId,
+                        principalTable: "AppInventories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1034,9 +1029,14 @@ namespace Aled.Migrations
                 column: "UserName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InventoryProduct_ProductsId",
-                table: "InventoryProduct",
-                column: "ProductsId");
+                name: "IX_AppInventories_UserId",
+                table: "AppInventories",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppProducts_InventoryId",
+                table: "AppProducts",
+                column: "InventoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
@@ -1142,7 +1142,7 @@ namespace Aled.Migrations
                 name: "AbpUserTokens");
 
             migrationBuilder.DropTable(
-                name: "InventoryProduct");
+                name: "AppProducts");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
@@ -1163,19 +1163,16 @@ namespace Aled.Migrations
                 name: "AbpRoles");
 
             migrationBuilder.DropTable(
-                name: "AbpUsers");
-
-            migrationBuilder.DropTable(
                 name: "AppInventories");
-
-            migrationBuilder.DropTable(
-                name: "AppProducts");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictAuthorizations");
 
             migrationBuilder.DropTable(
                 name: "AbpAuditLogs");
+
+            migrationBuilder.DropTable(
+                name: "AbpUsers");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictApplications");
