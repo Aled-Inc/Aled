@@ -26,4 +26,12 @@
         <PackageReference Include="Volo.Abp.PermissionManagement.Domain.OpenIddict" Version="8.1.0-rc.3"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Entities\Scores\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Entities\Scores\Score.cs" />
+    </ItemGroup>
+
 </Project>
