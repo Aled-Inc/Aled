@@ -22,7 +22,7 @@ public class InventoryDataSeedContributor : IDataSeedContributor, ITransientDepe
 
     public async Task SeedAsync(DataSeedContext context)
     {
-        var user = await _identityUserRepository.InsertAsync(
+        /*var user = await _identityUserRepository.InsertAsync(
             new IdentityUser(
                 Guid.Parse("2e701e62-0953-4dd3-910b-dc6cc93ccb0d"),
                 "admin",
@@ -30,6 +30,6 @@ public class InventoryDataSeedContributor : IDataSeedContributor, ITransientDepe
 
         var inventory = new Inventory(user);
 
-        await _inventoryRepository.InsertAsync(inventory, true);
+        await _inventoryRepository.InsertAsync(inventory, true);*/
     }
 }

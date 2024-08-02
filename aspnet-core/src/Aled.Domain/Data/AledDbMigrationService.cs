@@ -37,7 +37,7 @@ public class AledDbMigrationService : ITransientDependency
         Logger = NullLogger<AledDbMigrationService>.Instance;
     }
 
-    private ILogger<AledDbMigrationService> Logger { get; set; }
+    private ILogger<AledDbMigrationService> Logger { get; }
 
     public async Task MigrateAsync()
     {

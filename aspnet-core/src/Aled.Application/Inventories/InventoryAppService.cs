@@ -1,11 +1,12 @@
 using System.Threading.Tasks;
 using Aled.AggregateRoots.Inventories;
-using Aled.Entities.Products;
 using Aled.Inventories.Dtos;
+using Aled.Managers.Inventories;
+using Aled.OpenFoodFactService.Products.Dtos;
 using Aled.Products.Dtos;
-using Aled.Services.Inventories;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Users;
 
 namespace Aled.Inventories;
 
@@ -22,7 +23,7 @@ public class InventoryAppService : ApplicationService, IInventoryAppService
     public async Task<InventoryDto> GetAsync()
     {
         var inventory = await _inventoryManager.GetAsync();
-        
+
         return ObjectMapper.Map<Inventory, InventoryDto>(inventory);
     }
 
@@ -33,11 +34,14 @@ public class InventoryAppService : ApplicationService, IInventoryAppService
         return ObjectMapper.Map<Inventory, InventoryDto>(inventory);
     }
 
-    public async Task<InventoryDto> AddProductAsync(AddProductDto addProductDto)
+    public async Task<InventoryDto> AddProductAsync(ProductScannedDto productScannedDto)
     {
-        var product = ObjectMapper.Map<AddProductDto, Product>(addProductDto);
+        var product = new GetProductDto
+        {
+            Code = productScannedDto.Code
+        };
 
-        var inventory = await _inventoryManager.AddProductAsync(product);
+        var inventory = await _inventoryManager.AddProductAsync(product, productScannedDto.ExpirationDate);
 
         return ObjectMapper.Map<Inventory, InventoryDto>(inventory);
     }

@@ -1,7 +1,6 @@
 ﻿using Aled.MultiTenancy;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Volo.Abp.AuditLogging;
+using Volo.Abp.AutoMapper;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Emailing;
 using Volo.Abp.FeatureManagement;
@@ -29,7 +28,8 @@ namespace Aled;
     typeof(AbpPermissionManagementDomainIdentityModule),
     typeof(AbpSettingManagementDomainModule),
     typeof(AbpTenantManagementDomainModule),
-    typeof(AbpEmailingModule)
+    typeof(AbpEmailingModule),
+    typeof(AledHttpApiClientModule)
 )]
 public class AledDomainModule : AbpModule
 {
@@ -58,10 +58,8 @@ public class AledDomainModule : AbpModule
         });
 
         Configure<AbpMultiTenancyOptions>(options => { options.IsEnabled = MultiTenancyConsts.IsEnabled; });
-        
-        Configure<AbpVirtualFileSystemOptions>(options =>
-        {
-            options.FileSets.AddEmbedded<AledDomainModule>();
-        });
+        Configure<AbpAutoMapperOptions>(options => { options.AddMaps<AledDomainModule>(); });
+
+        Configure<AbpVirtualFileSystemOptions>(options => { options.FileSets.AddEmbedded<AledDomainModule>(); });
     }
 }

@@ -9,6 +9,6 @@ public interface IInventoryAppService : IApplicationService
 {
     Task<InventoryDto> GetAsync();
     Task<InventoryDto> ClearAsync();
-    Task<InventoryDto> AddProductAsync(AddProductDto addProductDto);
+    Task<InventoryDto> AddProductAsync(ProductScannedDto addProductDto);
     Task<InventoryDto> RemoveProductAsync(RemoveProductDto removeProductDto);
 }

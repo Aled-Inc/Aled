@@ -24,26 +24,27 @@ public static class Program
                 if (hostContext.HostingEnvironment.IsDevelopment())
                 {
                     Env.Load();
-                    
+
                     var envKeys = new Dictionary<string, string>
                     {
-                        {"RemoteServices:Default:BaseUrl", "REMOTE_SERVICE_URL"},
-                        {"IdentityClients:Default:Authority", "AUTH_SERVER_URL"},
+                        { "RemoteServices:AledOpenFoodFactService:BaseUrl", "REMOTE_SERVICE_URL" },
+                        { "IdentityClients:AledOpenFoodFactService:Authority", "AUTH_SERVER_URL" }
                     };
-                    
+
                     envKeys.ForEach(pair =>
                     {
-                        var value =  Env.GetString(pair.Value);
-                        
+                        var value = Env.GetString(pair.Value);
+
                         if (string.IsNullOrEmpty(value))
                         {
-                            throw new Exception($"ConfigurationError: an error occured on {pair.Value} env key. Ensure the .env file is correctly configured and placed in the root directory.");
+                            throw new Exception(
+                                $"ConfigurationError: an error occured on {pair.Value} env key. Ensure the .env file is correctly configured and placed in the root directory.");
                         }
-                        
+
                         hostContext.Configuration[pair.Key] = value;
                     });
                 }
-                
+
                 services.AddHostedService<ConsoleTestAppHostedService>();
             });
     }
