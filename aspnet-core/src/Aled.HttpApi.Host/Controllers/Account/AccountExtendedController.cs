@@ -4,6 +4,7 @@ using Aled.IdentityUsers.Dtos;
 using Aled.Services.Account;
 using Aled.Services.Email;
 using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Volo.Abp;
@@ -55,6 +56,7 @@ public class AccountExtendedController(
         return Redirect($"{configuration.GetSection("App:ClientUrl").Value!}/--/email-confirmation/{state}");
     }
 
+    [Authorize]
     [HttpPost]
     [Route("send-email-verification-code")]
     public async Task SendEmailConfirmationCode()

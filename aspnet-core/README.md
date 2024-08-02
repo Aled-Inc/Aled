@@ -43,7 +43,8 @@ For more information, please refer
 to: https://documentation.openiddict.com/configuration/encryption-and-signing-credentials.html#registering-a-certificate-recommended-for-production-ready-scenarios
 
 > Also, see
-> the [Configuring OpenIddict](https://docs.abp.io/en/abp/latest/Deployment/Configuring-OpenIddict#production-environment)
+>
+the [Configuring OpenIddict](https://docs.abp.io/en/abp/latest/Deployment/Configuring-OpenIddict#production-environment)
 > documentation for more information.
 
 #### Install Client-Side Libraries

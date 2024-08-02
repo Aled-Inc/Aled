@@ -37,4 +37,12 @@
       </EmbeddedResource>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Entities\Scores\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Entities\Scores\Score.cs" />
+    </ItemGroup>
+
 </Project>
