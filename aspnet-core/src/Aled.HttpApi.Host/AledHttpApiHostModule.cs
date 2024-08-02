@@ -26,6 +26,7 @@ using Volo.Abp.Autofac;
 using Volo.Abp.Caching;
 using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.DistributedLocking;
+using Volo.Abp.Http.Client.IdentityModel;
 using Volo.Abp.Modularity;
 using Volo.Abp.Security.Claims;
 using Volo.Abp.Swashbuckle;
@@ -42,7 +43,9 @@ namespace Aled;
     typeof(AledApplicationModule),
     typeof(AledEntityFrameworkCoreModule),
     typeof(AbpAspNetCoreSerilogModule),
-    typeof(AbpSwashbuckleModule)
+    typeof(AbpSwashbuckleModule),
+    typeof(AledHttpApiClientModule),
+    typeof(AbpHttpClientIdentityModelModule)
 )]
 public class AledHttpApiHostModule : AbpModule
 {
@@ -111,7 +114,6 @@ public class AledHttpApiHostModule : AbpModule
                 options.Authority = configuration["AuthServer:Authority"];
                 options.RequireHttpsMetadata = configuration.GetValue<bool>("AuthServer:RequireHttpsMetadata");
                 options.Audience = configuration["JwtSettings:ValidAudience"];
-                ;
 
                 options.TokenValidationParameters = new TokenValidationParameters
                 {

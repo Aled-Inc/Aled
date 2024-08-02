@@ -13,7 +13,7 @@ public class OpenFoodFactServiceProductAppService : ITransientDependency
     {
         _productAppService = productAppService;
     }
-    
+
     public async Task<ProductDto> RunAsync(GetProductDto product)
     {
         return await _productAppService.GetAsync(product);

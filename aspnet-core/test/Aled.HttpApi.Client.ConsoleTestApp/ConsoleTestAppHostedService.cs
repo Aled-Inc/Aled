@@ -32,16 +32,16 @@ public class ConsoleTestAppHostedService : IHostedService
         await application.InitializeAsync();
 
         var productAppService = application.ServiceProvider.GetRequiredService<OpenFoodFactServiceProductAppService>();
-        var product = await productAppService.RunAsync(new GetProductDto()
+        var product = await productAppService.RunAsync(new GetProductDto
         {
             Code = "5449000000439"
         });
 
         _logger.LogInformation("Product: {Product}, Name: {Name}, Code: {Code}, ExpirationDate: {ExpirationDate}",
             product,
-            product.ProductDetails.ProductName, 
+            product.ProductDetails.ProductName,
             product.Code);
-        
+
         await application.ShutdownAsync();
     }
 

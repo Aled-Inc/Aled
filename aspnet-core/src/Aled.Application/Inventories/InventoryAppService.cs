@@ -6,6 +6,7 @@ using Aled.OpenFoodFactService.Products.Dtos;
 using Aled.Products.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Users;
 
 namespace Aled.Inventories;
 

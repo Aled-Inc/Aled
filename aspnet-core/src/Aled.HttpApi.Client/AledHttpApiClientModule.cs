@@ -3,7 +3,6 @@ using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Http.Client;
 using Volo.Abp.Http.Client.IdentityModel;
-using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
@@ -16,7 +15,6 @@ namespace Aled;
     typeof(AbpHttpClientModule),
     typeof(AledApplicationContractsModule),
     typeof(AbpAccountHttpApiClientModule),
-    typeof(AbpIdentityHttpApiClientModule),
     typeof(AbpPermissionManagementHttpApiClientModule),
     typeof(AbpTenantManagementHttpApiClientModule),
     typeof(AbpFeatureManagementHttpApiClientModule),
