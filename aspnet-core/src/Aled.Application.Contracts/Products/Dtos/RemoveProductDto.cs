@@ -7,13 +7,13 @@ namespace Aled.Products.Dtos;
 
 public class RemoveProductDto : EntityDto, IValidatableObject
 {
-    public Guid Id { get; set; }
+    [Required] public string ProductId { get; set; } = string.Empty;
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        if (Id == Guid.Empty)
+        if (Guid.TryParse(ProductId, out _) is false)
         {
-            yield return new ValidationResult("The product ID must be valid", [nameof(Id)]);
+            yield return new ValidationResult("The product ID must be valid", [nameof(ProductId)]);
         }
     }
 }

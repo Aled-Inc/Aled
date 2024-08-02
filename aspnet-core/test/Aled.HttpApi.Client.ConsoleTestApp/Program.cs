@@ -27,8 +27,8 @@ public static class Program
                     
                     var envKeys = new Dictionary<string, string>
                     {
-                        {"RemoteServices:Default:BaseUrl", "REMOTE_SERVICE_URL"},
-                        {"IdentityClients:Default:Authority", "AUTH_SERVER_URL"},
+                        {"RemoteServices:AledOpenFoodFactService:BaseUrl", "REMOTE_SERVICE_URL"},
+                        {"IdentityClients:AledOpenFoodFactService:Authority", "AUTH_SERVER_URL"},
                     };
                     
                     envKeys.ForEach(pair =>

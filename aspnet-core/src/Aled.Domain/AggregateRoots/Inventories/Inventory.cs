@@ -48,7 +48,7 @@ public sealed class Inventory : AggregateRoot<Guid>, IHasCreationTime
     public void RemoveProduct(Guid productId)
     {
         Check.NotNull(productId, nameof(productId));
- 
+
         var product = Products.FirstOrDefault(p => p.Id == productId);
 
         if (product is not null)

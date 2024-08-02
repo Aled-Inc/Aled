@@ -10,15 +10,15 @@ public class EmailTemplateDefinitionProvider : TemplateDefinitionProvider
     {
         context.Add(
             new TemplateDefinition(
-                name: AledEmailTemplates.EmailLayout,
+                AledEmailTemplates.EmailLayout,
                 displayName: LocalizableString.Create<AledResource>(
                     "TextTemplate:AledEmailTemplates.EmailLayout"),
                 isLayout: true
             ).WithVirtualFilePath("/Emailing/Templates/EmailLayout.tpl", true));
-        
+
         context.Add(
             new TemplateDefinition(
-                name: AledEmailTemplates.EmailConfirmationTemplate,
+                AledEmailTemplates.EmailConfirmationTemplate,
                 displayName: LocalizableString.Create<AledResource>(
                     "TextTemplate:AledEmailTemplates.EmailConfirmationTemplate"),
                 layout: AledEmailTemplates.EmailLayout

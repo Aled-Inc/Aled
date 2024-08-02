@@ -111,6 +111,7 @@ public class AledHttpApiHostModule : AbpModule
                 options.Authority = configuration["AuthServer:Authority"];
                 options.RequireHttpsMetadata = configuration.GetValue<bool>("AuthServer:RequireHttpsMetadata");
                 options.Audience = configuration["JwtSettings:ValidAudience"];
+                ;
 
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -139,11 +140,11 @@ public class AledHttpApiHostModule : AbpModule
             configuration["AuthServer:Authority"]!,
             new Dictionary<string, string>
             {
-                {"Aled", "Aled API"}
+                { "Aled", "Aled API" }
             },
             options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo {Title = "Aled API", Version = "v1"});
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Aled API", Version = "v1" });
                 options.DocInclusionPredicate((_, _) => true);
                 options.CustomSchemaIds(type => type.FullName);
             });

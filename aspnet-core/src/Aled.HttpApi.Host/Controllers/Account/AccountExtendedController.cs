@@ -47,12 +47,12 @@ public class AccountExtendedController(
 
         var result = await accountExtendedAppService.ConfirmEmailAsync(userId, token);
         var state = "failed";
-        
+
         if (result.Succeeded)
         {
             state = "succeeded";
         }
-        
+
         return Redirect($"{configuration.GetSection("App:ClientUrl").Value!}/--/email-confirmation/{state}");
     }
 
@@ -62,7 +62,7 @@ public class AccountExtendedController(
     public async Task SendEmailConfirmationCode()
     {
         var code = await accountExtendedAppService.GenerateEmailConfirmationToken(CurrentUser.GetId());
-        
+
         await emailService.SendEmailConfirmationEmailAsync(CurrentUser, code);
     }
 
@@ -70,7 +70,7 @@ public class AccountExtendedController(
     {
         var user = await base.RegisterAsync(input);
         var code = await accountExtendedAppService.GenerateEmailConfirmationToken(user.Id);
-        
+
         await emailService.SendEmailConfirmationEmailAsync(user, code);
 
         return user;

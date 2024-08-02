@@ -12,14 +12,15 @@ using Volo.Abp.Identity;
 namespace Aled.Events.Identity;
 
 public class LocalIdentityUserChangeEventHandler : ILocalEventHandler<EntityCreatedEventData<IdentityUser>>,
-        ILocalEventHandler<EntityDeletedEventData<IdentityUser>>,
-        ITransientDependency
+    ILocalEventHandler<EntityDeletedEventData<IdentityUser>>,
+    ITransientDependency
 {
     private readonly IIdentityUserRepository _identityUserRepository;
     private readonly IRepository<Inventory, Guid> _inventoryRepository;
     private readonly IRepository<Product, Guid> _productRepository;
 
-    public LocalIdentityUserChangeEventHandler(IIdentityUserRepository identityUserRepository, IRepository<Inventory, Guid> inventoryRepository, IRepository<Product, Guid> productRepository)
+    public LocalIdentityUserChangeEventHandler(IIdentityUserRepository identityUserRepository,
+        IRepository<Inventory, Guid> inventoryRepository, IRepository<Product, Guid> productRepository)
     {
         _identityUserRepository = identityUserRepository;
         _inventoryRepository = inventoryRepository;
@@ -30,7 +31,7 @@ public class LocalIdentityUserChangeEventHandler : ILocalEventHandler<EntityCrea
     {
         var inventory = await _inventoryRepository.InsertAsync(new Inventory(eventData.Entity), true);
         var user = await _identityUserRepository.GetAsync(eventData.Entity.Id);
-        
+
         user.SetProperty("InventoryId", inventory.Id);
         await _identityUserRepository.UpdateAsync(user);
     }
@@ -38,6 +39,7 @@ public class LocalIdentityUserChangeEventHandler : ILocalEventHandler<EntityCrea
     public async Task HandleEventAsync(EntityDeletedEventData<IdentityUser> eventData)
     {
         await _inventoryRepository.DeleteAsync(i => i.UserId == eventData.Entity.Id, true);
-        await _productRepository.DeleteAsync(p => p.InventoryId == eventData.Entity.GetProperty("InventoryId", Guid.Empty));
+        await _productRepository.DeleteAsync(p =>
+            p.InventoryId == eventData.Entity.GetProperty("InventoryId", Guid.Empty));
     }
 }
