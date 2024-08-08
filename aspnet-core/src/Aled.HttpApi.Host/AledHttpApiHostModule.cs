@@ -26,6 +26,7 @@ using Volo.Abp.Autofac;
 using Volo.Abp.Caching;
 using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.DistributedLocking;
+using Volo.Abp.Http.Client.IdentityModel;
 using Volo.Abp.Modularity;
 using Volo.Abp.Security.Claims;
 using Volo.Abp.Swashbuckle;
@@ -42,7 +43,9 @@ namespace Aled;
     typeof(AledApplicationModule),
     typeof(AledEntityFrameworkCoreModule),
     typeof(AbpAspNetCoreSerilogModule),
-    typeof(AbpSwashbuckleModule)
+    typeof(AbpSwashbuckleModule),
+    typeof(AledHttpApiClientModule),
+    typeof(AbpHttpClientIdentityModelModule)
 )]
 public class AledHttpApiHostModule : AbpModule
 {
@@ -139,11 +142,11 @@ public class AledHttpApiHostModule : AbpModule
             configuration["AuthServer:Authority"]!,
             new Dictionary<string, string>
             {
-                {"Aled", "Aled API"}
+                { "Aled", "Aled API" }
             },
             options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo {Title = "Aled API", Version = "v1"});
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Aled API", Version = "v1" });
                 options.DocInclusionPredicate((_, _) => true);
                 options.CustomSchemaIds(type => type.FullName);
             });

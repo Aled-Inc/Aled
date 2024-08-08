@@ -37,7 +37,7 @@ public class AledDbMigrationService : ITransientDependency
         Logger = NullLogger<AledDbMigrationService>.Instance;
     }
 
-    public ILogger<AledDbMigrationService> Logger { get; set; }
+    private ILogger<AledDbMigrationService> Logger { get; }
 
     public async Task MigrateAsync()
     {
@@ -62,7 +62,7 @@ public class AledDbMigrationService : ITransientDependency
         {
             using (_currentTenant.Change(tenant.Id))
             {
-                if (tenant.ConnectionStrings.Any())
+                if (tenant.ConnectionStrings.Count != 0)
                 {
                     var tenantConnectionStrings = tenant.ConnectionStrings
                         .Select(x => x.Value)

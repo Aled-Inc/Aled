@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DotNetEnv;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,38 +36,41 @@ public class Program
 
             if (builder.Environment.IsDevelopment())
             {
-                DotNetEnv.Env.Load("../.env");
-            
+                Env.Load("../.env");
+
                 var envKeys = new Dictionary<string, string>
                 {
-                    {"App:ClientUrl", "DEEP_LINK_CLIENT_URL"},
-                    {"AuthServer:Authority", "AUTH_SERVER_URL"},
-                    {"RemoteServices:Default:BaseUrl", "AUTH_SERVER_URL"},
-                    {"JwtSettings:ValidIssuer", "NGROK_AUTH_SERVER_URL"},
-                    {"Kestrel:Endpoints:Https:Url", "API_HOST_URL"},
-                    {"Kestrel:Endpoints:Https:Certificate:Path", "PFX_PATH"},
-                    {"Kestrel:Endpoints:Https:Certificate:Password", "PFX_PASS"},
-                    {"Settings:Abp.Mailing.Smtp.Password", "ENCRYPT_EMAIL_PASSWORD"},
-                    {"Email:Default", "DEFAULT_EMAIL"},
-                    {"Ngrok:Api.Host.Url", "NGROK_API_HOST_URL"},
+                    { "App:ClientUrl", "DEEP_LINK_CLIENT_URL" },
+                    { "AuthServer:Authority", "AUTH_SERVER_URL" },
+                    { "RemoteServices:Default:BaseUrl", "API_HOST_URL" },
+                    { "RemoteServices:AledOpenFoodFactService:BaseUrl", "REMOTE_SERVICE_URL" },
+                    { "IdentityClients:AledOpenFoodFactService:Authority", "AUTH_SERVER_URL" },
+                    { "JwtSettings:ValidIssuer", "NGROK_AUTH_SERVER_URL" },
+                    { "Kestrel:Endpoints:Https:Url", "API_HOST_URL" },
+                    { "Kestrel:Endpoints:Https:Certificate:Path", "PFX_PATH" },
+                    { "Kestrel:Endpoints:Https:Certificate:Password", "PFX_PASS" },
+                    { "Settings:Abp.Mailing.Smtp.Password", "ENCRYPT_EMAIL_PASSWORD" },
+                    { "Email:Default", "DEFAULT_EMAIL" },
+                    { "Ngrok:Api.Host.Url", "NGROK_API_HOST_URL" }
                 };
-                
+
                 envKeys.ForEach(keyValuePair =>
                 {
                     var value = Environment.GetEnvironmentVariable(keyValuePair.Value);
-                
+
                     if (string.IsNullOrEmpty(value))
                     {
-                        throw new Exception($"ConfigurationError: an error occured on {keyValuePair.Value} env key. Ensure the .env file is correctly configured and placed in the root directory.");
+                        throw new Exception(
+                            $"ConfigurationError: an error occured on {keyValuePair.Value} env key. Ensure the .env file is correctly configured and placed in the root directory.");
                     }
-                    
+
                     builder.Configuration.AddInMemoryCollection(new Dictionary<string, string?>
                     {
-                        {keyValuePair.Key, value}
+                        { keyValuePair.Key, value }
                     });
                 });
             }
-            
+
             builder.Host.AddAppSettingsSecretsJson()
                 .UseAutofac()
                 .UseSerilog();

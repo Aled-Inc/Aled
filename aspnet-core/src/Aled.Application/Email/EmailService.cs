@@ -38,7 +38,7 @@ public class EmailService(
             new EmailConfirmationModel(user.UserName,
                 $"{configuration.GetSection("Ngrok:Api.Host.Url").Value}{EmailConfirmationEndpoint}?token={code}&userId={user.Id}"));
 
-        await emailSender.SendAsync(userEmail, localizer["Email:ConfirmEmailTitle"], body, isBodyHtml: true);
+        await emailSender.SendAsync(userEmail, localizer["Email:ConfirmEmailTitle"], body, true);
     }
 
     public async Task SendEmailConfirmationEmailAsync(ICurrentUser user, string code)
@@ -54,6 +54,6 @@ public class EmailService(
             new EmailConfirmationModel(user.UserName!,
                 $"{configuration.GetSection("Ngrok:Api.Host.Url").Value}{EmailConfirmationEndpoint}?token={code}&userId={user.Id}"));
 
-        await emailSender.SendAsync(userEmail!, localizer["Email:ConfirmEmailTitle"], body, isBodyHtml: true);
+        await emailSender.SendAsync(userEmail!, localizer["Email:ConfirmEmailTitle"], body, true);
     }
 }

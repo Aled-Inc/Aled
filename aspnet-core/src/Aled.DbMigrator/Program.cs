@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using DotNetEnv;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,27 +42,31 @@ internal class Program
             {
                 if (hostContext.HostingEnvironment.IsDevelopment())
                 {
-                    Env.Load();
-                    
+                    var srcFolderPath = Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent!.Parent!
+                        .FullName;
+
+                    Env.Load($"{srcFolderPath}/.env");
+
                     var envKeys = new Dictionary<string, string>
                     {
-                        {"OpenIddict:Applications:Aled_BlazorServerTiered", "BLAZOR_URL"},
-                        {"OpenIddict:Applications:Aled_Swagger", "API_HOST_URL"},
+                        { "OpenIddict:Applications:Aled_BlazorServerTiered:RootUrl", "BLAZOR_URL" },
+                        { "OpenIddict:Applications:Aled_Swagger:RootUrl", "API_HOST_URL" }
                     };
-                    
+
                     envKeys.ForEach(pair =>
                     {
-                        var value =  Env.GetString(pair.Value);
-                        
+                        var value = Env.GetString(pair.Value);
+
                         if (string.IsNullOrEmpty(value))
                         {
-                            throw new Exception($"ConfigurationError: an error occured on {pair.Value} env key. Ensure the .env file is correctly configured and placed in the root directory.");
+                            throw new Exception(
+                                $"ConfigurationError: an error occured on {pair.Value} env key. Ensure the .env file is correctly configured and placed in the root directory.");
                         }
-                        
+
                         hostContext.Configuration[pair.Key] = value;
                     });
                 }
-                
+
                 services.AddHostedService<DbMigratorHostedService>();
             });
     }

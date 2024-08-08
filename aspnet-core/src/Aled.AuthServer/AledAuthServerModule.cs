@@ -212,7 +212,7 @@ public class AledAuthServerModule : AbpModule
 
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
-        
+
         app.UseConfiguredEndpoints();
     }
 }
