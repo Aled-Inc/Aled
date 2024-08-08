@@ -54,7 +54,7 @@ function HomeScreen({ user }) {
   const emptyItems = () => {
     return (
       <Center backgroundColor={Colors.BGDarker} borderRadius={'2xl'} py={3} mt={2}>
-        <EmptyBox width={75} height={75} />
+        <EmptyBox width={75} height={75} opacity={0.8}/>
         <Text style={styles.noProductText}>No product, go scan them !</Text>
       </Center>
     );
