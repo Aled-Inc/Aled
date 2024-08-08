@@ -395,7 +395,31 @@ FodyWeavers.xsd
 *.msp
 
 # JetBrains Rider
+.idea/
 *.sln.iml
+
+# Aled
+src/Aled.Web/Logs/*
+src/Aled.Web.Host/Logs/*
+src/Aled.AuthServer/Logs/*
+src/Aled.HttpApi.Host/Logs/*
+src/Aled.HttpApi.HostWithIds/Logs/*
+src/Aled.DbMigrator/Logs/*
+src/Aled.Blazor.Server/Logs/*
+src/Aled.Blazor/Logs/*
+
+# Use abp install-libs to restore.
+**/wwwroot/libs/*
+
+# PackageLocks
+package-lock.json
+
+#ssl
+ssl/
+
+#env
+.env
+ngrok.yml
 
 # JWK file
 *.jwk
