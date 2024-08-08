@@ -27,22 +27,22 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Emailing\Templates\EmailConfirmationTemplate.tpl" />
-      <EmbeddedResource Include="Emailing\Templates\EmailConfirmationTemplate.tpl">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
-      <None Remove="Emailing\Templates\EmailLayout.tpl" />
-      <EmbeddedResource Include="Emailing\Templates\EmailLayout.tpl">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
+        <None Remove="Emailing\Templates\EmailConfirmationTemplate.tpl"/>
+        <EmbeddedResource Include="Emailing\Templates\EmailConfirmationTemplate.tpl">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="Emailing\Templates\EmailLayout.tpl"/>
+        <EmbeddedResource Include="Emailing\Templates\EmailLayout.tpl">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Entities\Scores\" />
+        <Folder Include="Entities\Scores\"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="Entities\Scores\Score.cs" />
+        <Compile Remove="Entities\Scores\Score.cs"/>
     </ItemGroup>
 
 </Project>

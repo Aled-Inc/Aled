@@ -21,7 +21,7 @@ public class ProfileExtendedController(IProfileAppService profileAppService) : I
     {
         return profileAppService.DisableAsync();
     }
-    
+
     [HttpDelete]
     [Route("delete")]
     public Task DeleteAsync()

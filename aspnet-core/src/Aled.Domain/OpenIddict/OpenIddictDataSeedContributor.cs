@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -321,7 +321,8 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
 
         if (postLogoutRedirectUri != null && !postLogoutRedirectUri.IsNullOrEmpty())
         {
-            if (!Uri.TryCreate(postLogoutRedirectUri, UriKind.Absolute, out var uri) || !uri.IsWellFormedOriginalString())
+            if (!Uri.TryCreate(postLogoutRedirectUri, UriKind.Absolute, out var uri) ||
+                !uri.IsWellFormedOriginalString())
             {
                 throw new BusinessException(L["InvalidPostLogoutRedirectUri", postLogoutRedirectUri]);
             }

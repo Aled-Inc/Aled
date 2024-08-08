@@ -22,12 +22,12 @@ public class AledApplicationAutoMapperProfile : Profile
         CreateMap<Product, ProductDto>()
             .ReverseMap();
 
-        CreateMap<Product, AddProductDto>()
+        CreateMap<OpenFoodFactService.Products.Dtos.ProductDto, ProductScannedDto>()
             .ReverseMap();
 
         CreateMap<Product, RemoveProductDto>()
             .ReverseMap();
-        
+
         CreateMap<IdentityUser, IdentityUserExtendedDto>();
     }
 }

@@ -2,12 +2,15 @@ using System;
 using System.Threading.Tasks;
 using Aled.AggregateRoots.Inventories;
 using Aled.Entities.Products;
+using Aled.OpenFoodFactService.Products;
+using Aled.OpenFoodFactService.Products.Dtos;
 using Aled.Products.Dtos;
 using Aled.Repositories.Inventories;
-using Aled.Services.Inventories;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Users;
+using IObjectMapper = Volo.Abp.ObjectMapping.IObjectMapper;
+using ProductDto = Aled.OpenFoodFactService.Products.Dtos.ProductDto;
 
 namespace Aled.Managers.Inventories;
 
@@ -15,18 +18,22 @@ public class InventoryManager : DomainService, IInventoryManager
 {
     private readonly ICurrentUser _currentUser;
     private readonly IInventoryRepository _efCoreInventoryRepository;
-    private readonly IBasicRepository<Inventory, Guid> _inventoryRepository;
-    private readonly IBasicRepository<Product, Guid> _productRepository;
+    private readonly IRepository<Inventory, Guid> _inventoryRepository;
+    private readonly IObjectMapper _objectMapper;
+    private readonly IProductAppService _productAppService;
+    private readonly IRepository<Product, Guid> _productRepository;
 
     public InventoryManager(
-        IBasicRepository<Inventory, Guid> inventoryRepository,
-        IBasicRepository<Product, Guid> productRepository, IInventoryRepository efCoreInventoryRepository,
-        ICurrentUser currentUser)
+        IRepository<Inventory, Guid> inventoryRepository,
+        IRepository<Product, Guid> productRepository, IInventoryRepository efCoreInventoryRepository,
+        ICurrentUser currentUser, IProductAppService productAppService, IObjectMapper objectMapper)
     {
         _inventoryRepository = inventoryRepository;
         _productRepository = productRepository;
         _efCoreInventoryRepository = efCoreInventoryRepository;
         _currentUser = currentUser;
+        _productAppService = productAppService;
+        _objectMapper = objectMapper;
     }
 
     public async Task<Inventory> GetAsync()
@@ -45,9 +52,15 @@ public class InventoryManager : DomainService, IInventoryManager
         return inventory;
     }
 
-    public async Task<Inventory> AddProductAsync(Product product)
+    public async Task<Inventory> AddProductAsync(GetProductDto getProductDto, DateTime expirationDate)
     {
         var inventory = await GetInventoryWithFullDetailsAsync();
+
+        var productDto = await _productAppService.GetAsync(getProductDto);
+
+        var product = _objectMapper.Map<ProductDto, Product>(productDto);
+
+        product.ExpirationDate = expirationDate;
 
         inventory.AddProduct(product);
 
@@ -64,10 +77,10 @@ public class InventoryManager : DomainService, IInventoryManager
     {
         var inventory = await GetInventoryWithFullDetailsAsync();
 
-        inventory.RemoveProduct(removeProductDto.Id);
+        inventory.RemoveProduct(Guid.Parse(removeProductDto.ProductId));
 
         // Remove the product separately
-        await _productRepository.DeleteAsync(removeProductDto.Id);
+        await _productRepository.DeleteAsync(Guid.Parse(removeProductDto.ProductId));
 
         // Update the inventory
         await _inventoryRepository.UpdateAsync(inventory, true);

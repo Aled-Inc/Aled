@@ -8,7 +8,6 @@ public class AledTestDataSeedContributor : IDataSeedContributor, ITransientDepen
 {
     public Task SeedAsync(DataSeedContext context)
     {
-        
         return Task.CompletedTask;
     }
 }

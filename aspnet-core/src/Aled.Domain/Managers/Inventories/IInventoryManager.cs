@@ -1,15 +1,15 @@
+using System;
 using System.Threading.Tasks;
 using Aled.AggregateRoots.Inventories;
-using Aled.Entities.Products;
+using Aled.OpenFoodFactService.Products.Dtos;
 using Aled.Products.Dtos;
-using Volo.Abp.Domain.Services;
 
-namespace Aled.Services.Inventories;
+namespace Aled.Managers.Inventories;
 
-public interface IInventoryManager : IDomainService
+public interface IInventoryManager
 {
     Task<Inventory> GetAsync();
     Task<Inventory> ClearAsync();
-    Task<Inventory> AddProductAsync(Product product);
+    Task<Inventory> AddProductAsync(GetProductDto product, DateTime expirationDate);
     Task<Inventory> RemoveProductAsync(RemoveProductDto removeProductDto);
 }

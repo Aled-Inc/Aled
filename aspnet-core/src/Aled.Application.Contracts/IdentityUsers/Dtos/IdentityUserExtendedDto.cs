@@ -2,7 +2,7 @@
 
 namespace Aled.IdentityUsers.Dtos;
 
-public class IdentityUserExtendedDto: IdentityUserDto
+public class IdentityUserExtendedDto : IdentityUserDto
 {
     public bool TwoFactorEnabled { get; set; }
 }
