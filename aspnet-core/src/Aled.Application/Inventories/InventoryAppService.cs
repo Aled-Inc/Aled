@@ -1,12 +1,13 @@
 using System.Threading.Tasks;
 using Aled.AggregateRoots.Inventories;
+using Aled.Entities.Products;
 using Aled.Inventories.Dtos;
 using Aled.Managers.Inventories;
 using Aled.OpenFoodFactService.Products.Dtos;
 using Aled.Products.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Users;
+using ProductDto = Aled.Products.Dtos.ProductDto;
 
 namespace Aled.Inventories;
 
@@ -34,16 +35,16 @@ public class InventoryAppService : ApplicationService, IInventoryAppService
         return ObjectMapper.Map<Inventory, InventoryDto>(inventory);
     }
 
-    public async Task<InventoryDto> AddProductAsync(ProductScannedDto productScannedDto)
+    public async Task<ProductDto> AddProductAsync(ProductScannedDto productScannedDto)
     {
         var product = new GetProductDto
         {
             Code = productScannedDto.Code
         };
 
-        var inventory = await _inventoryManager.AddProductAsync(product, productScannedDto.ExpirationDate);
+        var addedProduct = await _inventoryManager.AddProductAsync(product);
 
-        return ObjectMapper.Map<Inventory, InventoryDto>(inventory);
+        return ObjectMapper.Map<Product, ProductDto>(addedProduct);
     }
 
     public async Task<InventoryDto> RemoveProductAsync(RemoveProductDto removeProductDto)

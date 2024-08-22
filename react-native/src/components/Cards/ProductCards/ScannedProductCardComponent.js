@@ -1,8 +1,19 @@
 import { Box, HStack, Image, Pressable, Text, VStack } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../../styles/CommonStyle';
+import { ProductCategoryTagInfo } from '../../../utils/ProductCategoryTagUtils';
 
 function ScannedProductCardComponent({ product }) {
+  const getTag = () => {
+    let tag = ProductCategoryTagInfo.at(product.productCategoryTag);
+    
+    return (
+      <Box style={styles.tagBox} backgroundColor={tag.backgroundColor}>
+        <Text style={styles.tagText} color={tag.labelColor}>{tag.label}</Text>
+      </Box>
+    );
+  };
+
   return (
     <Pressable onPress={() => {}}>
       <Box style={styles.productCardLess}>
@@ -11,7 +22,7 @@ function ScannedProductCardComponent({ product }) {
             <Image
               style={styles.productImage}
               source={{
-                uri: product.image_front_url,
+                uri: product.imageFrontUrl,
               }}
               alt="product_image"
             />
@@ -21,15 +32,13 @@ function ScannedProductCardComponent({ product }) {
               style={styles.productTitle}
               numberOfLines={1}
               ellipsizeMode="middle">
-              {product.product_name}
+              {product.productName}
             </Text>
             <Text style={styles.productInfoDLC}>DLC: 26/07/2024</Text>
             <Text style={styles.productInfoQuantity}>Quantité: 0</Text>
           </VStack>
         </HStack>
-        <Box style={styles.tagBox}>
-          <Text style={styles.tagText}>cupboard</Text>
-        </Box>
+        {getTag()}
       </Box>
     </Pressable>
   );
@@ -74,7 +83,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     right: 10,
-    backgroundColor: Colors.Element,
     borderRadius: 20,
     paddingHorizontal: 15,
     paddingVertical: 5,

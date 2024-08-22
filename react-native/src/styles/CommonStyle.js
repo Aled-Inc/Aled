@@ -8,4 +8,6 @@ export const Colors = {
   Red: '#C60000',
   Green: '#4BD77B',
   BGDarker: 'rgb(232, 229, 232)',
+  Fridge: '#C6A4FF',
+  Freezer: '#C8EEFF'
 }
