@@ -31,6 +31,118 @@ public class Product : Entity<Guid>
     public ProductCategoryTagsEnum ProductCategoryTag { get; set; } = ProductCategoryTagsEnum.Undefined;
 
     public Inventory Inventory { get; protected set; }
+    
+    private readonly List<string> _expectedCupboardCategoryTags =
+    [
+        "en:biscuits",
+        "en:snacks",
+        "en:sweets",
+        "en:dry-goods",
+        "en:canned-foods",
+        "en:rice",
+        "en:pasta",
+        "en:flour",
+        "en:sugar",
+        "en:chocolate",
+        "en:coffee",
+        "en:tea",
+        "en:nuts",
+        "en:seeds",
+        "en:herbs-and-spices",
+        "en:spreads",
+        "en:baking-ingredients",
+        "en:cereal",
+        "en:crackers",
+        "en:sauces",
+        "en:oil",
+        "en:vinegar",
+        "en:shelf-stable",
+        "en:condiments",
+        "en:soups",
+        "en:bouillons",
+        "en:dry-soups",
+        "en:instant-noodles",
+        "en:peanut-butter",
+        "en:chips",
+        "en:popcorn",
+        "en:granola-bars",
+        "en:energy-bars",
+        "en:instant-coffee",
+        "en:powdered-drinks",
+        "en:bottled-water",
+        "en:breads"
+    ];
+    
+    private readonly List<string> _expectedFridgeCategoryTags =
+    [
+        "en:refrigerated",
+        "en:dairy-products",
+        "en:cheese",
+        "en:yogurts",
+        "en:cold-cuts",
+        "en:fresh-meat",
+        "en:fresh-vegetables",
+        "en:fresh-fruit",
+        "en:sauces",
+        "en:fresh-pasta",
+        "en:fresh-juice",
+        "en:smoothies",
+        "en:eggs",
+        "en:prepared-meals",
+        "en:sandwiches",
+        "en:hummus",
+        "en:sushi",
+        "en:butter",
+        "en:margarine",
+        "en:milk",
+        "en:cream",
+        "en:fresh-salad",
+        "en:tofu",
+        "en:sour-cream",
+        "en:fresh-herbs",
+        "en:soft-cheeses",
+        "en:cottage-cheese",
+        "en:ricotta",
+        "en:fresh-sausage",
+        "en:smoked-fish",
+        "en:caviar",
+        "en:fresh-dough",
+        "en:meals",
+        "en:dairies",
+        "en:cheeses"
+    ];
+    
+    private readonly List<string> _expectedFreezerCategoryTags =
+    [
+        "en:frozen",
+        "en:ice-cream",
+        "en:frozen-foods",
+        "en:frozen-desserts",
+        "en:frozen-meals",
+        "en:frozen-vegetables",
+        "en:frozen-fruits",
+        "en:frozen-pizza",
+        "en:frozen-bread",
+        "en:frozen-seafood",
+        "en:frozen-meat",
+        "en:frozen-pastry",
+        "en:frozen-dough",
+        "en:frozen-potato-products",
+        "en:perishable",
+        "en:frozen-poultry",
+        "en:frozen-burgers",
+        "en:frozen-cakes",
+        "en:frozen-yogurt",
+        "en:frozen-soups",
+        "en:frozen-lasagna",
+        "en:frozen-pie",
+        "en:frozen-batter",
+        "en:frozen-waffles",
+        "en:frozen-pancakes",
+        "en:frozen-smoothie-mix",
+        "en:frozen-pasta",
+        "en:frozen-dumplings"
+    ];
 
     public void CalculateProductCategoryTag()
     {
@@ -50,128 +162,16 @@ public class Product : Entity<Guid>
 
     private bool IsCupboard()
     {
-        List<string> expectedCupboardCategoryTags =
-        [
-            "en:biscuits",
-            "en:snacks",
-            "en:sweets",
-            "en:dry-goods",
-            "en:canned-foods",
-            "en:rice",
-            "en:pasta",
-            "en:flour",
-            "en:sugar",
-            "en:chocolate",
-            "en:coffee",
-            "en:tea",
-            "en:nuts",
-            "en:seeds",
-            "en:herbs-and-spices",
-            "en:spreads",
-            "en:baking-ingredients",
-            "en:cereal",
-            "en:crackers",
-            "en:sauces",
-            "en:oil",
-            "en:vinegar",
-            "en:shelf-stable",
-            "en:condiments",
-            "en:soups",
-            "en:bouillons",
-            "en:dry-soups",
-            "en:instant-noodles",
-            "en:peanut-butter",
-            "en:chips",
-            "en:popcorn",
-            "en:granola-bars",
-            "en:energy-bars",
-            "en:instant-coffee",
-            "en:powdered-drinks",
-            "en:bottled-water",
-            "en:breads"
-        ];
-
-        return ProductCategoryTag == ProductCategoryTagsEnum.Cupboard ? true : CategoryTags.Any(tag => expectedCupboardCategoryTags.Contains(tag));
+        return ProductCategoryTag == ProductCategoryTagsEnum.Cupboard || CategoryTags != null && CategoryTags.Any(tag => _expectedCupboardCategoryTags.Contains(tag));
     }
     
     private bool IsFridge()
     {
-        List<string> expectedFridgeCategoryTags =
-        [
-            "en:refrigerated",
-            "en:dairy-products",
-            "en:cheese",
-            "en:yogurts",
-            "en:cold-cuts",
-            "en:fresh-meat",
-            "en:fresh-vegetables",
-            "en:fresh-fruit",
-            "en:sauces",
-            "en:fresh-pasta",
-            "en:fresh-juice",
-            "en:smoothies",
-            "en:eggs",
-            "en:prepared-meals",
-            "en:sandwiches",
-            "en:hummus",
-            "en:sushi",
-            "en:butter",
-            "en:margarine",
-            "en:milk",
-            "en:cream",
-            "en:fresh-salad",
-            "en:tofu",
-            "en:sour-cream",
-            "en:fresh-herbs",
-            "en:soft-cheeses",
-            "en:cottage-cheese",
-            "en:ricotta",
-            "en:fresh-sausage",
-            "en:smoked-fish",
-            "en:caviar",
-            "en:fresh-dough",
-            "en:meals",
-            "en:dairies",
-            "en:cheeses"
-        ];
-
-        return ProductCategoryTag == ProductCategoryTagsEnum.Fridge ? true : CategoryTags.Any(tag => expectedFridgeCategoryTags.Contains(tag));
+        return ProductCategoryTag == ProductCategoryTagsEnum.Fridge || CategoryTags != null && CategoryTags.Any(tag => _expectedFridgeCategoryTags.Contains(tag));
     }
     
     private bool IsFreezer()
     {
-        List<string> expectedFreezerCategoryTags =
-        [
-            "en:frozen",
-            "en:ice-cream",
-            "en:frozen-foods",
-            "en:frozen-desserts",
-            "en:frozen-meals",
-            "en:frozen-vegetables",
-            "en:frozen-fruits",
-            "en:frozen-pizza",
-            "en:frozen-bread",
-            "en:frozen-seafood",
-            "en:frozen-meat",
-            "en:frozen-pastry",
-            "en:frozen-dough",
-            "en:frozen-potato-products",
-            "en:perishable",
-            "en:frozen-poultry",
-            "en:frozen-burgers",
-            "en:frozen-cakes",
-            "en:frozen-yogurt",
-            "en:frozen-soups",
-            "en:frozen-lasagna",
-            "en:frozen-pie",
-            "en:frozen-batter",
-            "en:frozen-waffles",
-            "en:frozen-pancakes",
-            "en:frozen-smoothie-mix",
-            "en:frozen-pasta",
-            "en:frozen-dumplings"
-        ];
-
-        return ProductCategoryTag == ProductCategoryTagsEnum.Freezer ? true : CategoryTags.Any(tag => expectedFreezerCategoryTags.Contains(tag));
+        return ProductCategoryTag == ProductCategoryTagsEnum.Freezer || CategoryTags != null && CategoryTags.Any(tag => _expectedFreezerCategoryTags.Contains(tag));
     }
 }
