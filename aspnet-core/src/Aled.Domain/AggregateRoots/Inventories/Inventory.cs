@@ -12,6 +12,8 @@ namespace Aled.AggregateRoots.Inventories;
 
 public sealed class Inventory : AggregateRoot<Guid>, IHasCreationTime
 {
+    
+    
     private Inventory()
     {
     }
@@ -40,8 +42,15 @@ public sealed class Inventory : AggregateRoot<Guid>, IHasCreationTime
 
         Check.NotNull(product.ExpirationDate,
             nameof(product));
+        
+        Check.NotNull(product.AddedDate,
+            nameof(product));
+
+        product.CalculateProductCategoryTag();
+        product.CalculateExpirationDate();
 
         product.InventoryId = Id;
+        product.AddedDate = DateTime.Now;
         Products.Add(product);
     }
 

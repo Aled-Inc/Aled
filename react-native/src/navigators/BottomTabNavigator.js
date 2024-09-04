@@ -7,6 +7,7 @@ import ProfileStackNavigator from './ProfileNavigator';
 import Wrapper from '../components/Wrapper/Wrapper';
 import I18n from 'i18n-js';
 import EmailConfirmationScreen from '../screens/EmailConfirmation/EmailConfirmationScreen';
+import ScanScreen from '../screens/Scan/ScanScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,9 +39,10 @@ export default function BottomTabNavigator() {
         }}>
         <Tab.Screen
           name="Scan"
-          component={HomeScreen}
+          component={ScanScreen}
           options={{
             title: I18n.t('Aled::Menu:Scan'),
+            headerShown: false,
             tabBarIcon: ({ focused }) => (
               <MaterialCommunityIcons
                 name="barcode-scan"

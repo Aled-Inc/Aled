@@ -52,15 +52,13 @@ public class InventoryManager : DomainService, IInventoryManager
         return inventory;
     }
 
-    public async Task<Inventory> AddProductAsync(GetProductDto getProductDto, DateTime expirationDate)
+    public async Task<Product> AddProductAsync(GetProductDto getProductDto)
     {
         var inventory = await GetInventoryWithFullDetailsAsync();
 
         var productDto = await _productAppService.GetAsync(getProductDto);
 
         var product = _objectMapper.Map<ProductDto, Product>(productDto);
-
-        product.ExpirationDate = expirationDate;
 
         inventory.AddProduct(product);
 
@@ -70,7 +68,7 @@ public class InventoryManager : DomainService, IInventoryManager
         // Update the inventory
         await _inventoryRepository.UpdateAsync(inventory, true);
 
-        return inventory;
+        return product;
     }
 
     public async Task<Inventory> RemoveProductAsync(RemoveProductDto removeProductDto)

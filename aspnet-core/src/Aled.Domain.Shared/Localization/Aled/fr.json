@@ -3,48 +3,69 @@
   "texts": {
     "Aled": "Aled.",
     "Welcome": "Bienvenue",
-    "Username": "Nom d'utilisateur",
-    "Email": "Adresse mail",
-    "Password": "Mot de passe",
-    "PhoneNumber": "Téléphone",
-    "SeeMyFridge": "Voir mon frigo !",
+    "Username" : "Nom d'utilisateur",
+    "Email" : "Adresse mail",
+    "Password" : "Mot de passe",
+    "PhoneNumber" : "Téléphone",
+    "SeeMyFridge" : "Voir mon frigo !",
+
     "Menu:Scan": "Scan",
     "Menu:Chat": "Chat",
     "Menu:Home": "Accueil",
     "Menu:Fridge": "Frigo",
     "Menu:Profile": "Profil",
+    
     "Home:Subtitle": "Y'a quoi dans mon frigo ?",
+
     "Register:Title": "Inscription",
     "Register:Register": "S'inscrire",
-    "Register:SubPhrase": "Inscivez-vous pour créer votre frigo virtuel",
+    "Register:SubPhrase" : "Inscivez-vous pour créer votre frigo virtuel",
     "Register:AlreadyHaveAccount": "Vous avez déjà un compte ?",
-    "Register:LoginHere": "Connectez-vous ici",
-    "Login:Title": "Connexion",
-    "Login:Login": "Se connecter",
-    "Login:SubPhrase": "Connectez-vous pour accéder à votre frigo virtuel",
-    "Login:ForgotMyPassword": "J'ai oublié mon mot de passe",
-    "Login:NoAccount": "Vous n'avez pas de compte ?",
-    "Login:RegisterHere": "Inscrivez-vous ici",
+    "Register:LoginHere" : "Connectez-vous ici",
+    
+    "Login:Title" : "Connexion",
+    "Login:Login" : "Se connecter",
+    "Login:SubPhrase" : "Connectez-vous pour accéder à votre frigo virtuel",
+    "Login:ForgotMyPassword" : "J'ai oublié mon mot de passe",
+    "Login:NoAccount" : "Vous n'avez pas de compte ?",
+    "Login:RegisterHere" : "Inscrivez-vous ici",
+
     "Settings:AccountSettings": "Paramètres du compte",
     "Settings:Account:Information": "Informations du compte",
     "Settings:Account:Logins": "Comment tu te connectes à ton compte",
     "Settings:Account:Manage": "Gestion du compte",
     "Settings:Account:Manage:Disable": "Désactiver mon compte",
     "Settings:Account:Manage:Delete": "Supprimer mon compte",
+
     "Settings:ConfidentialityAndSecurity": "Confidentialité & Sécurité",
     "Settings:ConfidentialityAndSecurity:VerifiedInformation": "Informations vérifées",
     "Settings:ConfidentialityAndSecurity:Security": "Sécurité",
+
     "Settings:AppSettings": "Paramètres de l'appli",
     "Settings:AppSettings:Notification": "Notifications",
+
     "Settings:Assistance": "Assisstance",
     "Settings:Assistance:ContactUs": "Nous contacter",
-    "EmailConfirmation:Succeeded": "Succès",
-    "EmailConfirmation:SucceededDescription": "Ton e-mail a bien été vérifié !",
-    "EmailConfirmation:Failed": "Echec",
-    "EmailConfirmation:FailedDescription": "Ton e-mail n'a pas pu être vérifié :(",
-    "ErrorSave:Successful": "Vos modifications ont été enregistrées avec succès !",
+
+    "Scan:ErrorOnFetchProduct" : "Erreur lors de la récupération du produit.",
+    "Scan:AuthorizationError:NoCamera" : "Aucun appareil photo",
+    "Scan:AuthorizationError:Permission" : "Veuillez autoriser l'accès à l'appareil photo pour utiliser la fonction de scan. Rendez-vous dans : Paramètres > Applications > Aled. > Autorisations.",
+    "Scan:Summary" : "Produits scannées",
+    "Scan:Empty" : "Aucun produit scanné",
+    "Scan:NoProduct?" : "Pas encore de produits ?",
+    "Scan:ScanThem!" : "Scannez les et gérez facilement vos stocks !",
+    
+    "EmailConfirmation:Succeeded" : "Succès",
+    "EmailConfirmation:SucceededDescription" : "Ton e-mail a bien été vérifié !",
+
+    "EmailConfirmation:Failed" : "Echec",
+    "EmailConfirmation:FailedDescription" : "Ton e-mail n'a pas pu être vérifié :(",
+
+    "ErrorSave:Successful" : "Vos modifications ont été enregistrées avec succès !",
     "ErrorSave:TryAgainOrLater": "Une erreur s'est produite, veuillez réessayer plus tard !",
-    "Modal:EmailConfirmation": "Un e-mail de confirmation vas vous être envoyer, souhaitez-vous continuer ?",
+    
+    "Modal:EmailConfirmation" : "Un e-mail de confirmation vas vous être envoyer, souhaitez-vous continuer ?",
+
     "Email:ConfirmEmailTitle": "Confirmation de votre adresse e-mail"
   }
 }

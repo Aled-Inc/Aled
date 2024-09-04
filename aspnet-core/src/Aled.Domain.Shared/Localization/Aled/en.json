@@ -3,48 +3,69 @@
   "texts": {
     "Aled": "Aled.",
     "Welcome": "Welcome",
-    "Username": "Username",
-    "Email": "Email",
-    "Password": "Password",
-    "PhoneNumber": "Phone",
-    "SeeMyFridge": "See my fridge !",
+    "Username" : "Username",
+    "Email" : "Email",
+    "Password" : "Password",
+    "PhoneNumber" : "Phone",
+    "SeeMyFridge" : "See my fridge !",
+    
     "Menu:Scan": "Scan",
     "Menu:Chat": "Chat",
     "Menu:Home": "Home",
     "Menu:Fridge": "Fridge",
     "Menu:Profile": "Profile",
+    
     "Home:Subtitle": "What's in my fridge ?",
+    
     "Register:Title": "Registration",
     "Register:Register": "Register",
-    "Register:SubPhrase": "Register to create your virtual fridge",
+    "Register:SubPhrase" : "Register to create your virtual fridge",
     "Register:AlreadyHaveAccount": "You already have an account ?",
-    "Register:LoginHere": "Login here !",
-    "Login:Title": "Connection",
-    "Login:Login": "Login",
-    "Login:SubPhrase": "Login to open your fridge",
-    "Login:ForgotMyPassword": "I forgo my password",
-    "Login:NoAccount": "You don't have any account ?",
-    "Login:RegisterHere": "Register here",
+    "Register:LoginHere" : "Login here !",
+    
+    "Login:Title" : "Connection",
+    "Login:Login" : "Login",
+    "Login:SubPhrase" : "Login to open your fridge",
+    "Login:ForgotMyPassword" : "I forgo my password",
+    "Login:NoAccount" : "You don't have any account ?",
+    "Login:RegisterHere" : "Register here",
+
     "Settings:AccountSettings": "Account settings",
     "Settings:Account:Information": "Account informations",
     "Settings:Account:Logins": "How do you log to your account",
     "Settings:Account:Manage": "Manage account",
     "Settings:Account:Manage:Disable": "Disable account",
     "Settings:Account:Manage:Delete": "Delete account",
+
     "Settings:ConfidentialityAndSecurity": "Confidentiality & Security",
     "Settings:ConfidentialityAndSecurity:VerifiedInformation": "Verified information",
     "Settings:ConfidentialityAndSecurity:Security": "Security",
+
     "Settings:AppSettings": "App settings",
     "Settings:AppSettings:Notification": "Notifications",
+
     "Settings:Assistance": "Assistance",
     "Settings:Assistance:ContactUs": "Contact us",
-    "EmailConfirmation:Succeeded": "Succeeded",
-    "EmailConfirmation:SucceededDescription": "Your email has been successfully verified !",
-    "EmailConfirmation:Failed": "Failed",
-    "EmailConfirmation:FailedDescription": "Your email verification failed :(",
-    "ErrorSave:Successful": "Your modifications has been successfully changed !",
+
+    "Scan:ErrorOnFetchProduct" : "Error on fetch product.",
+    "Scan:AuthorizationError:NoCamera" : "No camera",
+    "Scan:AuthorizationError:Permission" : "Please authorize access to the camera to use the scan function. Go to: Settings > Applications > Aled. > Authorizations.",
+    "Scan:Summary" : "Scanned products",
+    "Scan:Empty" : "No product scanned",
+    "Scan:NoProduct?" : "No product yet ?",
+    "Scan:ScanThem!" : "Scan them and manage your stock with ease !",
+    
+    "EmailConfirmation:Succeeded" : "Succeeded",
+    "EmailConfirmation:SucceededDescription" : "Your email has been successfully verified !",
+    
+    "EmailConfirmation:Failed" : "Failed",
+    "EmailConfirmation:FailedDescription" : "Your email verification failed :(",
+    
+    "ErrorSave:Successful" : "Your modifications has been successfully changed !",
     "ErrorSave:TryAgainOrLater": "An error occured, please try again or later !",
-    "Modal:EmailConfirmation": "An e-mail confirmation will be sent to you. Would you like to continue ?",
+    
+    "Modal:EmailConfirmation" : "An e-mail confirmation will be sent to you. Would you like to continue ?",
+    
     "Email:ConfirmEmailTitle": "Email confirmation request"
   },
   "Aled:00000": "The given barcode is not valid: {0}.",
