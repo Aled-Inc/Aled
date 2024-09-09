@@ -33,5 +33,11 @@ export const homeStyle = StyleSheet.create({
     fontFamily: 'Inter-Medium',
     fontSize: 16,
     lineHeight: 16
+  },
+  listTitle: {
+    fontFamily: 'Inter-Bold',
+    fontSize: 22,
+    lineHeight: 22,
+    color: Colors.Text
   }
 })
