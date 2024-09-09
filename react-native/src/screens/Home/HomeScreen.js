@@ -5,7 +5,7 @@ import { connectToRedux } from '../../utils/ReduxConnect';
 import { createUserSelector } from '../../store/selectors/AuthSelector';
 import PropTypes from 'prop-types';
 import { homeStyle } from '../../styles/HomeStyle';
-import SimpleProductCarousselComponent from '../../components/Caroussels/SimpleProductCaroussel';
+import SimpleProductCarouselComponent from '../../components/Caroussels/SimpleProductCaroussel';
 
 function HomeScreen({ user }) {
   return (
@@ -34,7 +34,7 @@ function HomeScreen({ user }) {
 
       <Box mt={10} px={5}>
         <Text style={homeStyle.listTitle}>{i18n.t('Aled::Home:TheyExpireSoon')}</Text>
-        <SimpleProductCarousselComponent/>
+        <SimpleProductCarouselComponent/>
       </Box>
     </View>
   );

@@ -5,7 +5,7 @@ import EmptyBox from '../../../assets/icons/empty_box.svg';
 import { StyleSheet } from 'react-native';
 import i18n from 'i18n-js';
 
-function SimpleProductCarousselComponent({productList = []}) {
+function SimpleProductCarouselComponent({productList = []}) {
   const productRender = ({item}) => {
     return (
       <Pressable style={styles.prodctCard}>
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SimpleProductCarousselComponent;
+export default SimpleProductCarouselComponent;
