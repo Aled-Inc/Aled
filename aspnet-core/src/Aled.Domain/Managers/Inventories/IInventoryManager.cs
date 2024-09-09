@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Aled.AggregateRoots.Inventories;
+using Aled.Entities.Products;
 using Aled.OpenFoodFactService.Products.Dtos;
 using Aled.Products.Dtos;
 
@@ -10,6 +11,6 @@ public interface IInventoryManager
 {
     Task<Inventory> GetAsync();
     Task<Inventory> ClearAsync();
-    Task<Inventory> AddProductAsync(GetProductDto product, DateTime expirationDate);
+    Task<Product> AddProductAsync(GetProductDto product);
     Task<Inventory> RemoveProductAsync(RemoveProductDto removeProductDto);
 }

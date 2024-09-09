@@ -33,6 +33,10 @@ public class AledDomainAutoMapperProfile : Profile
             .ForMember(
                 dest => dest.ImageFrontUrl,
                 opt =>
-                    opt.MapFrom(src => src.ProductDetails.ImageFrontUrl));
+                    opt.MapFrom(src => src.ProductDetails.ImageFrontUrl))
+            .ForMember(
+                dest => dest.CategoryTags,
+                opt =>
+                    opt.MapFrom(src => src.ProductDetails.CategoryTags));
     }
 }

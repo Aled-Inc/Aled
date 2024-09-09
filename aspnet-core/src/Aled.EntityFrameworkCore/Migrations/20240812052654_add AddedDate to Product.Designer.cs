@@ -4,6 +4,7 @@ using Aled.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Aled.Migrations
 {
     [DbContext(typeof(AledDbContext))]
-    partial class AledDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240812052654_add AddedDate to Product")]
+    partial class addAddedDatetoProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,13 +67,11 @@ namespace Aled.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Allergens")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Brands")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CategoryTags")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Code")
@@ -85,13 +86,11 @@ namespace Aled.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IngredientsText")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("InventoryId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ProductCategoryTag")
-                        .HasColumnType("int");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
