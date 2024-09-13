@@ -2,7 +2,7 @@
   "culture": "en",
   "texts": {
     "Aled": "Aled.",
-    "Welcome": "Welcome",
+    "Welcome": "Hello",
     "Username" : "Username",
     "Email" : "Email",
     "Password" : "Password",
@@ -15,7 +15,8 @@
     "Menu:Fridge": "Fridge",
     "Menu:Profile": "Profile",
     
-    "Home:Subtitle": "What's in my fridge ?",
+    "Home:Subtitle": "What's in your fridge ?",
+    "Home:TheyExpireSoon": "They expire soon",
     
     "Register:Title": "Registration",
     "Register:Register": "Register",
@@ -65,6 +66,8 @@
     "ErrorSave:TryAgainOrLater": "An error occured, please try again or later !",
     
     "Modal:EmailConfirmation" : "An e-mail confirmation will be sent to you. Would you like to continue ?",
+
+    "Component:SimpleProductCarousel:NoProduct": "No product, go scan them !",
     
     "Email:ConfirmEmailTitle": "Email confirmation request"
   },

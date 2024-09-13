@@ -2,7 +2,7 @@
   "culture": "fr",
   "texts": {
     "Aled": "Aled.",
-    "Welcome": "Bienvenue",
+    "Welcome": "Salut",
     "Username" : "Nom d'utilisateur",
     "Email" : "Adresse mail",
     "Password" : "Mot de passe",
@@ -15,7 +15,8 @@
     "Menu:Fridge": "Frigo",
     "Menu:Profile": "Profil",
     
-    "Home:Subtitle": "Y'a quoi dans mon frigo ?",
+    "Home:Subtitle": "Y'a quoi dans ton frigo ?",
+    "Home:TheyExpireSoon": "Ils expirent bientôt",
 
     "Register:Title": "Inscription",
     "Register:Register": "S'inscrire",
@@ -65,6 +66,8 @@
     "ErrorSave:TryAgainOrLater": "Une erreur s'est produite, veuillez réessayer plus tard !",
     
     "Modal:EmailConfirmation" : "Un e-mail de confirmation vas vous être envoyer, souhaitez-vous continuer ?",
+    
+    "Component:SimpleProductCarousel:NoProduct": "Aucun produit, scannons-les !",
 
     "Email:ConfirmEmailTitle": "Confirmation de votre adresse e-mail"
   }
