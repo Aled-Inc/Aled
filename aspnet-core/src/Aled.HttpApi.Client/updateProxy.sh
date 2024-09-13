@@ -3,4 +3,4 @@
 # shellcheck disable=SC2046
 export $(grep -v '^#' ../.env | xargs)
 
-abp generate-proxy -t csharp -u "https://localhost:44387"
+abp generate-proxy -t csharp -u "https://192.168.1.96:44387"

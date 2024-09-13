@@ -29,5 +29,10 @@ public class AledApplicationAutoMapperProfile : Profile
             .ReverseMap();
 
         CreateMap<IdentityUser, IdentityUserExtendedDto>();
+        
+        CreateMap<Aled.OpenFoodFactService.Products.Dtos.NutrimentsDto, NutrimentsDto>().ReverseMap();
+        CreateMap<Aled.OpenFoodFactService.Products.Dtos.NutrientLevelsDto, NutrientLevelsDto>().ReverseMap();
+        CreateMap<Aled.OpenFoodFactService.Products.Dtos.ProductDetailsDto, ProductDetailsDto>().ReverseMap();
+        CreateMap<Aled.OpenFoodFactService.Products.Dtos.VitaminsDto, VitaminsDto>().ReverseMap();
     }
 }
