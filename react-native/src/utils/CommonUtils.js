@@ -9,11 +9,13 @@ export function hexToRGB(hex, alpha) {
   const g = parseInt(hex.slice(3, 5), 16);
   const b = parseInt(hex.slice(5, 7), 16);
 
-  console.log(`rgba(${r}, ${g}, ${b}, ${alpha})`);
-
   if (alpha) {
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 
   return `rgb(${r}, ${g}, ${b})`;
+}
+
+export function toDate(date) {
+  return new Date(Date.parse(date));
 }

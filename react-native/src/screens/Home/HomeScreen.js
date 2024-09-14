@@ -8,6 +8,7 @@ import { homeStyle } from '../../styles/HomeStyle';
 import SimpleProductCarouselComponent from '../../components/Caroussels/SimpleProductCaroussel';
 import { createInventorySelector } from '../../store/selectors/InventorySelector';
 import { Filters } from '../../utils/InventoryUtils';
+import ProductSearch from '../../components/Search/SearchProduct';
 
 function HomeScreen({ user, inventory }) {
   return (
@@ -33,7 +34,7 @@ function HomeScreen({ user, inventory }) {
           </View>
         </View>
       </Box>
-
+      <ProductSearch products={inventory.products}/>
       <Box mt={10} px={5}>
         <Text style={homeStyle.listTitle}>{i18n.t('Aled::Home:TheyExpireSoon')}</Text>
         <SimpleProductCarouselComponent products={inventory.products} filter={Filters.Expired}/>

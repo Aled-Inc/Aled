@@ -1,11 +1,10 @@
-import { Center, FlatList, Image, Pressable, Text, View } from 'native-base';
+import { Center, FlatList, Image, Pressable, Text } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { Colors } from '../../styles/CommonStyle';
 import EmptyBox from '../../../assets/icons/empty_box.svg';
 import { StyleSheet } from 'react-native';
 import i18n from 'i18n-js';
 import { Filters } from '../../utils/InventoryUtils';
-import { BlurView } from '@react-native-community/blur';
 
 function SimpleProductCarouselComponent({products = [], filter = Filters.All}) {
   const [productList, setProductList] = useState(products);
@@ -64,18 +63,12 @@ function SimpleProductCarouselComponent({products = [], filter = Filters.All}) {
   return (
     <>
       {productList.length > 0 ? (
-        <View>
-          <BlurView 
-            blurType='light'
-            blurAmount={10}
-            reducedTransparencyFallbackColor="white"/>
-          <FlatList
+        <FlatList
           style={styles.list}
           data={productList}
           renderItem={productRender}
           horizontal={true}
         />
-        </View>
       ) : (
         emptyItems()
       )}
