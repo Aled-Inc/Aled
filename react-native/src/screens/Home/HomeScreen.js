@@ -6,8 +6,10 @@ import { createUserSelector } from '../../store/selectors/AuthSelector';
 import PropTypes from 'prop-types';
 import { homeStyle } from '../../styles/HomeStyle';
 import SimpleProductCarouselComponent from '../../components/Caroussels/SimpleProductCaroussel';
+import { createInventorySelector } from '../../store/selectors/InventorySelector';
+import { Filters } from '../../utils/InventoryUtils';
 
-function HomeScreen({ user }) {
+function HomeScreen({ user, inventory }) {
   return (
     <View style={homeStyle.homeContainer} px="3">
       <Box style={homeStyle.identityBox}>
@@ -34,7 +36,7 @@ function HomeScreen({ user }) {
 
       <Box mt={10} px={5}>
         <Text style={homeStyle.listTitle}>{i18n.t('Aled::Home:TheyExpireSoon')}</Text>
-        <SimpleProductCarouselComponent/>
+        <SimpleProductCarouselComponent products={inventory.products} filter={Filters.Expired}/>
       </Box>
     </View>
   );
@@ -42,11 +44,13 @@ function HomeScreen({ user }) {
 
 HomeScreen.propTypes = {
   user: PropTypes.object.isRequired,
+  inventory: PropTypes.object,
 };
 
 export default connectToRedux({
   component: HomeScreen,
   stateProps: state => ({
     user: createUserSelector()(state),
+    inventory: createInventorySelector()(state),
   }),
 });

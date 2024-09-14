@@ -18,6 +18,12 @@
     "Home:Subtitle": "What's in your fridge ?",
     "Home:TheyExpireSoon": "They expire soon",
     
+    "Inventory:MyProducts": "My products",
+    "Inventory:Filters:1": "All",
+    "Inventory:Filters:2": "Expired",
+    "Inventory:Filters:3": "Latest",
+    "Inventory:Search": "Search...",
+    
     "Register:Title": "Registration",
     "Register:Register": "Register",
     "Register:SubPhrase" : "Register to create your virtual fridge",

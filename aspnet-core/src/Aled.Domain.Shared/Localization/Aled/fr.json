@@ -15,6 +15,12 @@
     "Menu:Fridge": "Frigo",
     "Menu:Profile": "Profil",
     
+    "Inventory:MyProducts": "Mes produits",
+    "Inventory:Filters:1": "Tous",
+    "Inventory:Filters:2": "Expirés",
+    "Inventory:Filters:3": "Récents",
+    "Inventory:Search": "Rechercher...",
+    
     "Home:Subtitle": "Y'a quoi dans ton frigo ?",
     "Home:TheyExpireSoon": "Ils expirent bientôt",
 

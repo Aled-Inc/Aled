@@ -1,15 +1,20 @@
-import { Center, FlatList, Image, Pressable, Text } from 'native-base';
-import React from 'react';
+import { Center, FlatList, Image, Pressable, Text, View } from 'native-base';
+import React, { useEffect, useState } from 'react';
 import { Colors } from '../../styles/CommonStyle';
 import EmptyBox from '../../../assets/icons/empty_box.svg';
 import { StyleSheet } from 'react-native';
 import i18n from 'i18n-js';
+import { Filters } from '../../utils/InventoryUtils';
+import { BlurView } from '@react-native-community/blur';
 
-function SimpleProductCarouselComponent({productList = []}) {
+function SimpleProductCarouselComponent({products = [], filter = Filters.All}) {
+  const [productList, setProductList] = useState(products);
+  const dateNow = new Date();
+
   const productRender = ({item}) => {
     return (
       <Pressable style={styles.prodctCard}>
-        <Image style={styles.productImage} alt='product_img' source={{uri: item.image}}></Image>
+        <Image style={styles.productImage} alt='product_img' source={{uri: item.imageFrontUrl}}></Image>
       </Pressable>
     );
   };
@@ -23,15 +28,54 @@ function SimpleProductCarouselComponent({productList = []}) {
     );
   };
 
+  function filterProductList(value) {
+    switch (value) {
+      case Filters.Expired:
+        setProductList(
+          products.filter(product => {
+            const dateExpirationProduct = new Date(product.expirationDate);
+            return dateNow > dateExpirationProduct;
+          }),
+        );
+        break;
+      case Filters.Latest:
+        setProductList(sortProductList(products));
+        break;
+      default: 
+        setProductList(products);
+        break;
+    }
+  };
+
+  useEffect(() => {
+    filterProductList(filter);
+  }, [filter]);
+
+  function sortProductList(productList) {
+    let sortList = [...productList].sort((productA, productB) => {
+      let dateProductA = new Date(productA.addedDate);
+      let dateProductB = new Date(productB.addedDate);
+      return dateProductA - dateProductB;
+    });
+  
+    return sortList;
+  }
+
   return (
     <>
       {productList.length > 0 ? (
-        <FlatList
+        <View>
+          <BlurView 
+            blurType='light'
+            blurAmount={10}
+            reducedTransparencyFallbackColor="white"/>
+          <FlatList
           style={styles.list}
           data={productList}
           renderItem={productRender}
           horizontal={true}
         />
+        </View>
       ) : (
         emptyItems()
       )}

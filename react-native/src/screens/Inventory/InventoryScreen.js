@@ -1,122 +1,70 @@
 import PropTypes from 'prop-types';
-import { Box, Center, Text, View, TextInput, Pressable } from 'native-base';
+import { Box, Text, View, Pressable, HStack } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import SimpleProductCarouselComponent from '../../components/Caroussels/SimpleProductCaroussel';
 import { Colors } from '../../styles/CommonStyle';
 import { createInventorySelector } from '../../store/selectors/InventorySelector';
-import { StyleSheet } from 'react-native';
+import { TextInput } from 'react-native';
 import { connectToRedux } from '../../utils/ReduxConnect';
+import { Filters } from '../../utils/InventoryUtils';
+import { inventoryStyle } from '../../styles/InventoryStyle';
+import i18n from 'i18n-js';
+import ProductSearch from '../../components/Search/SearchProduct';
 
 function InventoryScreen({ inventory }) {
   const [productListUser, setProductListUser] = useState([]);
   const [foodSearch, setFoodSearch] = useState('');
   const [productListSearch, setProductListSearch] = useState([]);
-  const [productListLatest, setProductListLatest] = useState([]);
+  const [activeFilter, setActiveFilter] = useState(Filters.All);
 
-  function searchProduct(value) {
-    const productListFilter = productListUser.filter(product =>
-      product.productName.includes(value),
-    );
-    setProductListSearch(productListFilter);
-    setFoodSearch(value);
+
+
+  function toggleFilter(filter) {
+    setActiveFilter(filter);
   }
 
-  function sortProductList(productList) {
-    const sortList = productList.sort((productA, productB) => {
-      const dateProductA = new Date(productA.addedDate);
-      const dateProductB = new Date(productB.addedDate);
-      return dateProductA - dateProductB;
-    });
-
-    return sortList;
-  }
-
-  function filterProductList(value) {
-    const dateNow = new Date();
-
-    if (value == 'All') {
-      searchProduct(foodSearch);
-    } else if (value == 'Expired') {
-      setProductListSearch(
-        productListSearch.filter(product => {
-          const dateExpirationProduct = new Date(product.expirationDate);
-          return dateNow < dateExpirationProduct;
-        }),
-      );
-    } else {
-      setProductListSearch(sortProductList(productListSearch));
-    }
+  function getFilterColor(filterName) {
+    return activeFilter === filterName ? Colors.Element : Colors.Text;
   }
 
   useEffect(() => {
-    setProductListSearch(inventory.products);
-    console.log(productListSearch);
     setProductListUser(inventory.products);
-    setProductListLatest(sortProductList(inventory.products));
-  }, [productListSearch]);
+  }, []);
 
   return (
-    <View>
-      <Box>
+    <View flex={1} px={5} py={5} backgroundColor={Colors.BG}>
+      <Text style={inventoryStyle.title}>
+        {i18n.t('Aled::Inventory:MyProducts')}
+      </Text>
+      <ProductSearch products={inventory.products}></ProductSearch>
+      <Box mt={2}>
+        <HStack space={4}>
+          <Pressable p={1}
+            onPress={() => {
+              toggleFilter(Filters.All);
+            }}>
+            <Text style={inventoryStyle.filterText} color={getFilterColor(Filters.All)}>{i18n.t(`Aled::Inventory:Filters:${Filters.All}`)}</Text>
+          </Pressable>
+          <Pressable p={1}
+            onPress={() => {
+              toggleFilter(Filters.Expired);
+            }}>
+            <Text style={inventoryStyle.filterText} color={getFilterColor(Filters.Expired)}>{i18n.t(`Aled::Inventory:Filters:${Filters.Expired}`)}</Text>
+          </Pressable>
+          <Pressable p={1}
+            onPress={() => {
+              toggleFilter(Filters.Latest);
+            }}>
+            <Text style={inventoryStyle.filterText} color={getFilterColor(Filters.Latest)}>{i18n.t(`Aled::Inventory:Filters:${Filters.Latest}`)}</Text>
+          </Pressable>
+        </HStack>
         <View>
-          <Text style={styles.title}>My food</Text>
-          {/* <TextInput
-            onChangeText={searchProduct}
-            value={foodSearch}
-            placeholder="search..."
-          /> */}
-        </View>
-      </Box>
-      <Box>
-        <View>
-          <View>
-            <Pressable
-              onPress={() => {
-                filterProductList('All');
-              }}>
-              <Text>All</Text>
-            </Pressable>
-          </View>
-          <View>
-            <Pressable
-              onPress={() => {
-                filterProductList('Expired');
-              }}>
-              <Text>Expired</Text>
-            </Pressable>
-          </View>
-          <View>
-            <Pressable
-              onPress={() => {
-                filterProductList('Latest');
-              }}>
-              <Text>Latest</Text>
-            </Pressable>
-          </View>
-        </View>
-        <View>
-          <SimpleProductCarouselComponent productList={productListSearch} />
-        </View>
-      </Box>
-      <Box>
-        <View>
-          <Text>My latest</Text>
-          <View>
-            <SimpleProductCarouselComponent productList={productListLatest} />
-          </View>
+          <SimpleProductCarouselComponent products={inventory.products} filter={activeFilter}/>
         </View>
       </Box>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    fontFamily: 'Inter-Light',
-    fontSize: 14,
-    color: Colors.Text,
-  },
-});
 
 InventoryScreen.propTypes = {
   inventory: PropTypes.object,
