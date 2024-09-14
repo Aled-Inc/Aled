@@ -1,20 +1,28 @@
-import {all, call, put, takeLatest} from 'redux-saga/effects';
-import AuthService from "../../services/AuthService";
-import AuthActions from "../actions/AuthActions";
-import LoadingActions from "../actions/LoadingActions";
-import PersistentStorageActions from "../actions/PersistentStorageActions";
+import { all, call, put, takeLatest } from 'redux-saga/effects';
+import AuthService from '../../services/AuthService';
+import AuthActions from '../actions/AuthActions';
+import LoadingActions from '../actions/LoadingActions';
+import PersistentStorageActions from '../actions/PersistentStorageActions';
 import AppActions from '../actions/AppActions';
+import InventoryActions from '../actions/InventoryActions';
 
-function* login({payload: {username, password, showLoading}}) {
+function* login({ payload: { username, password, showLoading } }) {
   if (showLoading) {
     yield put(LoadingActions.start({ key: 'login', opacity: 0.7 }));
   }
   const data = yield call(AuthService.login, username, password);
 
-  yield put(PersistentStorageActions.setToken({ ...data, expire_time: new Date().valueOf() + data.expires_in, scope: "Aled"}));
+  yield put(
+    PersistentStorageActions.setToken({
+      ...data,
+      expire_time: new Date().valueOf() + data.expires_in,
+      scope: 'Aled',
+    }),
+  );
 
   const user = yield call(AuthService.getCurrentUser);
   yield put(AuthActions.setUser(user));
+  yield put(InventoryActions.getInventoryUser());
 
   yield put(AppActions.fetchAppConfigAsync());
 
@@ -23,7 +31,7 @@ function* login({payload: {username, password, showLoading}}) {
   }
 }
 
-function* register({payload: {username, email, password, showLoading}}) {
+function* register({ payload: { username, email, password, showLoading } }) {
   if (showLoading) {
     yield put(LoadingActions.start({ key: 'register', opacity: 0.7 }));
   }
@@ -34,7 +42,7 @@ function* register({payload: {username, email, password, showLoading}}) {
     yield put(LoadingActions.stop({ key: 'register' }));
   }
 
-  yield put(AuthActions.loginAsync({ username, password, showLoading: true}));
+  yield put(AuthActions.loginAsync({ username, password, showLoading: true }));
 }
 
 function* reloadCurrentUserInfo() {
@@ -43,13 +51,16 @@ function* reloadCurrentUserInfo() {
   const user = yield call(AuthService.getCurrentUser);
   yield put(AuthActions.setUser(user));
 
-  yield put(LoadingActions.stop({ key: 'reloadCurrentUserInfo'}));
+  yield put(LoadingActions.stop({ key: 'reloadCurrentUserInfo' }));
 }
 
 export default function* () {
   yield all([
     takeLatest(AuthActions.loginAsync.type, login),
     takeLatest(AuthActions.registerAsync.type, register),
-    takeLatest(AuthActions.reloadCurrentUserInfoAsync.type, reloadCurrentUserInfo),
+    takeLatest(
+      AuthActions.reloadCurrentUserInfoAsync.type,
+      reloadCurrentUserInfo,
+    ),
   ]);
 }
