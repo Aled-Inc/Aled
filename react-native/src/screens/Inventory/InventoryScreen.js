@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import { Box, Text, View, Pressable, HStack } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import SimpleProductCarouselComponent from '../../components/Caroussels/SimpleProductCaroussel';
 import { Colors } from '../../styles/CommonStyle';
 import { createInventorySelector } from '../../store/selectors/InventorySelector';
-import { TextInput } from 'react-native';
 import { connectToRedux } from '../../utils/ReduxConnect';
 import { Filters } from '../../utils/InventoryUtils';
 import { inventoryStyle } from '../../styles/InventoryStyle';
@@ -12,12 +11,7 @@ import i18n from 'i18n-js';
 import ProductSearch from '../../components/Search/SearchProduct';
 
 function InventoryScreen({ inventory }) {
-  const [productListUser, setProductListUser] = useState([]);
-  const [foodSearch, setFoodSearch] = useState('');
-  const [productListSearch, setProductListSearch] = useState([]);
   const [activeFilter, setActiveFilter] = useState(Filters.All);
-
-
 
   function toggleFilter(filter) {
     setActiveFilter(filter);
@@ -26,10 +20,6 @@ function InventoryScreen({ inventory }) {
   function getFilterColor(filterName) {
     return activeFilter === filterName ? Colors.Element : Colors.Text;
   }
-
-  useEffect(() => {
-    setProductListUser(inventory.products);
-  }, []);
 
   return (
     <View flex={1} px={5} py={5} backgroundColor={Colors.BG}>
