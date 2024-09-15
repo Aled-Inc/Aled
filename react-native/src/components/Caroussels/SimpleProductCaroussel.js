@@ -5,24 +5,34 @@ import EmptyBox from '../../../assets/icons/empty_box.svg';
 import { StyleSheet } from 'react-native';
 import i18n from 'i18n-js';
 import { Filters } from '../../utils/InventoryUtils';
+import { toDate } from '../../utils/CommonUtils';
+import ProductImageCardComponent from '../Cards/ProductCards/ProductImageCardComponent';
+import FiltersComponent from '../../Filters/FiltersComponent';
 
-function SimpleProductCarouselComponent({products = [], filter = Filters.All}) {
+function SimpleProductCarouselComponent({
+  products = [],
+  filter = Filters.All,
+  CardComponent = ProductImageCardComponent,
+  horizontal = true,
+  scrollEnabled = true
+}) {
+  const [activeFilter, setActiveFilter] = useState(filter);
   const [productList, setProductList] = useState(products);
   const dateNow = new Date();
 
-  const productRender = ({item}) => {
-    return (
-      <Pressable style={styles.prodctCard}>
-        <Image style={styles.productImage} alt='product_img' source={{uri: item.imageFrontUrl}}></Image>
-      </Pressable>
-    );
-  };
+  const productRender = ({ item }) => <CardComponent product={item} />;
 
   const emptyItems = () => {
     return (
-      <Center backgroundColor={Colors.BGDarker} borderRadius={'2xl'} py={10} mt={2}>
-        <EmptyBox width={80} height={80} opacity={0.6}/>
-        <Text style={styles.noProductText}>{i18n.t('Aled::Component:SimpleProductCarousel:NoProduct')}</Text>
+      <Center
+        backgroundColor={Colors.BGDarker}
+        borderRadius={'2xl'}
+        py={10}
+        mt={2}>
+        <EmptyBox width={80} height={80} opacity={0.6} />
+        <Text style={styles.noProductText}>
+          {i18n.t('Aled::Component:SimpleProductCarousel:NoProduct')}
+        </Text>
       </Center>
     );
   };
@@ -38,64 +48,73 @@ function SimpleProductCarouselComponent({products = [], filter = Filters.All}) {
         );
         break;
       case Filters.Latest:
-        setProductList(sortProductList(products));
+        setProductList(getLatestProducts(products));
         break;
-      default: 
+      case Filters.ExpiredSoon:
+        setProductList(getExpiredSoonProducts(products));
+        break;
+      default:
         setProductList(products);
         break;
     }
-  };
+  }
 
-  useEffect(() => {
-    filterProductList(filter);
-  }, [filter]);
-
-  function sortProductList(productList) {
+  function getLatestProducts(productList) {
     let sortList = [...productList].sort((productA, productB) => {
-      let dateProductA = new Date(productA.addedDate);
-      let dateProductB = new Date(productB.addedDate);
+      let dateProductA = toDate(productA.addedDate);
+      let dateProductB = toDate(productB.addedDate);
       return dateProductA - dateProductB;
     });
-  
+
     return sortList;
   }
 
+  function getExpiredSoonProducts(productList) {
+    let sortList = [...productList].sort((productA, productB) => {
+      let dateProductA = toDate(productA.expirationDate);
+      let dateProductB = toDate(productB.expirationDate);
+      return dateProductA - dateProductB;
+    });
+
+    return sortList;
+  }
+
+  const getActiveFilter = (filter) => {
+    setActiveFilter(filter);
+  }
+
+  useEffect(() => {
+    filterProductList(activeFilter);
+  }, [activeFilter]);
+
   return (
     <>
+      <FiltersComponent getActiveFilter={getActiveFilter}/>
       {productList.length > 0 ? (
         <FlatList
           style={styles.list}
           data={productList}
           renderItem={productRender}
-          horizontal={true}
+          horizontal={horizontal}
+          initialNumToRender={10}
+          scrollEnabled={scrollEnabled}
         />
       ) : (
         emptyItems()
       )}
     </>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   list: {
     paddingTop: 10,
   },
-  prodctCard: {
-    padding: 10,
-    backgroundColor: Colors.NavBG,
-    borderRadius: 15,
-    marginRight: 10,
-  },
-  productImage: {
-    height: 150,
-    width: 100,
-    borderRadius: 5,
-  },
   noProductText: {
     fontFamily: 'Inter-Light',
     fontSize: 14,
-    color: Colors.Text
-  }
+    color: Colors.Text,
+  },
 });
 
 export default SimpleProductCarouselComponent;

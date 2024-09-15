@@ -22,6 +22,7 @@
     "Inventory:Filters:1": "All",
     "Inventory:Filters:2": "Expired",
     "Inventory:Filters:3": "Latest",
+    "Inventory:Filters:4": "Expired soon",
     "Inventory:Search:Placeholder": "Search...",
     "Inventory:Search": "Search",
 

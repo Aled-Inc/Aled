@@ -6,8 +6,5 @@ export const inventoryStyle = StyleSheet.create({
     fontFamily: 'Inter-Bold',
     fontSize: 20,
     color: Colors.Text,
-  },
-  filterText: {
-    fontFamily: 'Inter-Medium'
   }
 });

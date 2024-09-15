@@ -34,10 +34,10 @@ function HomeScreen({ user, inventory }) {
           </View>
         </View>
       </Box>
-      <ProductSearch products={inventory.products}/>
-      <Box mt={10} px={5}>
-        <Text style={homeStyle.listTitle}>{i18n.t('Aled::Home:TheyExpireSoon')}</Text>
-        <SimpleProductCarouselComponent products={inventory.products} filter={Filters.Expired}/>
+      <Box px={5}>
+        <ProductSearch products={inventory.products}/>
+        <Text style={homeStyle.listTitle} mt={3}>{i18n.t('Aled::Home:TheyExpireSoon')}</Text>
+        <SimpleProductCarouselComponent products={inventory.products} filter={Filters.ExpiredSoon}/>
       </Box>
     </View>
   );
