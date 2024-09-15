@@ -14,7 +14,8 @@ function SimpleProductCarouselComponent({
   filter = Filters.All,
   CardComponent = ProductImageCardComponent,
   horizontal = true,
-  scrollEnabled = true
+  scrollEnabled = true,
+  showFilter = true
 }) {
   const [activeFilter, setActiveFilter] = useState(filter);
   const [productList, setProductList] = useState(products);
@@ -85,11 +86,11 @@ function SimpleProductCarouselComponent({
 
   useEffect(() => {
     filterProductList(activeFilter);
-  }, [activeFilter]);
+  }, [activeFilter, products]);
 
   return (
     <>
-      <FiltersComponent getActiveFilter={getActiveFilter}/>
+      {showFilter ? <FiltersComponent getActiveFilter={getActiveFilter}/> : <></>}
       {productList.length > 0 ? (
         <FlatList
           style={styles.list}

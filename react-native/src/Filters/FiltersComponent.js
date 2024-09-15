@@ -15,7 +15,8 @@ function FiltersComponent({getActiveFilter}) {
         p={1}
         onPress={() => {
           toggleFilter(filter);
-        }}>
+        }}
+        key={filter}>
         <Text
           style={styles.filterText}
           color={getFilterColor(filter)}>

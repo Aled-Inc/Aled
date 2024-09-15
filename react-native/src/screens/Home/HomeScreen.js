@@ -37,7 +37,7 @@ function HomeScreen({ user, inventory }) {
       <Box px={5}>
         <ProductSearch products={inventory.products}/>
         <Text style={homeStyle.listTitle} mt={3}>{i18n.t('Aled::Home:TheyExpireSoon')}</Text>
-        <SimpleProductCarouselComponent products={inventory.products} filter={Filters.ExpiredSoon}/>
+        <SimpleProductCarouselComponent products={inventory.products} filter={Filters.ExpiredSoon} showFilter={false}/>
       </Box>
     </View>
   );
