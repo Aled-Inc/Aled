@@ -30,9 +30,11 @@ public class AledApplicationAutoMapperProfile : Profile
 
         CreateMap<IdentityUser, IdentityUserExtendedDto>();
         
-        CreateMap<Aled.OpenFoodFactService.Products.Dtos.NutrimentsDto, NutrimentsDto>().ReverseMap();
+        CreateMap<Aled.OpenFoodFactService.Products.Dtos.NutrientsDto, NutrientsDto>().ReverseMap();
         CreateMap<Aled.OpenFoodFactService.Products.Dtos.NutrientLevelsDto, NutrientLevelsDto>().ReverseMap();
-        CreateMap<Aled.OpenFoodFactService.Products.Dtos.ProductDetailsDto, ProductDetailsDto>().ReverseMap();
+        CreateMap<Aled.OpenFoodFactService.Products.Dtos.ProductDetailsDto, ProductDetailsDto>()
+            .ForMember(dest => dest.Vitamins, opt => opt.MapFrom(src => src.GetVitamins()))
+            .ReverseMap();
         CreateMap<Aled.OpenFoodFactService.Products.Dtos.VitaminsDto, VitaminsDto>().ReverseMap();
     }
 }

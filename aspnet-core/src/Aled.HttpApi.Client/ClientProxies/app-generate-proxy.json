@@ -158,7 +158,7 @@
         }
       ]
     },
-    "Aled.OpenFoodFactService.Products.Dtos.NutrimentsDto": {
+    "Aled.OpenFoodFactService.Products.Dtos.NutrientsDto": {
       "baseType": null,
       "isEnum": false,
       "enumNames": null,
@@ -275,6 +275,66 @@
         },
         {
           "name": "Salt",
+          "jsonName": null,
+          "type": "System.Double",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "B1",
+          "jsonName": null,
+          "type": "System.Double",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "B2",
+          "jsonName": null,
+          "type": "System.Double",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "B6",
+          "jsonName": null,
+          "type": "System.Double",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "B12",
+          "jsonName": null,
+          "type": "System.Double",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "C",
           "jsonName": null,
           "type": "System.Double",
           "typeSimple": "number",
@@ -403,6 +463,18 @@
           "regex": null
         },
         {
+          "name": "Quantity",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
           "name": "NovaGroup",
           "jsonName": null,
           "type": "System.Int32",
@@ -415,7 +487,7 @@
           "regex": null
         },
         {
-          "name": "NutriscoreGrade",
+          "name": "NutrientLevels",
           "jsonName": null,
           "type": "Aled.OpenFoodFactService.Products.Dtos.NutrientLevelsDto",
           "typeSimple": "Aled.OpenFoodFactService.Products.Dtos.NutrientLevelsDto",
@@ -427,10 +499,22 @@
           "regex": null
         },
         {
-          "name": "Nutriments",
+          "name": "Nutriscore",
           "jsonName": null,
-          "type": "Aled.OpenFoodFactService.Products.Dtos.NutrimentsDto",
-          "typeSimple": "Aled.OpenFoodFactService.Products.Dtos.NutrimentsDto",
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Nutrients",
+          "jsonName": null,
+          "type": "Aled.OpenFoodFactService.Products.Dtos.NutrientsDto",
+          "typeSimple": "Aled.OpenFoodFactService.Products.Dtos.NutrientsDto",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -530,6 +614,18 @@
         },
         {
           "name": "B12",
+          "jsonName": null,
+          "type": "System.Double",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "C",
           "jsonName": null,
           "type": "System.Double",
           "typeSimple": "number",
