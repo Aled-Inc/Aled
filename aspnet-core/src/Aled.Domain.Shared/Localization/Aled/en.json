@@ -22,7 +22,11 @@
     "Inventory:Filters:1": "All",
     "Inventory:Filters:2": "Expired",
     "Inventory:Filters:3": "Latest",
-    "Inventory:Search": "Search...",
+    "Inventory:Search:Placeholder": "Search...",
+    "Inventory:Search": "Search",
+
+    "Product:DLC": "ED",
+    "Product:Quantity": "Quantity",
     
     "Register:Title": "Registration",
     "Register:Register": "Register",

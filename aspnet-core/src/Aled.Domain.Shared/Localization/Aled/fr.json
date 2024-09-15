@@ -19,7 +19,11 @@
     "Inventory:Filters:1": "Tous",
     "Inventory:Filters:2": "Expirés",
     "Inventory:Filters:3": "Récents",
-    "Inventory:Search": "Rechercher...",
+    "Inventory:Search:Placeholder": "Rechercher...",
+    "Inventory:Search": "Rechercher",
+    
+    "Product:DLC": "DLC",
+    "Product:Quantity": "Quantité",
     
     "Home:Subtitle": "Y'a quoi dans ton frigo ?",
     "Home:TheyExpireSoon": "Ils expirent bientôt",
