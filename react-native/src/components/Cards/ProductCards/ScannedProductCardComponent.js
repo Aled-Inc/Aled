@@ -1,12 +1,20 @@
 import { Box, HStack, Image, Pressable, Text, VStack } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../../styles/CommonStyle';
+import { ProductCategoryTagInfo } from '../../../utils/ProductCategoryTagUtils';
+import { useNavigation } from '@react-navigation/native';
 import Tag from '../../Tags/Tag';
 import i18n from 'i18n-js';
 
 function ScannedProductCardComponent({ product }) {
+    const navigation = useNavigation();
+    
   return (
-    <Pressable onPress={() => {}}>
+    <Pressable onPress={() => {
+        navigation.navigate('ProductDetails', {
+            code: product.code,
+        })
+    }}>
       <Box style={styles.productCardLess}>
         <HStack space={1}>
           <Box style={styles.productImageBox}>

@@ -8,6 +8,10 @@
     "Password" : "Password",
     "PhoneNumber" : "Phone",
     "SeeMyFridge" : "See my fridge !",
+    "High": "High",
+    "Moderate": "Moderate",
+    "Low": "Low",
+    "None": "None",
     
     "Menu:Scan": "Scan",
     "Menu:Chat": "Chat",
@@ -32,16 +36,16 @@
     
     "Register:Title": "Registration",
     "Register:Register": "Register",
-    "Register:SubPhrase" : "Register to create your virtual fridge",
+    "Register:SubPhrase": "Register to create your virtual fridge",
     "Register:AlreadyHaveAccount": "You already have an account ?",
-    "Register:LoginHere" : "Login here !",
-    
-    "Login:Title" : "Connection",
-    "Login:Login" : "Login",
-    "Login:SubPhrase" : "Login to open your fridge",
-    "Login:ForgotMyPassword" : "I forgo my password",
-    "Login:NoAccount" : "You don't have any account ?",
-    "Login:RegisterHere" : "Register here",
+    "Register:LoginHere": "Login here !",
+
+    "Login:Title": "Connection",
+    "Login:Login": "Login",
+    "Login:SubPhrase": "Login to open your fridge",
+    "Login:ForgotMyPassword": "I forgo my password",
+    "Login:NoAccount": "You don't have any account ?",
+    "Login:RegisterHere": "Register here",
 
     "Settings:AccountSettings": "Account settings",
     "Settings:Account:Information": "Account informations",
@@ -60,28 +64,55 @@
     "Settings:Assistance": "Assistance",
     "Settings:Assistance:ContactUs": "Contact us",
 
-    "Scan:ErrorOnFetchProduct" : "Error on fetch product.",
-    "Scan:AuthorizationError:NoCamera" : "No camera",
-    "Scan:AuthorizationError:Permission" : "Please authorize access to the camera to use the scan function. Go to: Settings > Applications > Aled. > Authorizations.",
-    "Scan:Summary" : "Scanned products",
-    "Scan:Empty" : "No product scanned",
-    "Scan:NoProduct?" : "No product yet ?",
-    "Scan:ScanThem!" : "Scan them and manage your stock with ease !",
-    
-    "EmailConfirmation:Succeeded" : "Succeeded",
-    "EmailConfirmation:SucceededDescription" : "Your email has been successfully verified !",
-    
-    "EmailConfirmation:Failed" : "Failed",
-    "EmailConfirmation:FailedDescription" : "Your email verification failed :(",
-    
-    "ErrorSave:Successful" : "Your modifications has been successfully changed !",
-    "ErrorSave:TryAgainOrLater": "An error occured, please try again or later !",
-    
-    "Modal:EmailConfirmation" : "An e-mail confirmation will be sent to you. Would you like to continue ?",
+    "Scan:ErrorOnFetchProduct": "Error on fetch product.",
+    "Scan:AuthorizationError:NoCamera": "No camera",
+    "Scan:AuthorizationError:Permission": "Please authorize access to the camera to use the scan function. Go to: Settings > Applications > Aled. > Authorizations.",
+    "Scan:Summary": "Scanned products",
+    "Scan:Empty": "No product scanned",
+    "Scan:NoProduct?": "No product yet ?",
+    "Scan:ScanThem!": "Scan them and manage your stock with ease !",
 
-    "Component:SimpleProductCarousel:NoProduct": "Ne product, go scan them !",
-    
-    "Email:ConfirmEmailTitle": "Email confirmation request"
+    "EmailConfirmation:Succeeded": "Succeeded",
+    "EmailConfirmation:SucceededDescription": "Your email has been successfully verified !",
+
+    "EmailConfirmation:Failed": "Failed",
+    "EmailConfirmation:FailedDescription": "Your email verification failed :(",
+
+    "ErrorSave:Successful": "Your modifications has been successfully changed !",
+    "ErrorSave:TryAgainOrLater": "An error occured, please try again or later !",
+
+    "Modal:EmailConfirmation": "An e-mail confirmation will be sent to you. Would you like to continue ?",
+
+    "Component:SimpleProductCarousel:NoProduct": "No product, go scan them !",
+
+    "Email:ConfirmEmailTitle": "Email confirmation request",
+
+    "Product:Details": "Details",
+    "Product:Details:Health": "Health",
+    "Product:Details:Informations": "General Informations",
+    "Product:Details:Quantity": "Quantity",
+    "Product:Details:Brand": "Brand",
+    "Product:Details:Origin": "Ingredient origin",
+    "Product:Details:Manufacturing": "Manufacturing place",
+    "Product:Details:Allergens": "Allergens",
+    "Product:Details:Processing": "Food processing",
+    "Product:Details:Ingredients": "Ingredients",
+    "Product:Details:NutrientsLevels": "Nutrient levels",
+    "Product:Details:Nutrients": "Nutrients",
+    "Product:Details:NutritionFacts": "Nutrition facts",
+    "Product:Details:Nutrients:Fats": "Fats",
+    "Product:Details:Nutrients:SaturatedFats": "Saturated Fats",
+    "Product:Details:Nutrients:Saturatedfats": "Saturated Fats",
+    "Product:Details:Nutrients:Calcium": "Calcium",
+    "Product:Details:Nutrients:Calories": "Calories",
+    "Product:Details:Nutrients:Sugars": "Sugars",
+    "Product:Details:Nutrients:Salt": "Salt",
+    "Product:Details:Nutrients:Energy": "Energy",
+    "Product:Details:Nutrients:Carbohydrates": "Carbohydrates",
+    "Product:Details:Nutrients:Fibers": "Fibers",
+    "Product:Details:Nutrients:Proteins": "Proteins",
+    "Product:Details:Vitamins": "Vitamins"
+
   },
   "Aled:00000": "The given barcode is not valid: {0}.",
   "Aled:00001": "The Expiry Date must be in the future."

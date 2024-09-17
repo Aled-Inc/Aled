@@ -3,11 +3,15 @@
   "texts": {
     "Aled": "Aled.",
     "Welcome": "Salut",
-    "Username" : "Nom d'utilisateur",
-    "Email" : "Adresse mail",
-    "Password" : "Mot de passe",
-    "PhoneNumber" : "Téléphone",
-    "SeeMyFridge" : "Voir mon frigo !",
+    "Username": "Nom d'utilisateur",
+    "Email": "Adresse mail",
+    "Password": "Mot de passe",
+    "PhoneNumber": "Téléphone",
+    "SeeMyFridge": "Voir mon frigo !",
+    "High": "Élevé",
+    "Moderate": "Moyen",
+    "Low": "Faible",
+    "None": "Aucun",
 
     "Menu:Scan": "Scan",
     "Menu:Chat": "Chat",
@@ -32,16 +36,16 @@
 
     "Register:Title": "Inscription",
     "Register:Register": "S'inscrire",
-    "Register:SubPhrase" : "Inscivez-vous pour créer votre frigo virtuel",
+    "Register:SubPhrase": "Inscivez-vous pour créer votre frigo virtuel",
     "Register:AlreadyHaveAccount": "Vous avez déjà un compte ?",
-    "Register:LoginHere" : "Connectez-vous ici",
-    
-    "Login:Title" : "Connexion",
-    "Login:Login" : "Se connecter",
-    "Login:SubPhrase" : "Connectez-vous pour accéder à votre frigo virtuel",
-    "Login:ForgotMyPassword" : "J'ai oublié mon mot de passe",
-    "Login:NoAccount" : "Vous n'avez pas de compte ?",
-    "Login:RegisterHere" : "Inscrivez-vous ici",
+    "Register:LoginHere": "Connectez-vous ici",
+
+    "Login:Title": "Connexion",
+    "Login:Login": "Se connecter",
+    "Login:SubPhrase": "Connectez-vous pour accéder à votre frigo virtuel",
+    "Login:ForgotMyPassword": "J'ai oublié mon mot de passe",
+    "Login:NoAccount": "Vous n'avez pas de compte ?",
+    "Login:RegisterHere": "Inscrivez-vous ici",
 
     "Settings:AccountSettings": "Paramètres du compte",
     "Settings:Account:Information": "Informations du compte",
@@ -60,27 +64,53 @@
     "Settings:Assistance": "Assisstance",
     "Settings:Assistance:ContactUs": "Nous contacter",
 
-    "Scan:ErrorOnFetchProduct" : "Erreur lors de la récupération du produit.",
-    "Scan:AuthorizationError:NoCamera" : "Aucun appareil photo",
-    "Scan:AuthorizationError:Permission" : "Veuillez autoriser l'accès à l'appareil photo pour utiliser la fonction de scan. Rendez-vous dans : Paramètres > Applications > Aled. > Autorisations.",
-    "Scan:Summary" : "Produits scannées",
-    "Scan:Empty" : "Aucun produit scanné",
-    "Scan:NoProduct?" : "Pas encore de produits ?",
-    "Scan:ScanThem!" : "Scannez les et gérez facilement vos stocks !",
-    
-    "EmailConfirmation:Succeeded" : "Succès",
-    "EmailConfirmation:SucceededDescription" : "Ton e-mail a bien été vérifié !",
+    "Scan:ErrorOnFetchProduct": "Erreur lors de la récupération du produit.",
+    "Scan:AuthorizationError:NoCamera": "Aucun appareil photo",
+    "Scan:AuthorizationError:Permission": "Veuillez autoriser l'accès à l'appareil photo pour utiliser la fonction de scan. Rendez-vous dans : Paramètres > Applications > Aled. > Autorisations.",
+    "Scan:Summary": "Produits scannées",
+    "Scan:Empty": "Aucun produit scanné",
+    "Scan:NoProduct?": "Pas encore de produits ?",
+    "Scan:ScanThem!": "Scannez les et gérez facilement vos stocks !",
 
-    "EmailConfirmation:Failed" : "Echec",
-    "EmailConfirmation:FailedDescription" : "Ton e-mail n'a pas pu être vérifié :(",
+    "EmailConfirmation:Succeeded": "Succès",
+    "EmailConfirmation:SucceededDescription": "Ton e-mail a bien été vérifié !",
 
-    "ErrorSave:Successful" : "Vos modifications ont été enregistrées avec succès !",
+    "EmailConfirmation:Failed": "Echec",
+    "EmailConfirmation:FailedDescription": "Ton e-mail n'a pas pu être vérifié :(",
+
+    "ErrorSave:Successful": "Vos modifications ont été enregistrées avec succès !",
     "ErrorSave:TryAgainOrLater": "Une erreur s'est produite, veuillez réessayer plus tard !",
-    
-    "Modal:EmailConfirmation" : "Un e-mail de confirmation vas vous être envoyer, souhaitez-vous continuer ?",
-    
+
+    "Modal:EmailConfirmation": "Un e-mail de confirmation vas vous être envoyer, souhaitez-vous continuer ?",
+
     "Component:SimpleProductCarousel:NoProduct": "Aucun produit, scannons-les !",
 
-    "Email:ConfirmEmailTitle": "Confirmation de votre adresse e-mail"
+    "Email:ConfirmEmailTitle": "Confirmation de votre adresse e-mail",
+
+    "Product:Details": "Détails",
+    "Product:Details:Health": "Santé",
+    "Product:Details:Informations": "Informations générales",
+    "Product:Details:Quantity": "Quantité",
+    "Product:Details:Brand": "Marque",
+    "Product:Details:Origin": "Origine des ingrédients",
+    "Product:Details:Manufacturing": "Lieu de fabrication",
+    "Product:Details:Allergens": "Allergènes",
+    "Product:Details:Processing": "Transformation",
+    "Product:Details:Ingredients": "Ingrédients",
+    "Product:Details:NutrientsLevels": "Niveaux de nutriments",
+    "Product:Details:Nutrients": "Nutriments",
+    "Product:Details:NutritionFacts": "Valeurs nutritionnelles",
+    "Product:Details:Nutrients:Fats": "Matières grasses",
+    "Product:Details:Nutrients:SaturatedFats": "Acides gras saturés",
+    "Product:Details:Nutrients:Saturatedfats": "Acides gras saturés",
+    "Product:Details:Nutrients:Calcium": "Calcium",
+    "Product:Details:Nutrients:Calories": "Calories",
+    "Product:Details:Nutrients:Sugars": "Sucres",
+    "Product:Details:Nutrients:Salt": "Sel",
+    "Product:Details:Nutrients:Energy": "Energie",
+    "Product:Details:Nutrients:Carbohydrates": "Glucides",
+    "Product:Details:Nutrients:Fibers": "Fibres",
+    "Product:Details:Nutrients:Proteins": "Protéines",
+    "Product:Details:Vitamins": "Vitamines"
   }
 }
