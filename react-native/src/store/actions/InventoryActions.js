@@ -12,9 +12,14 @@ const addProductToInventory = createAction('inventory/add/product');
 const addProductToScannedProducts = createAction('inventory/scan/add');
 const clearScannedProducts = createAction('inventory/scan/clear');
 
-const getInventoryUser = createAction('inventory/get');
+const getInventoryUser = createAction('inventory/get', ({ filter, sorting, skipCount, maxResultCount } = {}) => ({
+  payload: { filter, sorting, skipCount, maxResultCount }
+}));
 
-const setInventory = createAction('inventory/set');
+const setInventoryProducts = createAction('inventory/set/products');
+
+const setInventoryDetails = createAction('inventory/set/details');
+const setInventoryTotalProductsCount = createAction('inventory/set/products/count');
 
 export default {
   addProductAsync,
@@ -22,5 +27,7 @@ export default {
   addProductToScannedProducts,
   clearScannedProducts,
   getInventoryUser,
-  setInventory,
+  setInventoryDetails,
+  setInventoryProducts,
+  setInventoryTotalProductsCount
 };

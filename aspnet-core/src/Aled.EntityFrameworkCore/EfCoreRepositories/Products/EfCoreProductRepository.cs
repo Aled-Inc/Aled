@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Aled.Entities.Products;
 using Aled.EntityFrameworkCore;
+using Aled.Products;
 using Aled.Repositories.Products;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
@@ -13,9 +14,9 @@ using Volo.Abp.EntityFrameworkCore;
 
 namespace Aled.EfCoreRepositories.Products;
 
-public class EfCoreProductsRepository: EfCoreRepository<AledDbContext, Product, Guid>, IProductRepository
+public class EfCoreProductRepository: EfCoreRepository<AledDbContext, Product, Guid>, IProductRepository
 {
-    public EfCoreProductsRepository(IDbContextProvider<AledDbContext> dbContextProvider) : base(dbContextProvider)
+    public EfCoreProductRepository(IDbContextProvider<AledDbContext> dbContextProvider) : base(dbContextProvider)
     {
         
     }
@@ -29,12 +30,21 @@ public class EfCoreProductsRepository: EfCoreRepository<AledDbContext, Product, 
         CancellationToken cancellationToken = default)
     {
         var ctx = await GetDbSetAsync();
+        var query = ctx.AsQueryable();
 
-        return await ctx
-            .WhereIf(!filter.IsNullOrWhiteSpace(),
-                x => x.ProductName.Contains(filter) ||
-                     x.Brands.Contains(filter))
-            .OrderBy(sorting.IsNullOrWhiteSpace() ? nameof(Product.AddedDate) : sorting)
+        var filterOnTag = int.TryParse(filter, out var tagFilterValue);
+        
+        if (filterOnTag && Enum.IsDefined(typeof(ProductCategoryTagsEnum), tagFilterValue))
+        {
+            query = query.Where(x => x.ProductCategoryTag == (ProductCategoryTagsEnum) tagFilterValue);
+        }
+        else if (!filter.IsNullOrWhiteSpace())
+        {
+            query = query.Where(x => x.ProductName.Contains(filter) || x.Brands.Contains(filter));
+        }
+
+        return await query
+            .OrderBy(sorting.IsNullOrWhiteSpace() ? nameof(Product.ProductName) : sorting)
             .PageBy(skipCount, maxResultCount)
             .ToListAsync(GetCancellationToken(cancellationToken));
     }

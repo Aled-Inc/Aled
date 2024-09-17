@@ -4,5 +4,5 @@ namespace Aled.Products.Dtos;
 
 public class GetProductsDto : PagedAndSortedResultRequestDto
 {
-    public string Filter { get; set; }
+    public string? Filter { get; set; }
 }

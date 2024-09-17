@@ -1,4 +1,4 @@
-import { Center, FlatList, Image, Pressable, Text } from 'native-base';
+import { Box, Center, Circle, FlatList, HStack, Pressable, Text } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { Colors } from '../../styles/CommonStyle';
 import EmptyBox from '../../../assets/icons/empty_box.svg';
@@ -15,10 +15,14 @@ function SimpleProductCarouselComponent({
   CardComponent = ProductImageCardComponent,
   horizontal = true,
   scrollEnabled = true,
-  showFilter = true
+  showFilter = true,
+  showPagination = false,
+  defaultItemsNumber = 10,
+  onPageChanged,
 }) {
   const [activeFilter, setActiveFilter] = useState(filter);
-  const [productList, setProductList] = useState(products);
+  const [productList, setProductList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
   const dateNow = new Date();
 
   const productRender = ({ item }) => <CardComponent product={item} />;
@@ -43,7 +47,7 @@ function SimpleProductCarouselComponent({
       case Filters.Expired:
         setProductList(
           products.filter(product => {
-            const dateExpirationProduct = new Date(product.expirationDate);
+            const dateExpirationProduct = toDate(product.expirationDate);
             return dateNow > dateExpirationProduct;
           }),
         );
@@ -79,9 +83,41 @@ function SimpleProductCarouselComponent({
 
     return sortList;
   }
-
+  
   const getActiveFilter = (filter) => {
     setActiveFilter(filter);
+  }
+
+ const onPreviousPageChanged = () => {
+  const page = currentPage - 1;
+
+  setCurrentPage(page);
+  onPageChanged(page);
+ }
+
+ const onNextPageChanged = () => {
+  const page = currentPage + 1;
+
+  setCurrentPage(page);
+  onPageChanged(page);
+ }
+
+  const renderPagination = () => {
+    return (
+      <Box alignItems={'center'}>
+        <HStack space={7}>
+          <Pressable py={2} px={4} borderRadius={'full'} onPress={() => onPreviousPageChanged()} disabled={currentPage == 0} backgroundColor={Colors.BGDarker}>
+            <Text style={styles.filter}>{i18n.t('AbpUi::PagerPrevious')}</Text>
+          </Pressable>
+          <Circle size={10} backgroundColor={Colors.Element}>
+            <Text>{currentPage + 1}</Text>
+          </Circle>
+          <Pressable py={2} px={4} borderRadius={'full'} onPress={() => onNextPageChanged()} disabled={productList.length < defaultItemsNumber} backgroundColor={Colors.BGDarker}>
+            <Text style={styles.filter}>{i18n.t('AbpUi::PagerNext')}</Text>
+          </Pressable>
+        </HStack>
+      </Box>
+    );
   }
 
   useEffect(() => {
@@ -92,7 +128,8 @@ function SimpleProductCarouselComponent({
     <>
       {showFilter ? <FiltersComponent getActiveFilter={getActiveFilter}/> : <></>}
       {productList.length > 0 ? (
-        <FlatList
+        <Box>
+          <FlatList
           style={styles.list}
           data={productList}
           renderItem={productRender}
@@ -100,6 +137,8 @@ function SimpleProductCarouselComponent({
           initialNumToRender={10}
           scrollEnabled={scrollEnabled}
         />
+        {showPagination ? renderPagination() : <></>}
+        </Box>
       ) : (
         emptyItems()
       )}
@@ -116,6 +155,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.Text,
   },
+  filter: {
+    fontFamily: 'Inter-Light',
+    fontSize: 12,
+    color: Colors.Text,
+  }
 });
 
 export default SimpleProductCarouselComponent;

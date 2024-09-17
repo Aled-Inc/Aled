@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import InventoryActions from '../actions/InventoryActions';
 
-const initialState = { inventory: { products: [] }, scannedProducts: [] };
+const initialState = { inventory: { products: [], details: {}, totalProducts: 0 }, scannedProducts: [] };
 
 export default createReducer(initialState, builder =>
   builder
@@ -14,7 +14,11 @@ export default createReducer(initialState, builder =>
     .addCase(InventoryActions.clearScannedProducts, state => {
       state.scannedProducts = [];
     })
-    .addCase(InventoryActions.setInventory, (state, action) => {
-      state.inventory = action.payload;
+    .addCase(InventoryActions.setInventoryDetails, (state, action) => {
+      state.inventory.details = action.payload;
+    })
+    .addCase(InventoryActions.setInventoryProducts, (state, action) => {
+      state.inventory.products = action.payload.items;
+      state.totalProducts = action.payload.totalCount;
     }),
 );

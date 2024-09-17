@@ -23,10 +23,19 @@ function* clearScannedProducts() {
   }
 }
 
-function* getInventoryUser() {
-  const response = yield call(InventoryService.getInventory);
-  yield put(InventoryActions.setInventory(response.data));
+function* getInventoryUser({ payload: { filter, sorting, skipCount, maxResultCount} }) {
+  const inventoryDetailsResponse = yield call(InventoryService.getInventoryDetails);
+  yield put(InventoryActions.setInventoryDetails(inventoryDetailsResponse.data));
+
+  yield put(LoadingActions.start({ key: 'getProducts', opacity: 0.4 }));
+
+  const inventoryProductsResponse = yield call(InventoryService.getInventoryProducts, filter, sorting, skipCount, maxResultCount);
+  yield put(InventoryActions.setInventoryProducts(inventoryProductsResponse.data));
+  
+  yield put(LoadingActions.stop({ key: 'getProducts' }));
+
 }
+
 
 export default function* () {
   yield all([

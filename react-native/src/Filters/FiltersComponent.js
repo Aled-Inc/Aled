@@ -36,7 +36,7 @@ function FiltersComponent({getActiveFilter}) {
   }
 
   return (
-    <HStack space={2}>
+    <HStack space={2} width={'80%'}>
       {filtersValues.map((filter) => {
         return (renderFilter(filter))
       })}

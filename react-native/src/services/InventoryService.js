@@ -1,5 +1,5 @@
-import { addProduct } from '../api/InventoryAPI';
-import { getInventory } from '../api/InventoryAPI';
+import { addProduct, getInventoryProducts } from '../api/InventoryAPI';
+import { getInventoryDetails } from '../api/InventoryAPI';
 
 class InventoryService {
   async addProduct(product = { code, expirationDate }) {
@@ -13,12 +13,30 @@ class InventoryService {
     }
   }
 
-  async getInventory() {
+  async getInventoryDetails() {
     try {
-      return await getInventory();
+      return await getInventoryDetails();
     } catch (error) {
       console.error(
         'An error occured during InventoryService.getInventory : ',
+        error,
+      );
+    }
+  }
+
+  async getInventoryProducts(filter, sorting, skipCount, maxResultCount) {
+    try {
+      let body = {
+        Filter: filter,
+        Sorting: sorting,
+        SkipCount: skipCount,
+        MaxResultCount: maxResultCount
+      };
+
+      return await getInventoryProducts(body);
+    } catch (error) {
+      console.error(
+        'An error occured during InventoryService.getInventoryProducts : ',
         error,
       );
     }

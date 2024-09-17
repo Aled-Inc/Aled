@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Box, FlatList, Text, View } from 'native-base';
 import { Pressable, StyleSheet, TextInput } from 'react-native';
 import { Colors } from '../../styles/CommonStyle';
@@ -6,8 +7,11 @@ import { hexToRGB } from '../../utils/CommonUtils';
 import { percentOfScreenHeight } from '../../utils/SizeUtils';
 import ProductCardComponent from '../Cards/ProductCards/ProductCardComponent';
 import i18n from 'i18n-js';
+import InventoryService from '../../services/InventoryService';
+import { connectToRedux } from '../../utils/ReduxConnect';
+import LoadingActions from '../../store/actions/LoadingActions';
 
-export default function ProductSearch({ products }) {
+function ProductSearch({ products, startLoading, stopLoading }) {
   const [productList, setProductList] = useState([]);
   const [searchValue, onSearchValueChanged] = useState('');
 
@@ -23,10 +27,24 @@ export default function ProductSearch({ products }) {
 
   const productRender = ({ item }) => <ProductCardComponent product={item} />;
 
+  const handleGetProducts = async() => {
+    startLoading({ key: 'getProducts', opacity: 0.4 });
+
+    await InventoryService.getInventoryProducts(searchValue, null, 0, 10).then(
+      response => setProductList(response.data.items),
+    );
+
+    stopLoading({ key: 'getProducts' });
+  };
+
+  const onSearch = () => {
+    handleGetProducts();
+  }
+
   const searchButton = () => {
     return (
       <Box backgroundColor={Colors.Element} borderRadius={'full'} mt={5}>
-        <Pressable onPress={() => {}}>
+        <Pressable onPress={() => onSearch()}>
           <Text px={5} py={4} textAlign={'center'} style={styles.searchText}>
             {i18n.t('Aled::Inventory:Search')}
           </Text>
@@ -103,5 +121,18 @@ const styles = StyleSheet.create({
     color: Colors.Text,
     fontSize: 16,
     lineHeight: 16,
+  },
+});
+
+ProductSearch.propTypes = {
+  startLoading: PropTypes.func.isRequired,
+  stopLoading: PropTypes.func.isRequired,
+};
+
+export default connectToRedux({
+  component: ProductSearch,
+  dispatchProps: {
+    startLoading: LoadingActions.start,
+    stopLoading: LoadingActions.stop,
   },
 });
