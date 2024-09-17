@@ -2,14 +2,18 @@ import { Box, HStack, Image, Pressable, Text, VStack } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../../styles/CommonStyle';
 import { ProductCategoryTagInfo } from '../../../utils/ProductCategoryTagUtils';
+import { useNavigation } from '@react-navigation/native';
 
 function ScannedProductCardComponent({ product }) {
+  const navigation = useNavigation();
   const getTag = () => {
     let tag = ProductCategoryTagInfo.at(product.productCategoryTag);
-    
+
     return (
       <Box style={styles.tagBox} backgroundColor={tag.backgroundColor}>
-        <Text style={styles.tagText} color={tag.labelColor}>{tag.label}</Text>
+        <Text style={styles.tagText} color={tag.labelColor}>
+          {tag.label}
+        </Text>
       </Box>
     );
   };
@@ -18,15 +22,23 @@ function ScannedProductCardComponent({ product }) {
     <Pressable onPress={() => {}}>
       <Box style={styles.productCardLess}>
         <HStack space={1}>
-          <Box style={styles.productImageBox}>
-            <Image
-              style={styles.productImage}
-              source={{
-                uri: product.imageFrontUrl,
-              }}
-              alt="product_image"
-            />
-          </Box>
+          <Pressable
+            onPress={() => {
+              console.log('Pressed');
+              navigation.navigate('ProductDetails', {
+                code: product.code,
+              });
+            }}>
+            <Box style={styles.productImageBox}>
+              <Image
+                style={styles.productImage}
+                source={{
+                  uri: product.imageFrontUrl,
+                }}
+                alt="product_image"
+              />
+            </Box>
+          </Pressable>
           <VStack width={'60%'} flexDirection={'column-reverse'}>
             <Text
               style={styles.productTitle}

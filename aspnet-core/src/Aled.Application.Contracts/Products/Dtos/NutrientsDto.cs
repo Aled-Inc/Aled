@@ -2,7 +2,7 @@
 
 namespace Aled.Products.Dtos;
 
-public class NutrimentsDto
+public class NutrientsDto
 {
     public double Calcium { get; set; }
 

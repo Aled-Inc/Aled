@@ -3,11 +3,13 @@ import HomeScreen from '../screens/Home/HomeScreen';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../styles/CommonStyle';
+import { Entypo } from '@expo/vector-icons';
 import ProfileStackNavigator from './ProfileNavigator';
 import Wrapper from '../components/Wrapper/Wrapper';
 import I18n from 'i18n-js';
 import EmailConfirmationScreen from '../screens/EmailConfirmation/EmailConfirmationScreen';
 import ScanScreen from '../screens/Scan/ScanScreen';
+import ProductDetailScreen from '../screens/ProductDetails/ProductDetailScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -110,8 +112,24 @@ export default function BottomTabNavigator() {
           options={{
             headerShown: false,
             tabBarButton: () => null,
-            tabBarStyle: {display: 'none'}
+            tabBarStyle: { display: 'none' },
           }}></Tab.Screen>
+        <Tab.Screen
+          name="ProductDetails"
+          component={ProductDetailScreen}
+          options={({ navigation }) => ({
+            tabBarButton: () => null,
+            tabBarStyle: { display: 'none' },
+            title: I18n.t('Aled::Product:Details'),
+            headerLeft: () => (
+              <Entypo
+                name="chevron-thin-left"
+                size={24}
+                color={Colors.Text}
+                onPress={() => navigation.goBack()}
+              />
+            ),
+          })}></Tab.Screen>
       </Tab.Navigator>
     </Wrapper>
   );

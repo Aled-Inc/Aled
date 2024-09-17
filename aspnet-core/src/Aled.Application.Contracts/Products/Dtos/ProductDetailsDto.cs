@@ -22,11 +22,15 @@ public class ProductDetailsDto : EntityDto
 
     public string Packaging { get; set; }
 
+    public string Quantity { get; set; }
+
     public int NovaGroup { get; set; }
 
-    public NutrientLevelsDto NutriscoreGrade { get; set; }
+    public NutrientLevelsDto NutrientLevels { get; set; }
 
-    public NutrimentsDto Nutriments { get; set; }
+    public string Nutriscore { get; set; }
+
+    public NutrientsDto Nutrients { get; set; }
 
     public VitaminsDto Vitamins { get; set; }
 }
