@@ -3,7 +3,7 @@ import {getEnvVars} from '../../Environment';
 
 const {oAuthConfig} = getEnvVars();
 
-getLoginData = (username, password) => {
+const getLoginData = (username, password) => {
     const formData = {
         grant_type: 'password',
         scope: oAuthConfig.scope,
