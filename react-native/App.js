@@ -1,5 +1,4 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import i18n from 'i18n-js';
 import { NativeBaseProvider } from 'native-base';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -26,8 +25,6 @@ import ActionStatusModal from './src/components/Modals/ActionStatusModal';
 import * as Linking from 'expo-linking';
 import BaseModal from './src/components/Modals/BaseModal';
 import { useFonts } from 'expo-font';
-
-const Stack = createNativeStackNavigator();
 
 const { localization } = getEnvVars();
 
