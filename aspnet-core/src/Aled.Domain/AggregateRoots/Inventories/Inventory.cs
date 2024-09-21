@@ -12,14 +12,13 @@ namespace Aled.AggregateRoots.Inventories;
 
 public sealed class Inventory : AggregateRoot<Guid>, IHasCreationTime
 {
-    
-    
     private Inventory()
     {
     }
 
     public Inventory(IdentityUser user)
     {
+        Id = Guid.NewGuid();
         UserId = user.Id;
         SetIdentityUser(user);
         CreationTime = DateTime.Now;
