@@ -2,19 +2,21 @@ import { Box, HStack, Image, Pressable, Text, VStack } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../../styles/CommonStyle';
 import { ProductCategoryTagInfo } from '../../../utils/ProductCategoryTagUtils';
+import { toDate } from '../../../utils/CommonUtils';
 import { useNavigation } from '@react-navigation/native';
 import Tag from '../../Tags/Tag';
 import i18n from 'i18n-js';
 
 function ScannedProductCardComponent({ product }) {
-    const navigation = useNavigation();
-    
+  const navigation = useNavigation();
+
   return (
-    <Pressable onPress={() => {
+    <Pressable
+      onPress={() => {
         navigation.navigate('ProductDetails', {
-            code: product.code,
-        })
-    }}>
+          code: product.code,
+        });
+      }}>
       <Box style={styles.productCardLess}>
         <HStack space={1}>
           <Box style={styles.productImageBox}>
@@ -34,9 +36,12 @@ function ScannedProductCardComponent({ product }) {
               {product.productName}
             </Text>
             <Text style={styles.productInfoDLC}>
-              {i18n.t('Aled::Product:DLC')}: {toDate(product.expirationDate).toLocaleDateString('fr-FR')}
+              {i18n.t('Aled::Product:DLC')}:{' '}
+              {toDate(product.expirationDate).toLocaleDateString('fr-FR')}
             </Text>
-            <Text style={styles.productInfoQuantity}>{i18n.t('Aled::Product:Quantity')}: 0</Text>
+            <Text style={styles.productInfoQuantity}>
+              {i18n.t('Aled::Product:Quantity')}: 0
+            </Text>
           </VStack>
         </HStack>
         <Tag productCategoryTag={product.productCategoryTag}></Tag>
