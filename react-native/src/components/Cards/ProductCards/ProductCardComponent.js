@@ -5,11 +5,18 @@ import { Colors } from '../../../styles/CommonStyle';
 import { toDate } from '../../../utils/CommonUtils';
 import Tag from '../../Tags/Tag';
 import i18n from 'i18n-js';
+import { useNavigation } from '@react-navigation/native';
 
 function ProductCardComponent({ product }) {
+  const navigation = useNavigation();
   return (
     <Box style={styles.itemBox}>
-      <Pressable>
+      <Pressable
+        onPress={() => {
+          navigation.navigate('ProductDetails', {
+            code: product.code,
+          });
+        }}>
         <Box style={styles.productCardLess}>
           <HStack space={1}>
             <Box style={styles.productImageBox}>
@@ -31,7 +38,8 @@ function ProductCardComponent({ product }) {
                 </Text>
               </Box>
               <Text style={styles.productInfoDLC}>
-                {i18n.t('Aled::Product:DLC')}: {toDate(product.expirationDate).toLocaleDateString('fr-FR')}
+                {i18n.t('Aled::Product:DLC')}:{' '}
+                {toDate(product.expirationDate).toLocaleDateString('fr-FR')}
               </Text>
               <Text style={styles.productNote} mt={2}>
                 " Pour demain midi "
@@ -39,7 +47,9 @@ function ProductCardComponent({ product }) {
               <Box style={styles.progressBar_1} mt={2} borderRadius={'full'}>
                 <Box style={styles.progressBar_2} borderRadius={'full'} />
               </Box>
-              <Text style={styles.productInfoQuantity}>{i18n.t('Aled::Product:Quantity')}: 6</Text>
+              <Text style={styles.productInfoQuantity}>
+                {i18n.t('Aled::Product:Quantity')}: 6
+              </Text>
             </VStack>
           </HStack>
           <Tag productCategoryTag={product.productCategoryTag}></Tag>

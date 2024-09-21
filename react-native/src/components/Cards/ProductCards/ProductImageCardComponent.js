@@ -1,13 +1,25 @@
-import { Image, Pressable } from "native-base";
-import { StyleSheet } from "react-native";
-import { Colors } from "../../../styles/CommonStyle";
+import { Image, Pressable } from 'native-base';
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../../styles/CommonStyle';
+import { useNavigation } from '@react-navigation/native';
 
-function ProductImageCardComponent({product}) {
+function ProductImageCardComponent({ product }) {
+  const navigation = useNavigation();
+
   return (
-    <Pressable style={styles.prodctCard}>
-        <Image style={styles.productImage} alt='product_img' source={{uri: product.imageFrontUrl}}></Image>
-      </Pressable>
-  )
+    <Pressable
+      style={styles.prodctCard}
+      onPress={() => {
+        navigation.navigate('ProductDetails', {
+          code: product.code,
+        });
+      }}>
+      <Image
+        style={styles.productImage}
+        alt="product_img"
+        source={{ uri: product.imageFrontUrl }}></Image>
+    </Pressable>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -25,8 +37,8 @@ const styles = StyleSheet.create({
   noProductText: {
     fontFamily: 'Inter-Light',
     fontSize: 14,
-    color: Colors.Text
-  }
+    color: Colors.Text,
+  },
 });
 
 export default ProductImageCardComponent;
