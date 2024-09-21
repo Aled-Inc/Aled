@@ -40,4 +40,12 @@ public class ProductAppServiceTest : AledApplicationTestBase<AledApplicationTest
         
         product.ShouldNotBeNull();
     }
+    
+    [Fact]
+    public async Task ProductAppService_GetAsyncReturnNull_ShouldThrowException()
+    {
+        await InitFixtureAsync();
+
+        await Assert.ThrowsAsync<Exception>(() => _productAppService.GetAsync(Guid.NewGuid().ToString()));
+    }
 }
