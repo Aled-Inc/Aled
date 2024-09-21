@@ -27,16 +27,6 @@ public class FakeCurrentPrincipalAccessor : ThreadCurrentPrincipalAccessor
     {
         return GetPrincipal();
     }
-
-    // private ClaimsPrincipal GetPrincipal()
-    // {
-    //     return new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
-    //     {
-    //         new(AbpClaimTypes.UserId, _userId),
-    //         new(AbpClaimTypes.UserName, _userName),
-    //         new(AbpClaimTypes.Email, _userEmail)
-    //     }));
-    // }
     
     private ClaimsPrincipal GetPrincipal()
     {

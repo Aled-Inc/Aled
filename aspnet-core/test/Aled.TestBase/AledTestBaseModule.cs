@@ -23,7 +23,6 @@ public class AledTestBaseModule : AbpModule
         Configure<AbpBackgroundJobOptions>(options => { options.IsJobExecutionEnabled = false; });
         
         context.Services.AddScoped<ICurrentUser, FakeCurrentUser>();
-        context.Services.AddScoped<IHostEnvironment, HostingEnvironmentFake>();
     }
 
     // public override void OnApplicationInitialization(ApplicationInitializationContext context)
