@@ -10,7 +10,7 @@ using Volo.Abp.Linq;
 
 namespace Aled.Fakes.Repositories;
 
-public class InventoryBasicRepositoryFake : InMemoryBasicRepository<Inventory, Guid>, IInventoryRepository
+public class InMemoryInventoryBasicRepository : InMemoryBasicRepository<Inventory, Guid>, IInventoryRepository
 {
     public IQueryable<Inventory> WithDetails()
     {

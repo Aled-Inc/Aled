@@ -6,7 +6,7 @@ using Volo.Abp.Identity;
 
 namespace Aled.Fakes.Repositories;
 
-public class IdentitySecurityLogBasicRepositoryFake : InMemoryBasicRepository<IdentitySecurityLog, Guid>, IIdentitySecurityLogRepository
+public class InMemoryIdentitySecurityLogRepository : InMemoryBasicRepository<IdentitySecurityLog, Guid>, IIdentitySecurityLogRepository
 {
     public Task<List<IdentitySecurityLog>> GetListAsync(string sorting = null, int maxResultCount = 50, int skipCount = 0, DateTime? startTime = null,
         DateTime? endTime = null, string applicationName = null, string identity = null, string action = null,

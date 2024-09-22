@@ -7,7 +7,7 @@ using Volo.Abp.Identity;
 
 namespace Aled.Fakes.Repositories;
 
-public class IdentityUserBasicRepositoryFake : InMemoryBasicRepository<IdentityUser, Guid>, IIdentityUserRepository
+public class InMemoryIdentityUserRepository : InMemoryBasicRepository<IdentityUser, Guid>, IIdentityUserRepository
 {
     public async Task<IdentityUser> FindByNormalizedUserNameAsync(string normalizedUserName, bool includeDetails = true,
         CancellationToken cancellationToken = new CancellationToken())

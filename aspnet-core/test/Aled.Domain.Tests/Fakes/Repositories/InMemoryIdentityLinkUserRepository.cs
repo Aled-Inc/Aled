@@ -6,7 +6,7 @@ using Volo.Abp.Identity;
 
 namespace Aled.Fakes.Repositories;
 
-public class IdentityLinkUserBasicRepositoryFake : InMemoryBasicRepository<IdentityLinkUser, Guid>, IIdentityLinkUserRepository
+public class InMemoryIdentityLinkUserRepository : InMemoryBasicRepository<IdentityLinkUser, Guid>, IIdentityLinkUserRepository
 {
     public Task<IdentityLinkUser> FindAsync(IdentityLinkUserInfo sourceLinkUserInfo, IdentityLinkUserInfo targetLinkUserInfo,
         CancellationToken cancellationToken = new CancellationToken())

@@ -6,7 +6,7 @@ using Volo.Abp.Identity;
 
 namespace Aled.Fakes.Repositories;
 
-public class IdentityRoleBasicRepositoryFake : InMemoryBasicRepository<IdentityRole, Guid>, IIdentityRoleRepository
+public class InMemoryIdentityRoleRepository : InMemoryBasicRepository<IdentityRole, Guid>, IIdentityRoleRepository
 {
     public Task<IdentityRole> FindByNormalizedNameAsync(string normalizedRoleName, bool includeDetails = true,
         CancellationToken cancellationToken = new CancellationToken())

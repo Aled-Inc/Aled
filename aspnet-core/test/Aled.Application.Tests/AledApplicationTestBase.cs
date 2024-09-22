@@ -18,7 +18,7 @@ public class AledApplicationTestBase<TStartupModule> : AledTestBase<TStartupModu
 
     protected AledApplicationTestBase()
     {
-        UserRepository = GetRequiredService<IIdentityUserRepository>() as IdentityUserBasicRepositoryFake;
+        UserRepository = GetRequiredService<IIdentityUserRepository>() as InMemoryIdentityUserRepository;
         _currentPrincipalAccessor = GetRequiredService<ICurrentPrincipalAccessor>() as FakeCurrentPrincipalAccessor;
         _userLinkRepository = GetRequiredService<IIdentityLinkUserRepository>();
     }

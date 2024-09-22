@@ -26,17 +26,17 @@ public class AledDomainTestModule : AbpModule
         context.Services.AddScoped(typeof(IBasicRepository<,>), typeof(InMemoryBasicRepository<,>));
         context.Services.AddScoped(typeof(IRepository<,>), typeof(InMemoryRepository<,>));
         
-        context.Services.AddScoped(typeof(IIdentityRoleRepository), typeof(IdentityRoleBasicRepositoryFake));
-        context.Services.AddScoped(typeof(IIdentityUserRepository), typeof(IdentityUserBasicRepositoryFake));
-        context.Services.AddScoped(typeof(IOrganizationUnitRepository), typeof(OrganizationUnitBasicRepositoryFake));
-        context.Services.AddScoped(typeof(IIdentityLinkUserRepository), typeof(IdentityLinkUserBasicRepositoryFake));
-        context.Services.AddScoped(typeof(ISettingDefinitionRecordRepository), typeof(SettingDefinitionRecordBasicRepositoryFake));
-        context.Services.AddScoped(typeof(IIdentitySecurityLogRepository), typeof(IdentitySecurityLogBasicRepositoryFake));
-        context.Services.AddScoped(typeof(IBackgroundJobRepository), typeof(BackgroundJobBasicRepositoryFake));
-        context.Services.AddScoped(typeof(ITenantRepository), typeof(TenantBasicRepositoryFake));
-        context.Services.AddScoped(typeof(IPermissionGroupDefinitionRecordRepository), typeof(PermissionGroupDefinitionRecordBasicRepositoryFake));
-        context.Services.AddScoped(typeof(IPermissionDefinitionRecordRepository), typeof(PermissionDefinitionRecordBasicRepositoryFake));
-        context.Services.AddScoped(typeof(IInventoryRepository), typeof(InventoryBasicRepositoryFake));
+        context.Services.AddScoped(typeof(IIdentityRoleRepository), typeof(InMemoryIdentityRoleRepository));
+        context.Services.AddScoped(typeof(IIdentityUserRepository), typeof(InMemoryIdentityUserRepository));
+        context.Services.AddScoped(typeof(IOrganizationUnitRepository), typeof(InMemoryOrganizationUnitRepository));
+        context.Services.AddScoped(typeof(IIdentityLinkUserRepository), typeof(InMemoryIdentityLinkUserRepository));
+        context.Services.AddScoped(typeof(ISettingDefinitionRecordRepository), typeof(InMemorySettingDefinitionRecordRepository));
+        context.Services.AddScoped(typeof(IIdentitySecurityLogRepository), typeof(InMemoryIdentitySecurityLogRepository));
+        context.Services.AddScoped(typeof(IBackgroundJobRepository), typeof(InMemoryBackgroundJobRepository));
+        context.Services.AddScoped(typeof(ITenantRepository), typeof(InMemoryTenantRepository));
+        context.Services.AddScoped(typeof(IPermissionGroupDefinitionRecordRepository), typeof(InMemoryPermissionGroupDefinitionRecordRepository));
+        context.Services.AddScoped(typeof(IPermissionDefinitionRecordRepository), typeof(InMemoryPermissionDefinitionRecordRepository));
+        context.Services.AddScoped(typeof(IInventoryRepository), typeof(InMemoryInventoryBasicRepository));
         context.Services.AddScoped(typeof(IProductRepository), typeof(InMemoryProductRepository));
     }
 }

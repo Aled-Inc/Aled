@@ -6,7 +6,7 @@ using Volo.Abp.Identity;
 
 namespace Aled.Fakes.Repositories;
 
-public class OrganizationUnitBasicRepositoryFake : InMemoryBasicRepository<OrganizationUnit, Guid>, IOrganizationUnitRepository
+public class InMemoryOrganizationUnitRepository : InMemoryBasicRepository<OrganizationUnit, Guid>, IOrganizationUnitRepository
 {
     public Task<List<OrganizationUnit>> GetChildrenAsync(Guid? parentId, bool includeDetails = false,
         CancellationToken cancellationToken = new CancellationToken())

@@ -26,7 +26,7 @@ public sealed class InventoryAppServiceTest : AledApplicationTestBase<AledApplic
     private readonly InventoryAppService _inventoryAppService;
     private readonly ProductProxyAppServiceFake? _productProxyAppServiceFake;
     private readonly InMemoryProductRepository? _productRepository;
-    private readonly InventoryBasicRepositoryFake? _inventoryBasicRepository;
+    private readonly InMemoryInventoryBasicRepository? _inventoryBasicRepository;
     private readonly IMapper _mapper;
 
     private readonly Inventory _inventory = new(User)
@@ -77,7 +77,7 @@ public sealed class InventoryAppServiceTest : AledApplicationTestBase<AledApplic
     {
         _inventoryAppService = GetRequiredService<InventoryAppService>();
         _productProxyAppServiceFake = GetRequiredService<IProductAppService>() as ProductProxyAppServiceFake;
-        _inventoryBasicRepository = GetRequiredService<IInventoryRepository>() as InventoryBasicRepositoryFake;
+        _inventoryBasicRepository = GetRequiredService<IInventoryRepository>() as InMemoryInventoryBasicRepository;
         _productRepository = GetRequiredService<IProductRepository>() as InMemoryProductRepository;
         _mapper = GetRequiredService<IMapper>();
     }

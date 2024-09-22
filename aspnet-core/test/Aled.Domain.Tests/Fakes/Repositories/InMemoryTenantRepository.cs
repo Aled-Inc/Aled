@@ -6,7 +6,7 @@ using Volo.Abp.TenantManagement;
 
 namespace Aled.Fakes.Repositories;
 
-public class TenantBasicRepositoryFake : InMemoryBasicRepository<Tenant, Guid>, ITenantRepository
+public class InMemoryTenantRepository : InMemoryBasicRepository<Tenant, Guid>, ITenantRepository
 {
     public Task<Tenant> FindByNameAsync(string normalizedName, bool includeDetails = true,
         CancellationToken cancellationToken = new CancellationToken())

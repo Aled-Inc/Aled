@@ -5,7 +5,7 @@ using Volo.Abp.PermissionManagement;
 
 namespace Aled.Fakes.Repositories;
 
-public class PermissionDefinitionRecordBasicRepositoryFake : InMemoryBasicRepository<PermissionDefinitionRecord, Guid>, IPermissionDefinitionRecordRepository
+public class InMemoryPermissionDefinitionRecordRepository : InMemoryBasicRepository<PermissionDefinitionRecord, Guid>, IPermissionDefinitionRecordRepository
 {
     public Task<PermissionDefinitionRecord> FindByNameAsync(string name, CancellationToken cancellationToken = new CancellationToken())
     {

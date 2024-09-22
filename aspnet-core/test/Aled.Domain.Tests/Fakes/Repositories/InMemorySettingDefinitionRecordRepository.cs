@@ -6,7 +6,7 @@ using Volo.Abp.SettingManagement;
 
 namespace Aled.Fakes.Repositories;
 
-public class SettingDefinitionRecordBasicRepositoryFake : InMemoryBasicRepository<SettingDefinitionRecord, Guid>, ISettingDefinitionRecordRepository
+public class InMemorySettingDefinitionRecordRepository : InMemoryBasicRepository<SettingDefinitionRecord, Guid>, ISettingDefinitionRecordRepository
 {
     public Task<SettingDefinitionRecord> FindByNameAsync(string name, CancellationToken cancellationToken = new CancellationToken())
     {
