@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { nutrientUnits, vitaminUnits } from '../../utils/ProductUtils';
 import { firstLetterUpper, toPascalCase } from '../../utils/CommonUtils';
 import I18n from 'i18n-js';
 
-const NutritionTab = ({ nutrients, vitamins }) => {
+const NutritionTab = ({ nutrients }) => {
   const getUnit = nutrient => {
     return nutrientUnits[nutrient] || vitaminUnits[nutrient] || 'g';
   };
@@ -17,11 +17,11 @@ const NutritionTab = ({ nutrients, vitamins }) => {
     );
   }
   const filteredNutrients = Object.entries(nutrients).filter(
-    ([key, value]) => value !== null && value !== 0,
+    ([key, value]) => value !== null && value !== 0 && nutrientUnits[key],
   );
 
-  const filteredVitamins = Object.entries(vitamins || {}).filter(
-    ([key, value]) => value !== null && value !== 0,
+  const filteredVitamins = Object.entries(nutrients).filter(
+    ([key, value]) => value !== null && value !== 0 && !nutrientUnits[key],
   );
   return (
     <>

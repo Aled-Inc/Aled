@@ -6,3 +6,10 @@ export const ProductCategoryTagInfo = [
   {label: 'Fridge', backgroundColor: Colors.Fridge, labelColor: Colors.Text},
   {label: 'Freezer', backgroundColor: Colors.Freezer, labelColor: Colors.Text}
 ];
+
+export const ProductTag = {
+  Unknown: 0,
+  Cupboard: 1,
+  Fridge: 2,
+  Freezer: 3
+};
