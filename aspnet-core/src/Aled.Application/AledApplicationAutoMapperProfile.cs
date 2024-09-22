@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Aled.AggregateRoots.Inventories;
 using Aled.Entities.Products;
 using Aled.IdentityUsers.Dtos;
@@ -93,6 +94,6 @@ public class AledApplicationAutoMapperProfile : Profile
                 opt => opt.MapFrom(x => x.ImageFrontUrl))
             .ForPath(dest => dest.ProductDetails.CategoryTags, 
                 opt => opt.MapFrom(x => x.CategoryTags))
-            .ReverseMap();
+            ;
     }
 }

@@ -47,7 +47,10 @@ public sealed class Inventory : AggregateRoot<Guid>, IHasCreationTime
 
         product.CalculateProductCategoryTag();
         product.CalculateExpirationDate();
-
+        
+        var pQuantity = Products.Count(p => p.Code == product.Code);
+        
+        product.Quantity = pQuantity;
         product.InventoryId = Id;
         product.AddedDate = DateTime.Now;
         Products.Add(product);

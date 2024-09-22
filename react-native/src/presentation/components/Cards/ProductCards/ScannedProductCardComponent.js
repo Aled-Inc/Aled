@@ -39,7 +39,7 @@ function ScannedProductCardComponent({ product }) {
               {toDate(product.expirationDate).toLocaleDateString('fr-FR')}
             </Text>
             <Text style={styles.productInfoQuantity}>
-              {i18n.t('Aled::Product:Quantity')}: 0
+              {i18n.t('Aled::Product:Quantity')}: {product.quantity}
             </Text>
           </VStack>
         </HStack>

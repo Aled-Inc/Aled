@@ -48,7 +48,7 @@ function ProductCardComponent({ product }) {
                 <Box style={styles.progressBar_2} borderRadius={'full'} />
               </Box>
               <Text style={styles.productInfoQuantity}>
-                {i18n.t('Aled::Product:Quantity')}: 6
+                {i18n.t('Aled::Product:Quantity')}: {product.quantity}
               </Text>
             </VStack>
           </HStack>
