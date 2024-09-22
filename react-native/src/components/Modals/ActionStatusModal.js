@@ -63,7 +63,7 @@ const Forwarded = forwardRef((props, ref) => <ActionStatusModal {...props} forwa
 
 ActionStatusModal.propTypes = {
   setIdle: PropTypes.func.isRequired,
-  actionLoading: PropTypes.string,
+  actionStatus: PropTypes.string,
 };
 
 export default connectToRedux({

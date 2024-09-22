@@ -1,5 +1,4 @@
-import { HStack, Pressable } from 'native-base';
-import { View, Modal, Text } from 'react-native';
+import { View, Modal } from 'react-native';
 import ModalTypes from '../../utils/ModalTypes';
 import SendEmailConfirmationModalContent from './Contents/SendEmailConfirmationModalContent';
 import PropTypes from 'prop-types';
@@ -11,12 +10,11 @@ import { modalStyles } from '../../styles/ModalStyles';
 
 function BaseModal({ modalType }) {
   const getContent = () => {
-    switch (modalType) {
-      case ModalTypes.EmailConfirmationModal:
-        return <SendEmailConfirmationModalContent />;
-      default:
-        return <></>;
+    if (modalType === ModalTypes.EmailConfirmationModal) {
+      return <SendEmailConfirmationModalContent />;
     }
+
+    return <></>;
   };
 
   return isString(modalType) ? (

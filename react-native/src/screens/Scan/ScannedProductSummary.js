@@ -1,4 +1,4 @@
-import { Box, Center, FlatList, HStack, Pressable, Text } from 'native-base';
+import { Box, Center, FlatList, Pressable, Text } from 'native-base';
 import ScannedProductCardComponent from '../../components/Cards/ProductCards/ScannedProductCardComponent';
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../styles/CommonStyle';

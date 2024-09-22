@@ -34,19 +34,16 @@ export const styles = StyleSheet.create({
     container: {
         ...backdropStyle,
         backgroundColor: 'transparent',
-        // zIndex: activeTheme.zIndex.indicator, // TODO
         alignItems: 'center',
         justifyContent: 'center',
     },
     backdrop: backdropStyle,
     spinner: {
-        // color: activeTheme.brandPrimary, // TODO
         fontSize: 100,
     },
 });
 
 Loading.propTypes = {
-    style: PropTypes.objectOf(PropTypes.any),
     loading: PropTypes.bool,
     opacity: PropTypes.number,
 };

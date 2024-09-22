@@ -16,7 +16,6 @@ function ProductDetailScreen() {
   const regexBalise = /<\/?[^>]+(>|$)|[_]/g;
   const route = useRoute();
   const { code } = route.params;
-
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -166,10 +165,7 @@ function ProductDetailScreen() {
       {/* Nutrition Facts */}
       <VStack space={3} mt={10} mx={4}>
         <SafeAreaView style={{ flex: 1 }}>
-          <NutritionTab
-            nutrients={product.nutrients}
-            vitamins={product.vitamins}
-          />
+          <NutritionTab nutrients={product.nutrients} />
         </SafeAreaView>
       </VStack>
     </ScrollView>

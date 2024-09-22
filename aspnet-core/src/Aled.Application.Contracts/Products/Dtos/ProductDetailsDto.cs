@@ -31,6 +31,4 @@ public class ProductDetailsDto : EntityDto
     public string Nutriscore { get; set; }
 
     public NutrientsDto Nutrients { get; set; }
-
-    public VitaminsDto Vitamins { get; set; }
 }
