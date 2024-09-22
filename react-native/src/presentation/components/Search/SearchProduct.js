@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import { Box, FlatList, Text, View } from 'native-base';
 import { Pressable, StyleSheet, TextInput } from 'react-native';
-import { Colors } from '../../presentation/styles/CommonStyle';
+import { Colors } from '../../styles/CommonStyle';
 import { useState } from 'react';
-import { hexToRGB } from '../../utils/CommonUtils';
-import { percentOfScreenHeight } from '../../utils/SizeUtils';
+import { hexToRGB } from '../../../common/utils/CommonUtils';
+import { percentOfScreenHeight } from '../../../common/utils/SizeUtils';
 import ProductCardComponent from '../Cards/ProductCards/ProductCardComponent';
 import i18n from 'i18n-js';
-import InventoryService from '../../services/InventoryService';
-import { connectToRedux } from '../../utils/ReduxConnect';
-import LoadingActions from '../../store/actions/LoadingActions';
+import InventoryService from '../../../business/services/InventoryService';
+import { connectToRedux } from '../../../common/utils/ReduxConnect';
+import LoadingActions from '../../../business/store/actions/LoadingActions';
 
 function ProductSearch({ products, startLoading, stopLoading }) {
   const [productList, setProductList] = useState([]);
@@ -27,7 +27,7 @@ function ProductSearch({ products, startLoading, stopLoading }) {
 
   const productRender = ({ item }) => <ProductCardComponent product={item} />;
 
-  const handleGetProducts = async() => {
+  const handleGetProducts = async () => {
     startLoading({ key: 'getProducts', opacity: 0.4 });
 
     await InventoryService.getInventoryProducts(searchValue, null, 0, 10).then(
@@ -39,7 +39,7 @@ function ProductSearch({ products, startLoading, stopLoading }) {
 
   const onSearch = () => {
     handleGetProducts();
-  }
+  };
 
   const searchButton = () => {
     return (

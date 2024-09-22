@@ -1,9 +1,9 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import { getApplicationConfiguration } from '../../api/ApplicationConfigurationAPI';
+import { getApplicationConfiguration } from '../../../api/ApplicationConfigurationAPI';
 import AppActions from '../actions/AppActions';
 import LoadingActions from '../actions/LoadingActions';
 import PersistentStorageActions from '../actions/PersistentStorageActions';
-import { getEnvVars } from '../../../Environment';
+import { getEnvVars } from '../../../../Environment';
 import AuthService from '../../services/AuthService';
 import { getPersistentStorage } from '../selectors/PersistentStorageSelectors';
 import { getApp } from '../selectors/AppSelectors';
@@ -31,7 +31,7 @@ function* setLanguage(action) {
   yield put(AppActions.fetchAppConfigAsync());
 }
 
-function* logout({ payload: { showLoading }}) {
+function* logout({ payload: { showLoading } }) {
   if (showLoading) {
     yield put(LoadingActions.start({ key: 'logout', opacity: 0.7 }));
   }
@@ -55,10 +55,10 @@ function* logout({ payload: { showLoading }}) {
   if (showLoading) yield put(LoadingActions.stop({ key: 'logout' }));
 }
 
-function* requestConfirmationModal({ payload: { modalType }}) {
+function* requestConfirmationModal({ payload: { modalType } }) {
   let app = yield select(getApp);
 
-  if (app.modalType != modalType){
+  if (app.modalType != modalType) {
     yield put(AppActions.requestConfirmationModal({ modalType: modalType }));
   }
 }
@@ -68,6 +68,9 @@ export default function* () {
     takeLatest(AppActions.setLanguageAsync.type, setLanguage),
     takeLatest(AppActions.fetchAppConfigAsync.type, fetchAppConfig),
     takeLatest(AppActions.logoutAsync.type, logout),
-    takeLatest(AppActions.requestConfirmationModal.type, requestConfirmationModal),
+    takeLatest(
+      AppActions.requestConfirmationModal.type,
+      requestConfirmationModal,
+    ),
   ]);
 }

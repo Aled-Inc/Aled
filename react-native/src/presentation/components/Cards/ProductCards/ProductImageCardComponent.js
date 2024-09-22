@@ -1,6 +1,6 @@
 import { Image, Pressable } from 'native-base';
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../../presentation/styles/CommonStyle';
+import { Colors } from '../../../styles/CommonStyle';
 import { useNavigation } from '@react-navigation/native';
 
 function ProductImageCardComponent({ product }) {

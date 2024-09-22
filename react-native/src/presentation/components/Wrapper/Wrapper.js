@@ -1,6 +1,4 @@
-import { View } from 'native-base';
 import { Keyboard, TouchableNativeFeedback } from 'react-native';
-import { Colors } from '../../presentation/styles/CommonStyle';
 
 const Wrapper = ({ children }) => {
   return (

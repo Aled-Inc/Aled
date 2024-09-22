@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { getEnvVars } from './Environment';
 import Loading from './src/presentation/components/Loading/Loading';
-import { LocalizationContext } from './src/contexts/LocalizationContext';
+import { LocalizationContext } from './src/common/contexts/LocalizationContext';
 import { initAPIInterceptor } from './src/business/interceptors/APIInterceptor';
 import AuthNavigator from './src/presentation/navigators/AuthNavigator';
 import { persistor, store } from './src/business/store';
@@ -52,7 +52,7 @@ export default function App() {
       screens: {
         EmailConfirmation: {
           path: 'email-confirmation/:state',
-        }
+        },
       },
     },
   };

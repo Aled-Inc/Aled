@@ -1,8 +1,7 @@
 import { Box, HStack, Image, Pressable, Text, VStack } from 'native-base';
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../../presentation/styles/CommonStyle';
-import { ProductCategoryTagInfo } from '../../../utils/ProductCategoryTagUtils';
-import { toDate } from '../../../utils/CommonUtils';
+import { Colors } from '../../../styles/CommonStyle';
+import { toDate } from '../../../../common/utils/CommonUtils';
 import { useNavigation } from '@react-navigation/native';
 import Tag from '../../Tags/Tag';
 import i18n from 'i18n-js';

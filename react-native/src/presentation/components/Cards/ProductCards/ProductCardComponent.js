@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import { Box, HStack, Image, Text, VStack } from 'native-base';
 import { Pressable, StyleSheet } from 'react-native';
-import { Colors } from '../../../presentation/styles/CommonStyle';
-import { toDate } from '../../../utils/CommonUtils';
+import { Colors } from '../../../styles/CommonStyle';
+import { toDate } from '../../../../common/utils/CommonUtils';
 import Tag from '../../Tags/Tag';
 import i18n from 'i18n-js';
 import { useNavigation } from '@react-navigation/native';

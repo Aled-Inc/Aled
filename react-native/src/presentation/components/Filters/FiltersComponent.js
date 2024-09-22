@@ -1,15 +1,15 @@
-import { HStack, Pressable, Text } from "native-base";
-import { Filters } from "../utils/InventoryUtils";
-import i18n from "i18n-js";
-import { StyleSheet } from "react-native";
-import { Colors } from "../presentation/styles/CommonStyle";
-import { useState } from "react";
+import { HStack, Pressable, Text } from 'native-base';
+import { Filters } from '../../../common/utils/InventoryUtils';
+import i18n from 'i18n-js';
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../styles/CommonStyle';
+import { useState } from 'react';
 
-function FiltersComponent({getActiveFilter}) {
+function FiltersComponent({ getActiveFilter }) {
   const [activeFilter, setActiveFilter] = useState(Filters.All);
   const filtersValues = Object.values(Filters);
 
-  const renderFilter = (filter) => {
+  const renderFilter = filter => {
     return (
       <Pressable
         p={1}
@@ -17,9 +17,7 @@ function FiltersComponent({getActiveFilter}) {
           toggleFilter(filter);
         }}
         key={filter}>
-        <Text
-          style={styles.filterText}
-          color={getFilterColor(filter)}>
+        <Text style={styles.filterText} color={getFilterColor(filter)}>
           {i18n.t(`Aled::Inventory:Filters:${filter}`)}
         </Text>
       </Pressable>
@@ -37,8 +35,8 @@ function FiltersComponent({getActiveFilter}) {
 
   return (
     <HStack space={2} width={'80%'}>
-      {filtersValues.map((filter) => {
-        return (renderFilter(filter))
+      {filtersValues.map(filter => {
+        return renderFilter(filter);
       })}
     </HStack>
   );
@@ -47,8 +45,8 @@ function FiltersComponent({getActiveFilter}) {
 const styles = StyleSheet.create({
   filterText: {
     fontFamily: 'Inter-Medium',
-    fontSize: 12
-  }
-})
+    fontSize: 12,
+  },
+});
 
 export default FiltersComponent;

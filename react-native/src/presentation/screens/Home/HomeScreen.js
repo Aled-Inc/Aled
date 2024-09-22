@@ -18,7 +18,7 @@ function HomeScreen({ user, inventory }) {
           <Avatar
             ml="3"
             style={homeStyle.identityAvatar}
-            source={require('../../../assets/avatar.png')}
+            source={require('../../../../assets/avatar.png')}
           />
           <View ml="3" style={homeStyle.identityColView}>
             <Text style={homeStyle.identityText}>
@@ -35,9 +35,15 @@ function HomeScreen({ user, inventory }) {
         </View>
       </Box>
       <Box px={5}>
-        <ProductSearch products={inventory.products}/>
-        <Text style={homeStyle.listTitle} mt={3}>{i18n.t('Aled::Home:TheyExpireSoon')}</Text>
-        <SimpleProductCarouselComponent products={inventory.products} filter={Filters.ExpiredSoon} showFilter={false}/>
+        <ProductSearch products={inventory.products} />
+        <Text style={homeStyle.listTitle} mt={3}>
+          {i18n.t('Aled::Home:TheyExpireSoon')}
+        </Text>
+        <SimpleProductCarouselComponent
+          products={inventory.products}
+          filter={Filters.ExpiredSoon}
+          showFilter={false}
+        />
       </Box>
     </View>
   );

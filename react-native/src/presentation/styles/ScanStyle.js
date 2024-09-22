@@ -1,6 +1,6 @@
-import { StyleSheet } from "react-native";
-import { Colors } from "./CommonStyle";
-import { ScanBox, ScreenSize } from "../utils/SizeUtils";
+import { StyleSheet } from 'react-native';
+import { Colors } from './CommonStyle';
+import { ScanBox, ScreenSize } from '../../common/utils/SizeUtils';
 
 export const scanStyle = StyleSheet.create({
   illustrationTitle: {

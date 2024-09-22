@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
-import { connectToRedux } from '../../utils/ReduxConnect';
-import React, {forwardRef, useEffect} from 'react';
-import { createActionStatusSelector } from '../../store/selectors/LoadingSelectors';
-import ActionStatus from '../../utils/ActionStatus';
+import { connectToRedux } from '../../../common/utils/ReduxConnect';
+import React, { forwardRef, useEffect } from 'react';
+import { createActionStatusSelector } from '../../../business/store/selectors/LoadingSelectors';
+import ActionStatus from '../../../common/utils/ActionStatus';
 import { View, Modal, Text } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { Colors } from '../../presentation/styles/CommonStyle';
-import LoadingActions from '../../store/actions/LoadingActions';
+import { Colors } from '../../styles/CommonStyle';
+import LoadingActions from '../../../business/store/actions/LoadingActions';
 import i18n from 'i18n-js';
-import { modalStyles } from '../../presentation/styles/ModalStyles';
+import { modalStyles } from '../../styles/ModalStyles';
 
 function ActionStatusModal({ actionStatus, setIdle }) {
   useEffect(() => {
@@ -25,7 +25,9 @@ function ActionStatusModal({ actionStatus, setIdle }) {
     return (
       <>
         <Feather name="check-circle" size={75} color={Colors.Green} />
-        <Text style={modalStyles.modalText}>{i18n.t('Aled::ErrorSave:Successful')}</Text>
+        <Text style={modalStyles.modalText}>
+          {i18n.t('Aled::ErrorSave:Successful')}
+        </Text>
       </>
     );
   };
@@ -34,32 +36,36 @@ function ActionStatusModal({ actionStatus, setIdle }) {
     return (
       <>
         <Feather name="x-circle" size={75} color={Colors.Red} />
-        <Text style={modalStyles.modalText}>{i18n.t('Aled::ErrorSave:TryAgainOrLater')}</Text>
+        <Text style={modalStyles.modalText}>
+          {i18n.t('Aled::ErrorSave:TryAgainOrLater')}
+        </Text>
       </>
     );
   };
 
-  return actionStatus == ActionStatus.idle || actionStatus == ActionStatus.pendging ? null : (
+  return actionStatus == ActionStatus.idle ||
+    actionStatus == ActionStatus.pendging ? null : (
     <View style={modalStyles.centeredView}>
-      <Modal 
-        animationType='fade'
+      <Modal
+        animationType="fade"
         transparent={true}
         visible={true}
         onShow={() => {
           setTimeout(() => setIdle(), 5000);
-        }}
-        >
+        }}>
         <View style={modalStyles.centeredView}>
           <View style={modalStyles.modalView}>
-            { actionStatus === ActionStatus.succeeded ? succeeded() : error() }
+            {actionStatus === ActionStatus.succeeded ? succeeded() : error()}
           </View>
         </View>
       </Modal>
     </View>
   );
-};
+}
 
-const Forwarded = forwardRef((props, ref) => <ActionStatusModal {...props} forwardRef={ref} /> );
+const Forwarded = forwardRef((props, ref) => (
+  <ActionStatusModal {...props} forwardRef={ref} />
+));
 
 ActionStatusModal.propTypes = {
   setIdle: PropTypes.func.isRequired,
@@ -72,6 +78,6 @@ export default connectToRedux({
     actionStatus: createActionStatusSelector()(state),
   }),
   dispatchProps: {
-    setIdle: LoadingActions.idle
-  }
+    setIdle: LoadingActions.idle,
+  },
 });

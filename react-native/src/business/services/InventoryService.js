@@ -1,5 +1,5 @@
-import { addProduct, getInventoryProducts } from '../api/InventoryAPI';
-import { getInventoryDetails } from '../api/InventoryAPI';
+import { addProduct, getInventoryProducts } from '../../api/InventoryAPI';
+import { getInventoryDetails } from '../../api/InventoryAPI';
 
 class InventoryService {
   async addProduct(product = { code, expirationDate }) {
@@ -30,7 +30,7 @@ class InventoryService {
         Filter: filter,
         Sorting: sorting,
         SkipCount: skipCount,
-        MaxResultCount: maxResultCount
+        MaxResultCount: maxResultCount,
       };
 
       return await getInventoryProducts(body);

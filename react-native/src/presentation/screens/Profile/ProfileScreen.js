@@ -8,18 +8,29 @@ import { Colors } from '../../styles/CommonStyle';
 
 function ProfileScreen({ user }) {
   const userCommonName = () => {
-    return haveValidCommonName(user) ? <Text style={profileStyle.identityCommonName}>{`${user.name} ${user.surname}`}</Text> : <></>;
-  }
+    return haveValidCommonName(user) ? (
+      <Text
+        style={
+          profileStyle.identityCommonName
+        }>{`${user.name} ${user.surname}`}</Text>
+    ) : (
+      <></>
+    );
+  };
 
   return (
     <View px="3" py="3" flex={1} backgroundColor={Colors.BG}>
       <Box style={profileStyle.identityBox}>
         <View style={profileStyle.identityRowView}>
-          <Avatar ml="3" style={profileStyle.identityAvatar} source={require('../../../assets/avatar.png')} />
+          <Avatar
+            ml="3"
+            style={profileStyle.identityAvatar}
+            source={require('../../../../assets/avatar.png')}
+          />
           <View ml="3" style={profileStyle.identityColView}>
-            <Text style={profileStyle.identityUserName}>{ user.userName }</Text>
+            <Text style={profileStyle.identityUserName}>{user.userName}</Text>
             {userCommonName()}
-            <Text style={profileStyle.identityEmail}>{ user.email }</Text>
+            <Text style={profileStyle.identityEmail}>{user.email}</Text>
           </View>
         </View>
       </Box>
@@ -48,12 +59,12 @@ function ProfileScreen({ user }) {
 }
 
 ProfileScreen.propTypes = {
-  user : PropTypes.object.isRequired,
-}
+  user: PropTypes.object.isRequired,
+};
 
 export default connectToRedux({
   component: ProfileScreen,
   stateProps: state => ({
-    user: createUserSelector()(state)
+    user: createUserSelector()(state),
   }),
 });

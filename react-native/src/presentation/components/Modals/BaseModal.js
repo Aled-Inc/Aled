@@ -1,12 +1,12 @@
 import { View, Modal } from 'react-native';
-import ModalTypes from '../../utils/ModalTypes';
+import ModalTypes from '../../../common/utils/ModalTypes';
 import SendEmailConfirmationModalContent from './Contents/SendEmailConfirmationModalContent';
 import PropTypes from 'prop-types';
-import { connectToRedux } from '../../utils/ReduxConnect';
-import { createRequestedConfirmationModalSelector } from '../../store/selectors/AppSelectors';
+import { connectToRedux } from '../../../common/utils/ReduxConnect';
+import { createRequestedConfirmationModalSelector } from '../../../business/store/selectors/AppSelectors';
 import { forwardRef } from 'react';
-import { isString } from '../../utils/CommonUtils';
-import { modalStyles } from '../../presentation/styles/ModalStyles';
+import { isString } from '../../../common/utils/CommonUtils';
+import { modalStyles } from '../../styles/ModalStyles';
 
 function BaseModal({ modalType }) {
   const getContent = () => {
@@ -20,13 +20,11 @@ function BaseModal({ modalType }) {
   return isString(modalType) ? (
     <View style={modalStyles.centeredView}>
       <Modal animationType="fade" transparent={true} visible={true}>
-        <View style={modalStyles.centeredView}>
-          { getContent() }
-        </View>
-      </Modal> 
+        <View style={modalStyles.centeredView}>{getContent()}</View>
+      </Modal>
     </View>
   ) : null;
-};
+}
 
 const Forwarded = forwardRef((props, ref) => (
   <BaseModal {...props} forwardRef={ref} />

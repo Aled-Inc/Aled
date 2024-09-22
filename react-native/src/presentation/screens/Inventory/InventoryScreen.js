@@ -14,7 +14,7 @@ import {
 } from '../../../common/utils/ProductCategoryTagUtils';
 import { StyleSheet } from 'react-native';
 import ProductCardComponent from '../../components/Cards/ProductCards/ProductCardComponent';
-import InventoryService from '../../../services/InventoryService';
+import InventoryService from '../../../business/services/InventoryService';
 import LoadingActions from '../../../business/store/actions/LoadingActions';
 
 function InventoryScreen({ inventory, startLoading, stopLoading }) {
@@ -132,12 +132,18 @@ function InventoryScreen({ inventory, startLoading, stopLoading }) {
     handleGetProducts({ skip: skip });
   };
 
-  const handleGetProducts = async({ filter = activeFilter, skip = skipCount }) => {
+  const handleGetProducts = async ({
+    filter = activeFilter,
+    skip = skipCount,
+  }) => {
     startLoading({ key: 'getProducts', opacity: 0.4 });
 
-    await InventoryService.getInventoryProducts(filter, null, skip, itemNumber).then(
-      response => setProductList(response.data.items),
-    );
+    await InventoryService.getInventoryProducts(
+      filter,
+      null,
+      skip,
+      itemNumber,
+    ).then(response => setProductList(response.data.items));
 
     stopLoading({ key: 'getProducts' });
   };

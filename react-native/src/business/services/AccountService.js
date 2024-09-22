@@ -1,17 +1,22 @@
-import { changePassword, deleteProfile, disableProfile, sendEmailVerificationCode, updateProfileDetail } from "../api/IdentityAPI";
+import {
+  changePassword,
+  deleteProfile,
+  disableProfile,
+  sendEmailVerificationCode,
+  updateProfileDetail,
+} from '../../api/IdentityAPI';
 
-const prepareModel = (user) => {
+const prepareModel = user => {
   return {
     userName: user.userName,
     email: user.email,
     name: user.name,
     surname: user.surname,
-    phoneNumber: user.phoneNumber
-  }
+    phoneNumber: user.phoneNumber,
+  };
 };
 
 class AccountService {
-
   async updateUsername(username, user) {
     try {
       let model = prepareModel(user);
@@ -19,7 +24,10 @@ class AccountService {
 
       return await updateProfileDetail(model);
     } catch (error) {
-      console.error('An error occured during AccountService.updateUsername : ', error);
+      console.error(
+        'An error occured during AccountService.updateUsername : ',
+        error,
+      );
       throw error;
     }
   }
@@ -31,7 +39,10 @@ class AccountService {
 
       return await updateProfileDetail(model);
     } catch (error) {
-      console.error('An error occured during AccountService.updateName : ', error);
+      console.error(
+        'An error occured during AccountService.updateName : ',
+        error,
+      );
       throw error;
     }
   }
@@ -43,7 +54,10 @@ class AccountService {
 
       return await updateProfileDetail(model);
     } catch (error) {
-      console.error('An error occured during AccountService.updateSurname : ', error);
+      console.error(
+        'An error occured during AccountService.updateSurname : ',
+        error,
+      );
       throw error;
     }
   }
@@ -55,7 +69,10 @@ class AccountService {
 
       return await updateProfileDetail(model);
     } catch (error) {
-      console.error('An error occured during AccountService.updateEmail : ', error);
+      console.error(
+        'An error occured during AccountService.updateEmail : ',
+        error,
+      );
       throw error;
     }
   }
@@ -67,16 +84,22 @@ class AccountService {
 
       return await updateProfileDetail(model);
     } catch (error) {
-      console.error('An error occured during AccountService.updatePhone : ', error);
+      console.error(
+        'An error occured during AccountService.updatePhone : ',
+        error,
+      );
       throw error;
     }
   }
 
   async changePassword(currentPassword, newPassword) {
     try {
-      return await changePassword({currentPassword, newPassword});
+      return await changePassword({ currentPassword, newPassword });
     } catch (error) {
-      console.error('An error occured during AccountService.changePassword : ', error);
+      console.error(
+        'An error occured during AccountService.changePassword : ',
+        error,
+      );
       throw error;
     }
   }
@@ -85,7 +108,10 @@ class AccountService {
     try {
       return await disableProfile();
     } catch (error) {
-      console.error('An error occured during AccountService.disableProfile : ', error);
+      console.error(
+        'An error occured during AccountService.disableProfile : ',
+        error,
+      );
       throw error;
     }
   }
@@ -94,7 +120,10 @@ class AccountService {
     try {
       return await deleteProfile();
     } catch (error) {
-      console.error('An error occured during AccountService.deleteProfile : ', error);
+      console.error(
+        'An error occured during AccountService.deleteProfile : ',
+        error,
+      );
       throw error;
     }
   }
@@ -103,7 +132,10 @@ class AccountService {
     try {
       return await sendEmailVerificationCode();
     } catch (error) {
-      console.error('An error occured during AccountService.sendEmailVerificationCode : ', error);
+      console.error(
+        'An error occured during AccountService.sendEmailVerificationCode : ',
+        error,
+      );
       throw error;
     }
   }

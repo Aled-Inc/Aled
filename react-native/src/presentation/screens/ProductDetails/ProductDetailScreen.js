@@ -3,7 +3,7 @@ import { ScrollView, Image, StyleSheet, SafeAreaView } from 'react-native';
 import { Box, HStack, VStack, Text, Center, View, Spinner } from 'native-base';
 import { Colors } from '../../styles/CommonStyle';
 import { useRoute } from '@react-navigation/native';
-import ProductService from '../../../services/ProductService';
+import ProductService from '../../../business/services/ProductService';
 import { useEffect } from 'react';
 import NutriscoreImage from './NutriscoreImage';
 import NovaCard from './NovaCard';

@@ -1,4 +1,4 @@
-import { getProductDetails } from '../api/ProductAPI';
+import { getProductDetails } from '../../api/ProductAPI';
 
 class ProductService {
   async getProductDetails(code) {
