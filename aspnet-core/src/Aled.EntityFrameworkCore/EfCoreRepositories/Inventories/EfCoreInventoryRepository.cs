@@ -23,4 +23,6 @@ public class EfCoreInventoryRepository : EfCoreRepository<AledDbContext, Invento
             .Include(inventory => inventory.Products)
             .FirstAsync(inventory => inventory.UserId == userId);
     }
+    
+    
 }

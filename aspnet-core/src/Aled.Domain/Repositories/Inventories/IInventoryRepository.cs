@@ -8,4 +8,5 @@ namespace Aled.Repositories.Inventories;
 public interface IInventoryRepository : IRepository<Inventory, Guid>
 {
     Task<Inventory> GetInventoryWithFullDetailsAsync(Guid userId);
+    
 }

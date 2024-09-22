@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Aled.OpenFoodFactService.Products.Dtos;
 using Volo.Abp.Application.Services;
@@ -17,6 +18,11 @@ public class ProductAppService : ApplicationService, IProductAppService
     public async Task<ProductDetailsDto> GetAsync(string code)
     {
         var product = await _productAppService.GetAsync(new GetProductDto { Code = code });
+
+        if (product == null)
+        {
+            throw new Exception($"No products found with code {code}");
+        }
         
         return ObjectMapper.Map<Aled.OpenFoodFactService.Products.Dtos.ProductDetailsDto, ProductDetailsDto>(product.ProductDetails);
     }

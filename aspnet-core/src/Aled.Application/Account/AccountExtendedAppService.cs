@@ -48,11 +48,6 @@ public class AccountExtendedAppService(
     {
         var user = await UserManager.GetByIdAsync(userId);
 
-        if (user == null)
-        {
-            throw new KeyNotFoundException();
-        }
-
         token = Encoding.UTF8.GetString(Base64UrlEncoder.DecodeBytes(token));
         return await UserManager.ConfirmEmailAsync(user, token);
     }
