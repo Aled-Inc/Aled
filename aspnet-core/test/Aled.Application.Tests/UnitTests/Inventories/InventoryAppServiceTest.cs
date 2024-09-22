@@ -12,6 +12,7 @@ using Aled.Inventories.Dtos;
 using Aled.OpenFoodFactService.Products;
 using Aled.Products.Dtos;
 using Aled.Repositories.Inventories;
+using Aled.Repositories.Products;
 using AutoMapper;
 using Shouldly;
 using Volo.Abp.Domain.Entities;
@@ -24,7 +25,7 @@ public sealed class InventoryAppServiceTest : AledApplicationTestBase<AledApplic
 {
     private readonly InventoryAppService _inventoryAppService;
     private readonly ProductProxyAppServiceFake? _productProxyAppServiceFake;
-    private readonly IRepository<Product, Guid>? _productRepository;
+    private readonly InMemoryProductRepository? _productRepository;
     private readonly InventoryBasicRepositoryFake? _inventoryBasicRepository;
     private readonly IMapper _mapper;
 
@@ -77,7 +78,7 @@ public sealed class InventoryAppServiceTest : AledApplicationTestBase<AledApplic
         _inventoryAppService = GetRequiredService<InventoryAppService>();
         _productProxyAppServiceFake = GetRequiredService<IProductAppService>() as ProductProxyAppServiceFake;
         _inventoryBasicRepository = GetRequiredService<IInventoryRepository>() as InventoryBasicRepositoryFake;
-        _productRepository = GetRequiredService<IRepository<Product, Guid>>() as InMemoryRepository<Product, Guid>;
+        _productRepository = GetRequiredService<IProductRepository>() as InMemoryProductRepository;
         _mapper = GetRequiredService<IMapper>();
     }
 
@@ -177,4 +178,41 @@ public sealed class InventoryAppServiceTest : AledApplicationTestBase<AledApplic
         var productRepository = await _productRepository.FindAsync(p => p.Code == Product.Code);
         productRepository.ShouldBeNull();
     }
+    
+    [Fact]
+    public async Task GetDetailsAsync_ShouldReturnMappedInventoryDetailsDto()
+    {
+        await InitFixtureAsync();
+        var expectedInventoryDetailsDto = _mapper.Map<Inventory, InventoryDetailsDto>(_inventory);
+    
+        var result = await _inventoryAppService.GetDetailsAsync();
+    
+        result.ShouldNotBeNull();
+        result.ShouldBeEquivalentTo(expectedInventoryDetailsDto);
+    }
+
+    [Fact]
+    public async Task GetProductsAsync_ShouldReturnPagedResultDtoWithMappedProducts()
+    {
+        await InitFixtureAsync();
+        await _productRepository?.InsertManyAsync(_inventory.Products)!;
+        var getProductsDto = new GetProductsDto
+        {
+            Sorting = string.Empty,
+            MaxResultCount = 10,
+            SkipCount = 0,
+            Filter = null
+        };
+
+        var productList = _inventory.Products;
+        var totalCount = productList.Count;
+        var expectedProductDtos = _mapper.Map<List<Product>, List<ProductDto>>(productList.ToList());
+
+        var result = await _inventoryAppService.GetProductsAsync(getProductsDto);
+
+        result.ShouldNotBeNull();
+        result.TotalCount.ShouldBe(totalCount);
+        result.Items.ShouldBeEquivalentTo(expectedProductDtos);
+    }
+
 }

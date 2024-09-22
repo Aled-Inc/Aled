@@ -24,15 +24,12 @@ public class InventoryManager : DomainService, IInventoryManager
     private readonly IInventoryRepository _efCoreInventoryRepository;
     private readonly IObjectMapper _objectMapper;
     private readonly IProductAppService _productAppService;
-    private readonly IRepository<Product, Guid> _productRepository;
     private readonly IProductRepository _efCoreProductRepository;
 
-    public InventoryManager(
-        IRepository<Product, Guid> productRepository, IInventoryRepository efCoreInventoryRepository,
+    public InventoryManager(IInventoryRepository efCoreInventoryRepository,
         ICurrentUser currentUser, IProductAppService productAppService, IObjectMapper objectMapper, 
         IProductRepository efCoreProductRepository)
     {
-        _productRepository = productRepository;
         _efCoreInventoryRepository = efCoreInventoryRepository;
         _currentUser = currentUser;
         _productAppService = productAppService;
@@ -77,7 +74,7 @@ public class InventoryManager : DomainService, IInventoryManager
         inventory.AddProduct(product);
 
         // Save the product separately
-        await _productRepository.InsertAsync(product);
+        await _efCoreProductRepository.InsertAsync(product);
 
         // Update the inventory
         await _efCoreInventoryRepository.UpdateAsync(inventory, true);
@@ -92,7 +89,7 @@ public class InventoryManager : DomainService, IInventoryManager
         inventory.RemoveProduct(Guid.Parse(removeProductDto.ProductId));
 
         // Remove the product separately
-        await _productRepository.DeleteAsync(Guid.Parse(removeProductDto.ProductId));
+        await _efCoreProductRepository.DeleteAsync(Guid.Parse(removeProductDto.ProductId));
 
         // Update the inventory
         await _efCoreInventoryRepository.UpdateAsync(inventory, true);

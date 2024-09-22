@@ -1,6 +1,7 @@
 ﻿using Aled.Fakes;
 using Aled.Fakes.Repositories;
 using Aled.Repositories.Inventories;
+using Aled.Repositories.Products;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Domain.Repositories;
@@ -36,5 +37,6 @@ public class AledDomainTestModule : AbpModule
         context.Services.AddScoped(typeof(IPermissionGroupDefinitionRecordRepository), typeof(PermissionGroupDefinitionRecordBasicRepositoryFake));
         context.Services.AddScoped(typeof(IPermissionDefinitionRecordRepository), typeof(PermissionDefinitionRecordBasicRepositoryFake));
         context.Services.AddScoped(typeof(IInventoryRepository), typeof(InventoryBasicRepositoryFake));
+        context.Services.AddScoped(typeof(IProductRepository), typeof(InMemoryProductRepository));
     }
 }
