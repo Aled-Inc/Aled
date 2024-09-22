@@ -1,10 +1,10 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import { getApplicationConfiguration } from '../../api/ApplicationConfigurationAPI';
+import { getApplicationConfiguration } from '../../../api/ApplicationConfigurationAPI';
 import AppActions from '../actions/AppActions';
 import LoadingActions from '../actions/LoadingActions';
 import PersistentStorageActions from '../actions/PersistentStorageActions';
-import { getEnvVars } from '../../../Environment';
-import AuthService from '../../services/AuthService';
+import { getEnvVars } from '../../../../Environment';
+import AuthService from '../../../services/AuthService';
 import { getPersistentStorage } from '../selectors/PersistentStorageSelectors';
 import { getApp } from '../selectors/AppSelectors';
 

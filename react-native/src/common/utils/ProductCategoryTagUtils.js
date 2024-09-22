@@ -1,4 +1,4 @@
-import { Colors } from "../styles/CommonStyle";
+import { Colors } from "../presentation/styles/CommonStyle";
 
 export const ProductCategoryTagInfo = [
   {label: 'Unknown', backgroundColor: Colors.Text, labelColor: Colors.BG},

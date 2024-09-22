@@ -1,5 +1,5 @@
 import { Box, Text } from "native-base";
-import { ProductCategoryTagInfo } from "../../utils/ProductCategoryTagUtils";
+import { ProductCategoryTagInfo } from "../../../utils/ProductCategoryTagUtils";
 import { StyleSheet } from "react-native";
 
 function Tag({productCategoryTag}) {

@@ -1,5 +1,5 @@
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
-import AccountService from "../../services/AccountService";
+import AccountService from "../../../services/AccountService";
 import AppActions from "../actions/AppActions";
 import AccountActions from "../actions/AccountActions";
 import LoadingActions from "../actions/LoadingActions";

@@ -1,5 +1,5 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import InventoryService from '../../services/InventoryService';
+import InventoryService from '../../../services/InventoryService';
 import InventoryActions from '../actions/InventoryActions';
 import { createScanProductsSelector } from '../selectors/InventorySelector';
 import LoadingActions from '../actions/LoadingActions';

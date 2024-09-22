@@ -1,8 +1,8 @@
 import { HStack, Pressable, Text } from "native-base";
-import { Filters } from "../utils/InventoryUtils";
+import { Filters } from "../../../utils/InventoryUtils";
 import i18n from "i18n-js";
 import { StyleSheet } from "react-native";
-import { Colors } from "../styles/CommonStyle";
+import { Colors } from "../../styles/CommonStyle";
 import { useState } from "react";
 
 function FiltersComponent({getActiveFilter}) {

@@ -1,8 +1,8 @@
 import { Box, HStack, Pressable, Text } from 'native-base';
 import React from 'react';
-import { getUsers } from '../../api/IdentityAPI';
+import { getUsers } from '../../../api/IdentityAPI';
 import DataList from '../../components/DataList/DataList';
-import { LocalizationContext } from '../../contexts/LocalizationContext';
+import { LocalizationContext } from '../../../contexts/LocalizationContext';
 
 function UsersScreen({ navigation }) {
   const { t } = React.useContext(LocalizationContext);

@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import LoadingActions from '../actions/LoadingActions';
-import ActionStatus from '../../utils/ActionStatus';
+import ActionStatus from '../../../utils/ActionStatus';
 
 const initialState = {
   activeLoadings: {},

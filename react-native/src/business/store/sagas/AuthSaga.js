@@ -1,5 +1,5 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import AuthService from '../../services/AuthService';
+import AuthService from '../../../services/AuthService';
 import AuthActions from '../actions/AuthActions';
 import LoadingActions from '../actions/LoadingActions';
 import PersistentStorageActions from '../actions/PersistentStorageActions';
