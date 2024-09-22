@@ -40,4 +40,6 @@ public class NutrientsDto
     public double B12 { get; set; }
 
     public double C { get; set; }
+
+    public double D { get; set; }
 }
