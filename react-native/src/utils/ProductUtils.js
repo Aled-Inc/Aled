@@ -17,4 +17,5 @@ export const vitaminUnits = {
   b6: 'mg',
   b12: 'µg',
   c: 'mg',
+  d: 'µg',
 };

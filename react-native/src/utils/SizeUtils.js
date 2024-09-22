@@ -19,3 +19,5 @@ export const ScreenSize = {
   width: width,
   height: height
 };
+
+export const percentOfScreenHeight = (percentage) => (percentage / 100) * height;
