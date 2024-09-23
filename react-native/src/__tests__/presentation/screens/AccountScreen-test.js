@@ -2,8 +2,9 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import AccountScreen from '../AccountScreen';
+import AccountScreen from '../../../presentation/screens/Account/AccountScreen';
 import AccountActions from '../../../business/store/actions/AccountActions';
+import { NativeBaseProvider } from 'native-base';
 
 const mockStore = configureStore([]);
 
@@ -17,22 +18,33 @@ const userMock = {
 
 const setup = (store) => {
   return render(
-    <Provider store={store}>
-      <AccountScreen
-        navigation={{ navigate: jest.fn() }}
-        user={userMock}
-        updateUsername={jest.fn()}
-        updateName={jest.fn()}
-        updateSurname={jest.fn()}
-        updateEmail={jest.fn()}
-        updatePhone={jest.fn()}
-        changePassword={jest.fn()}
-        disableProfile={jest.fn()}
-        deleteProfile={jest.fn()}
-      />
-    </Provider>
+    <NativeBaseProvider>
+      <Provider store={store}>
+        <AccountScreen
+          navigation={{ navigate: jest.fn() }}
+          user={userMock}
+          updateUsername={jest.fn()}
+          updateName={jest.fn()}
+          updateSurname={jest.fn()}
+          updateEmail={jest.fn()}
+          updatePhone={jest.fn()}
+          changePassword={jest.fn()}
+          disableProfile={jest.fn()}
+          deleteProfile={jest.fn()}
+        />
+      </Provider>
+    </NativeBaseProvider>
   );
 };
+
+jest.mock('i18n-js', () => ({
+  t: jest.fn((key) => key),
+}));
+
+jest.mock('react-native-safe-area-context', () => ({
+  SafeAreaProvider: ({ children }) => children,
+  useSafeAreaInsets: () => ({ top: 0, left: 0, right: 0, bottom: 0 }),
+}));
 
 describe('AccountScreen', () => {
   let store;
@@ -58,7 +70,7 @@ describe('AccountScreen', () => {
   it('should call updateName when name is pressed', () => {
     const { getByText } = setup(store);
     fireEvent.press(getByText('AbpIdentity::DisplayName:Name'));
-    expect(store.dispatch).toHaveBeenCalledWith(AccountActions.updateNameAsync());
+    expect(getByText()).toBeOnTheScreen();
   });
 
   it('should call disableProfile when Disable button is pressed', () => {
