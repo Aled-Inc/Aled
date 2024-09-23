@@ -10,7 +10,6 @@ using Aled.Products.Dtos;
 using Aled.Repositories.Inventories;
 using Volo.Abp.Domain.Entities;
 using Aled.Repositories.Products;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Users;
 using IObjectMapper = Volo.Abp.ObjectMapping.IObjectMapper;
@@ -72,13 +71,13 @@ public class InventoryManager : DomainService, IInventoryManager
         var product = _objectMapper.Map<ProductDto, Product>(productDto);
 
         inventory.AddProduct(product);
-
+        
         // Save the product separately
         await _efCoreProductRepository.InsertAsync(product);
 
         // Update the inventory
         await _efCoreInventoryRepository.UpdateAsync(inventory, true);
-
+        
         return product;
     }
 

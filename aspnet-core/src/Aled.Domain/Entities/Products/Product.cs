@@ -16,6 +16,8 @@ public class Product : Entity<Guid>
 
     public string Brands { get; set; } = string.Empty;
 
+    public int Quantity { get; set; } = 1;
+    
     public string? IngredientsText { get; set; } = string.Empty;
 
     public string? Allergens { get; set; } = string.Empty;
