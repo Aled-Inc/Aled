@@ -2,8 +2,8 @@ import { createAction } from '@reduxjs/toolkit';
 
 const addProductAsync = createAction(
   'inventory/product/add',
-  ({ barcode, expirationDate } = {}) => ({
-    payload: { barcode, expirationDate },
+  ({ barcode } = {}) => ({
+    payload: { barcode },
   }),
 );
 

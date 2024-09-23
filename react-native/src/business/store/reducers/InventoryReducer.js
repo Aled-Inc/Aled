@@ -19,6 +19,6 @@ export default createReducer(initialState, builder =>
     })
     .addCase(InventoryActions.setInventoryProducts, (state, action) => {
       state.inventory.products = action.payload.items;
-      state.totalProducts = action.payload.totalCount;
+      state.inventory.totalProducts = action.payload.totalCount;
     }),
 );

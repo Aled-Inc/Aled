@@ -19,3 +19,5 @@ local.env.js
 
 # macOS
 .DS_Store
+
+coverage/**/*

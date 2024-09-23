@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, ActivityIndicator, Dimensions } from 'react-native';
+import { Text, ActivityIndicator } from 'react-native';
 import { Center, View } from 'native-base';
 import { CameraView, Camera } from 'expo-camera';
 import { Colors } from '../../styles/CommonStyle';
@@ -50,7 +50,7 @@ function ScanScreen({ scannedProducts, addProduct, clearScannedProducts }) {
   const fetchProductData = async barcode => {
     setLoading(true);
     try {
-      await addProduct({barcode, expirationDate: '11/11/2024'});
+      await addProduct({barcode});
     } catch (error) {
       clearScannedProducts();
     } finally {

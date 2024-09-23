@@ -32,5 +32,7 @@ export function hexToRGB(hex, alpha) {
 }
 
 export function toDate(date) {
-    return new Date(Date.parse(date));
+  let isDateValid = !isNaN(Date.parse(date));
+
+  return isDateValid ? new Date(Date.parse(date)) : Date.now();
 }

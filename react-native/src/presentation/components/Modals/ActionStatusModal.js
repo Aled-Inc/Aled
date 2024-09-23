@@ -44,7 +44,7 @@ function ActionStatusModal({ actionStatus, setIdle }) {
   };
 
   return actionStatus == ActionStatus.idle ||
-    actionStatus == ActionStatus.pendging ? null : (
+    actionStatus == ActionStatus.pending ? null : (
     <View style={modalStyles.centeredView}>
       <Modal
         animationType="fade"

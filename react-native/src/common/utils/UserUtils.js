@@ -1,9 +1,7 @@
 import { isString } from "./CommonUtils";
 
 export function isUserValid(user) {
-  if (!user || typeof user !== 'object') return false;
-
-  return true;
+  return !(!user || typeof user !== 'object');
 }
 
 export function haveValidCommonName(user) {

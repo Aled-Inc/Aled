@@ -6,7 +6,7 @@ import LoadingActions from "../actions/LoadingActions";
 import { getAuthStore } from '../selectors/AuthSelector';
 import AuthActions from "../actions/AuthActions";
 
-function* updateUsername({ payload : { value }}) {
+export function* updateUsername({ payload : { value }}) {
   try {
     yield put(LoadingActions.pending());
   
@@ -16,11 +16,12 @@ function* updateUsername({ payload : { value }}) {
     yield put(AuthActions.setUser(user));  
     yield put(LoadingActions.succeeded());
   } catch (error) {
-    yield put(LoadingActions.failed(error));
+    const details = error.response.data.error.details;
+    yield put(LoadingActions.failed(details));
   }
 }
 
-function* updateName({ payload : { value }}) {
+export function* updateName({ payload : { value }}) {
   try {
     yield put(LoadingActions.pending());
   
@@ -30,11 +31,12 @@ function* updateName({ payload : { value }}) {
     yield put(AuthActions.setUser(user));
     yield put(LoadingActions.succeeded());
   } catch (error) {
-    yield put(LoadingActions.failed(error));
+    const details = error.response.data.error.details;
+    yield put(LoadingActions.failed(details));
   }
 }
 
-function* updateSurname({ payload : { value }}) {
+export function* updateSurname({ payload : { value }}) {
   try {
     yield put(LoadingActions.pending());
   
@@ -49,7 +51,7 @@ function* updateSurname({ payload : { value }}) {
   }
 }
 
-function* updateEmail({ payload : { value }}) {
+export function* updateEmail({ payload : { value }}) {
   try {
     yield put(LoadingActions.pending());
   
@@ -64,7 +66,7 @@ function* updateEmail({ payload : { value }}) {
   }
 }
 
-function* updatePhone({ payload : { value }}) {
+export function* updatePhone({ payload : { value }}) {
   try {
     yield put(LoadingActions.pending());
   
@@ -79,7 +81,7 @@ function* updatePhone({ payload : { value }}) {
   }
 }
 
-function* changePassword({payload: {value, extraValue }}) {
+export function* changePassword({payload: {value, extraValue }}) {
   try {
     yield put(LoadingActions.pending());
 
@@ -92,7 +94,7 @@ function* changePassword({payload: {value, extraValue }}) {
   }
 }
 
-function* disableProfile() {
+export function* disableProfile() {
   yield put(LoadingActions.start({ key: 'disableProfile' }));
 
   yield call(AccountService.disableProfile);
@@ -101,7 +103,7 @@ function* disableProfile() {
   yield put(LoadingActions.stop({ key: 'disableProfile' }));
 }
 
-function* deleteProfile() {
+export function* deleteProfile() {
   yield put(LoadingActions.start({ key: 'deleteProfile' }));
 
   yield call(AccountService.deleteProfile);
@@ -110,7 +112,7 @@ function* deleteProfile() {
   yield put(LoadingActions.stop({ key: 'deleteProfile' }));
 }
 
-function* sendEmailVerificationCode() {
+export function* sendEmailVerificationCode() {
   yield call(AccountService.sendEmailVerificationCode);
 }
 
