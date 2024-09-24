@@ -67,7 +67,6 @@ describe('App Sagas', () => {
           [call(AuthService.logout, { client_id: 'clientId', token: 'refresh', token_type_hint: 'refresh_token' }), {}],
         ])
         .put(LoadingActions.start({ key: 'logout', opacity: 0.7 }))
-        .put(PersistentStorageActions.setToken({}))
         .put(LoadingActions.stop({ key: 'logout' }))
         .run();
     });

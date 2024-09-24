@@ -75,8 +75,8 @@ describe('Utility Functions', () => {
     });
 
     it('should handle invalid date strings', () => {
-      jest.spyOn(global.Date.prototype, 'valueOf').mockImplementation(() => '2024-09-23');
-      expect(toDate('invalid date')).toEqual(Date.now());
+      jest.spyOn(global.Date, 'now').mockImplementation(() => '2024-09-23');
+      expect(toDate('invalid date')).toEqual(new Date(Date.now()));
       jest.restoreAllMocks();
     });
   });

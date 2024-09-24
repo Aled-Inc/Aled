@@ -3,7 +3,6 @@ import { render, fireEvent } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import AccountScreen from '../../../presentation/screens/Account/AccountScreen';
-import AccountActions from '../../../business/store/actions/AccountActions';
 import { NativeBaseProvider } from 'native-base';
 
 const mockStore = configureStore([]);
@@ -16,29 +15,44 @@ const userMock = {
   phoneNumber: '1234567890',
 };
 
-const setup = (store) => {
+const navigateMock = jest.fn();
+const updateUsernameMock = jest.fn();
+const updateNameMock = jest.fn();
+const updateSurnameMock = jest.fn();
+const updateEmailMock = jest.fn();
+const updatePhoneMock = jest.fn();
+const changePasswordMock = jest.fn();
+const disableProfileMock = jest.fn();
+const deleteProfileMock = jest.fn();
+
+jest.mock('../../../business/store/actions/AccountActions', () => ({
+  disableProfile: jest.fn(),
+  deleteProfileMock: jest.fn(),
+}));
+
+const setup = store => {
   return render(
     <NativeBaseProvider>
       <Provider store={store}>
         <AccountScreen
-          navigation={{ navigate: jest.fn() }}
+          navigation={{ navigate: navigateMock }}
           user={userMock}
-          updateUsername={jest.fn()}
-          updateName={jest.fn()}
-          updateSurname={jest.fn()}
-          updateEmail={jest.fn()}
-          updatePhone={jest.fn()}
-          changePassword={jest.fn()}
-          disableProfile={jest.fn()}
-          deleteProfile={jest.fn()}
+          updateUsername={updateUsernameMock}
+          updateName={updateNameMock}
+          updateSurname={updateSurnameMock}
+          updateEmail={updateEmailMock}
+          updatePhone={updatePhoneMock}
+          changePassword={changePasswordMock}
+          disableProfile={disableProfileMock}
+          deleteProfile={deleteProfileMock}
         />
       </Provider>
-    </NativeBaseProvider>
+    </NativeBaseProvider>,
   );
 };
 
 jest.mock('i18n-js', () => ({
-  t: jest.fn((key) => key),
+  t: jest.fn(key => key),
 }));
 
 jest.mock('react-native-safe-area-context', () => ({
@@ -53,6 +67,8 @@ describe('AccountScreen', () => {
     store = mockStore({
       auth: { user: userMock },
     });
+
+    navigateMock.mockReset();
   });
 
   it('should render correctly', () => {
@@ -64,24 +80,108 @@ describe('AccountScreen', () => {
   it('should navigate on username edit', () => {
     const { getByText } = setup(store);
     fireEvent.press(getByText('AbpIdentity::DisplayName:UserName'));
-    expect(store.dispatch).toHaveBeenCalledWith(AccountActions.updateUsernameAsync());
+
+    expect(navigateMock).toHaveBeenCalledWith(
+      'Edit',
+      expect.objectContaining({
+        title: 'AbpIdentity::DisplayName:UserName',
+        propName: 'AbpIdentity::DisplayName:UserName',
+        propValue: 'testuser',
+        propRole: 'common',
+        submit: expect.any(Function),
+      }),
+    );
   });
 
-  it('should call updateName when name is pressed', () => {
+  it('should navigate on name edit', () => {
     const { getByText } = setup(store);
     fireEvent.press(getByText('AbpIdentity::DisplayName:Name'));
-    expect(getByText()).toBeOnTheScreen();
+
+    expect(navigateMock).toHaveBeenCalledWith(
+      'Edit',
+      expect.objectContaining({
+        title: 'AbpIdentity::DisplayName:Name',
+        propName: 'AbpIdentity::DisplayName:Name',
+        propValue: 'Test',
+        propRole: 'common',
+        submit: expect.any(Function),
+      }),
+    );
   });
 
-  it('should call disableProfile when Disable button is pressed', () => {
+  it('should navigate on surname edit', () => {
     const { getByText } = setup(store);
+    fireEvent.press(getByText('AbpIdentity::DisplayName:Surname'));
+
+    expect(navigateMock).toHaveBeenCalledWith(
+      'Edit',
+      expect.objectContaining({
+        title: 'AbpIdentity::DisplayName:Surname',
+        propName: 'AbpIdentity::DisplayName:Surname',
+        propValue: 'User',
+        propRole: 'common',
+        submit: expect.any(Function),
+      }),
+    );
+  });
+
+  it('should navigate on email edit', () => {
+    const { getByText } = setup(store);
+    fireEvent.press(getByText('AbpIdentity::DisplayName:Email'));
+
+    expect(navigateMock).toHaveBeenCalledWith(
+      'Edit',
+      expect.objectContaining({
+        title: 'AbpIdentity::DisplayName:Email',
+        propName: 'AbpIdentity::DisplayName:Email',
+        propValue: 'test@example.com',
+        propRole: 'email',
+        submit: expect.any(Function),
+      }),
+    );
+  });
+
+  it('should navigate on phone number edit', () => {
+    const { getByText } = setup(store);
+    fireEvent.press(getByText('Aled::PhoneNumber'));
+
+    expect(navigateMock).toHaveBeenCalledWith(
+      'Edit',
+      expect.objectContaining({
+        title: 'Aled::PhoneNumber',
+        propName: 'Aled::PhoneNumber',
+        propValue: '1234567890',
+        propRole: 'phone',
+        submit: expect.any(Function),
+      }),
+    );
+  });
+
+  it('should navigate on password change', () => {
+    const { getByText } = setup(store);
+    fireEvent.press(getByText('Aled::Password'));
+
+    expect(navigateMock).toHaveBeenCalledWith('Edit', {
+      title: 'AbpIdentity::DisplayName:NewPassword',
+      propName: 'AbpIdentity::DisplayName:NewPassword',
+      propValue: null,
+      propRole: 'password',
+      submit: expect.any(Function),
+    });
+  });
+
+  it('should call disableProfile when Disable button is pressed', async () => {
+    const { getByText } = setup(store);
+
     fireEvent.press(getByText('Aled::Settings:Account:Manage:Disable'));
-    expect(store.dispatch).toHaveBeenCalledWith(AccountActions.disableProfileAsync());
+
+    expect(disableProfileMock).toHaveBeenCalled();
   });
 
   it('should call deleteProfile when Delete button is pressed', () => {
     const { getByText } = setup(store);
     fireEvent.press(getByText('Aled::Settings:Account:Manage:Delete'));
-    expect(store.dispatch).toHaveBeenCalledWith(AccountActions.deleteProfileAsync());
+
+    expect(deleteProfileMock).toHaveBeenCalled();
   });
 });

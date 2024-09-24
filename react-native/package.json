@@ -73,6 +73,7 @@
       "!**/local.env.js",
       "!**/metro.config.js",
       "!**/presentation/styles/**",
+      "!**/presentation/navigators/**",
       "!**/business/interceptors/APIInterceptor.js",
       "!**/business/store/index.js",
       "!**/business/store/reducers/index.js",

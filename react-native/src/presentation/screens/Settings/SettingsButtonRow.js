@@ -97,7 +97,7 @@ const Edit = ({
   propValue = null,
   placeholder = '',
   onChange,
-  onDelete,
+  onDelete
 }) => {
   const removeButton = () => {
     return (

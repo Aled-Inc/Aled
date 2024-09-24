@@ -7,7 +7,6 @@ import PersistentStorageActions from '../store/actions/PersistentStorageActions'
 export function initAPIInterceptor(store) {
     api.interceptors.request.use(
         async request => {
-          console.log("nofiurnoifvuhrboifun");
             const {
                 persistentStorage: {token, language, tenant},
             } = store.getState();

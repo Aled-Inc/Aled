@@ -15,6 +15,7 @@ function ProductImageCardComponent({ product }) {
         });
       }}>
       <Image
+        testID='product_img'
         style={styles.productImage}
         alt="product_img"
         source={{ uri: product.imageFrontUrl }}></Image>

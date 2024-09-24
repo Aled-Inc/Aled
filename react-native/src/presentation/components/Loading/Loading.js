@@ -12,12 +12,13 @@ function Loading({ loading, opacity }) {
   return loading ? (
     <View style={styles.container}>
       <View
+        testID='backdrop'
         style={{
           ...styles.backdrop,
           opacity: opacity || 0.6,
         }}
       />
-      <Spinner style={styles.spinner} color={styles.spinner.color} />
+      <Spinner style={styles.spinner} color={styles.spinner.color} testID='spinner'/>
     </View>
   ) : null;
 }

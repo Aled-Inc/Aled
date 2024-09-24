@@ -25,6 +25,7 @@ function ScannedProductCardComponent({ product }) {
                 uri: product.imageFrontUrl,
               }}
               alt="product_image"
+              testID='product_image'
             />
           </Box>
           <VStack width={'60%'} flexDirection={'column-reverse'}>
