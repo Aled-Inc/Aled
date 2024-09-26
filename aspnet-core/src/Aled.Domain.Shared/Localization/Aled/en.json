@@ -12,6 +12,7 @@
     "Moderate": "Moderate",
     "Low": "Low",
     "None": "None",
+    "NotDefined": "Not defined",
     
     "Menu:Scan": "Scan",
     "Menu:Chat": "Chat",

@@ -29,11 +29,11 @@ namespace Aled.Migrations
                     SELECT COUNT(*)
                     FROM AppProducts p2
                     WHERE p2.Code = AppProducts.Code
-                    AND p2.InventoryId = AppProducts.InventoryId  -- Vérification que InventoryId est le même
+                    AND p2.InventoryId = AppProducts.InventoryId
                 )
                 FROM inserted
                 WHERE AppProducts.Code = inserted.Code
-                AND AppProducts.InventoryId = inserted.InventoryId;  -- Vérification sur InventoryId
+                AND AppProducts.InventoryId = inserted.InventoryId;
             END"
             );
         }
