@@ -19,7 +19,7 @@ function BaseModal({ modalType }) {
 
   return isString(modalType) ? (
     <View style={modalStyles.centeredView}>
-      <Modal animationType="fade" transparent={true} visible={true}>
+      <Modal animationType="fade" transparent={true} visible={true} testID='base-modal'>
         <View style={modalStyles.centeredView}>{getContent()}</View>
       </Modal>
     </View>

@@ -10,7 +10,7 @@ import { getApp } from '../selectors/AppSelectors';
 
 const env = getEnvVars();
 
-function* fetchAppConfig({ payload: { showLoading, callback } }) {
+export function* fetchAppConfig({ payload: { showLoading, callback } }) {
   if (showLoading) {
     yield put(LoadingActions.start({ key: 'appConfig', opacity: 1 }));
   }
@@ -26,12 +26,12 @@ function* fetchAppConfig({ payload: { showLoading, callback } }) {
   callback();
 }
 
-function* setLanguage(action) {
+export function* setLanguage(action) {
   yield put(PersistentStorageActions.setLanguage(action.payload));
   yield put(AppActions.fetchAppConfigAsync());
 }
 
-function* logout({ payload: { showLoading } }) {
+export function* logout({ payload: { showLoading } }) {
   if (showLoading) {
     yield put(LoadingActions.start({ key: 'logout', opacity: 0.7 }));
   }
@@ -55,7 +55,7 @@ function* logout({ payload: { showLoading } }) {
   if (showLoading) yield put(LoadingActions.stop({ key: 'logout' }));
 }
 
-function* requestConfirmationModal({ payload: { modalType } }) {
+export function* requestConfirmationModal({ payload: { modalType } }) {
   let app = yield select(getApp);
 
   if (app.modalType != modalType) {

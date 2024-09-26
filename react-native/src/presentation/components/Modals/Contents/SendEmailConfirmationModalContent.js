@@ -17,7 +17,7 @@ function SendEmailConfirmationModalContent({
   };
 
   return (
-    <View style={modalStyles.modalView}>
+    <View style={modalStyles.modalView} testID='email-confirmation-content'>
       <Text style={modalStyles.modalTitle}>
         {i18n.t('Aled::Modal:EmailConfirmation')}
       </Text>

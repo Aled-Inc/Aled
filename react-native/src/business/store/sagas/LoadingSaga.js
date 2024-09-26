@@ -3,7 +3,7 @@ import LoadingActions from '../actions/LoadingActions';
 import { getLoading } from '../selectors/LoadingSelectors';
 import ActionStatus from '../../../common/utils/ActionStatus';
 
-function* setIdle() {
+export function* setIdle() {
   const loadingStore = yield select(getLoading);
 
   if (loadingStore.status !== ActionStatus.idle) {

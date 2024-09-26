@@ -50,7 +50,7 @@ public sealed class Inventory : AggregateRoot<Guid>, IHasCreationTime
         
         var pQuantity = Products.Count(p => p.Code == product.Code);
         
-        product.Quantity = pQuantity;
+        product.Quantity = pQuantity < 1 ? 1 : pQuantity;
         product.InventoryId = Id;
         product.AddedDate = DateTime.Now;
         Products.Add(product);

@@ -6,7 +6,7 @@ function Tag({ productCategoryTag }) {
   let tag = ProductCategoryTagInfo.at(productCategoryTag);
 
   return (
-    <Box style={styles.tagBox} backgroundColor={tag.backgroundColor}>
+    <Box style={styles.tagBox} backgroundColor={tag.backgroundColor} testID='tag-box'>
       <Text style={styles.tagText} color={tag.labelColor}>
         {tag.label}
       </Text>

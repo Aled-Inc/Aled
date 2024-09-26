@@ -38,7 +38,7 @@ export default createReducer(initialState, builder =>
       return {
         ...state,
         actionLoading: true,
-        status: ActionStatus.pendging,
+        status: ActionStatus.pending,
         actionError: null,
       };
     })

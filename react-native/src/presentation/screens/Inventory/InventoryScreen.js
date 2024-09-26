@@ -144,7 +144,6 @@ function InventoryScreen({ inventory, startLoading, stopLoading }) {
       skip,
       itemNumber,
     ).then(response => setProductList(response.data.items));
-
     stopLoading({ key: 'getProducts' });
   };
 

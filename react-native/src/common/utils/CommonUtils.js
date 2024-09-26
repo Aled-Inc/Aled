@@ -9,6 +9,7 @@ export function firstLetterUpper(str) {
 }
 
 export function toPascalCase(str) {
+  if (!isString(str)) return 'NotDefined';
   return str
     .toLowerCase()
     .split(/[\s-_]+/)
@@ -32,5 +33,7 @@ export function hexToRGB(hex, alpha) {
 }
 
 export function toDate(date) {
-    return new Date(Date.parse(date));
+  let isDateValid = !isNaN(Date.parse(date));
+
+  return new Date(isDateValid ? new Date(Date.parse(date)) : Date.now());
 }

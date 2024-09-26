@@ -6,7 +6,7 @@ import PersistentStorageActions from '../actions/PersistentStorageActions';
 import AppActions from '../actions/AppActions';
 import InventoryActions from '../actions/InventoryActions';
 
-function* login({ payload: { username, password, showLoading } }) {
+export function* login({ payload: { username, password, showLoading } }) {
   if (showLoading) {
     yield put(LoadingActions.start({ key: 'login', opacity: 0.7 }));
   }
@@ -31,7 +31,7 @@ function* login({ payload: { username, password, showLoading } }) {
   }
 }
 
-function* register({ payload: { username, email, password, showLoading } }) {
+export function* register({ payload: { username, email, password, showLoading } }) {
   if (showLoading) {
     yield put(LoadingActions.start({ key: 'register', opacity: 0.7 }));
   }
@@ -45,7 +45,7 @@ function* register({ payload: { username, email, password, showLoading } }) {
   yield put(AuthActions.loginAsync({ username, password, showLoading: true }));
 }
 
-function* reloadCurrentUserInfo() {
+export function* reloadCurrentUserInfo() {
   yield put(LoadingActions.start({ key: 'reloadCurrentUserInfo', opacity: 1 }));
 
   const user = yield call(AuthService.getCurrentUser);

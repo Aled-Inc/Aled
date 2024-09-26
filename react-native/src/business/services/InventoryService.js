@@ -1,8 +1,7 @@
-import { addProduct, getInventoryProducts } from '../../api/InventoryAPI';
-import { getInventoryDetails } from '../../api/InventoryAPI';
+import { addProduct, getInventoryProducts, getInventoryDetails } from '../../api/InventoryAPI';
 
 class InventoryService {
-  async addProduct(product = { code, expirationDate }) {
+  async addProduct(product = { code }) {
     try {
       return await addProduct(product);
     } catch (error) {

@@ -141,7 +141,9 @@ function SimpleProductCarouselComponent({
   };
 
   useEffect(() => {
-    filterProductList(activeFilter);
+    if (activeFilter !== filter || productList.length !== products.length) {
+      filterProductList(activeFilter);
+    }
   }, [activeFilter, products]);
 
   return (

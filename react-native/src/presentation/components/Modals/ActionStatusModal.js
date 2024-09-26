@@ -24,7 +24,7 @@ function ActionStatusModal({ actionStatus, setIdle }) {
   const succeeded = () => {
     return (
       <>
-        <Feather name="check-circle" size={75} color={Colors.Green} />
+        <Feather testID='icon' name="check-circle" size={75} color={Colors.Green} />
         <Text style={modalStyles.modalText}>
           {i18n.t('Aled::ErrorSave:Successful')}
         </Text>
@@ -35,7 +35,7 @@ function ActionStatusModal({ actionStatus, setIdle }) {
   const error = () => {
     return (
       <>
-        <Feather name="x-circle" size={75} color={Colors.Red} />
+        <Feather testID='icon' name="x-circle" size={75} color={Colors.Red} />
         <Text style={modalStyles.modalText}>
           {i18n.t('Aled::ErrorSave:TryAgainOrLater')}
         </Text>
@@ -44,9 +44,10 @@ function ActionStatusModal({ actionStatus, setIdle }) {
   };
 
   return actionStatus == ActionStatus.idle ||
-    actionStatus == ActionStatus.pendging ? null : (
+    actionStatus == ActionStatus.pending ? null : (
     <View style={modalStyles.centeredView}>
       <Modal
+        testID='modal'
         animationType="fade"
         transparent={true}
         visible={true}

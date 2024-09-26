@@ -8,14 +8,14 @@ import { Colors } from "../../styles/CommonStyle";
 import ValidationMessage from '../../components/ValidationMessage/ValidationMessage';
 import PropTypes from 'prop-types';
 import { connectToRedux } from "../../../common/utils/ReduxConnect";
-import { createActionErrorSelector, createActionLoadingSelector, createActionStatusSelector } from '../../../business/store/selectors/LoadingSelectors';
+import { createActionLoadingSelector, createActionStatusSelector } from '../../../business/store/selectors/LoadingSelectors';
 import ActionStatus from "../../../common/utils/ActionStatus";
 import { useEffect } from "react";
 import PropRoles from "../../../common/utils/PropRoles";
 import { commonValidator, emailValidator, nullableValidator, passwordValidator, phoneValidator, requiredValidator } from "../../../common/utils/Validators";
 import i18n from "i18n-js";
 
-function EditPropertyScreen({ route, navigation,  actionLoading, actionStatus, actionError }) {
+function EditPropertyScreen({ route, navigation, actionLoading, actionStatus }) {
   const { propName, propValue, propRole, submit } = route.params;
 
   const isPasswordRole = propRole === PropRoles.password;
@@ -134,15 +134,13 @@ const saveButton = StyleSheet.create({
 
 EditPropertyScreen.propTypes = {
   actionLoading: PropTypes.bool.isRequired,
-  actionStatus: PropTypes.string.isRequired,
-  actionError: PropTypes.string.isRequired,
+  actionStatus: PropTypes.string.isRequired
 }
 
 export default connectToRedux({
   component: EditPropertyScreen,
   stateProps: state => ({
     actionLoading: createActionLoadingSelector()(state),
-    actionStatus: createActionStatusSelector()(state),
-    actionError: createActionErrorSelector()(state),
+    actionStatus: createActionStatusSelector()(state)
   }),
 });
