@@ -29,28 +29,31 @@ public sealed class InventoryAppServiceTest : AledApplicationTestBase<AledApplic
     private readonly InMemoryInventoryBasicRepository? _inventoryBasicRepository;
     private readonly IMapper _mapper;
 
-    private readonly Inventory _inventory = new(User)
-    {
-        Products = new List<Product>
+    private readonly Inventory _inventory = new(User);
+
+    private readonly List<Product> _products =
+    [
+        new Product
         {
-            new()
-            {
-                Code = "1"
-            },
-            new()
-            {
-                Code = "12"
-            },
-            new()
-            {
-                Code = "123"
-            },
-            new()
-            {
-                Code = "1234"
-            },
+            Code = "1234567891000"
+        },
+
+        new Product
+        {
+            Code = "1234567891010"
+        },
+
+        new Product
+        {
+            Code = "1234567891020"
+        },
+
+        new Product
+        {
+            Code = "1234567891030"
         }
-    };
+
+    ];
 
     private static readonly Product Product = new()
     {
@@ -85,6 +88,13 @@ public sealed class InventoryAppServiceTest : AledApplicationTestBase<AledApplic
     protected override async Task InitFixtureAsync()
     {
         await base.InitFixtureAsync();
+
+        foreach (Product product in _products)
+        {
+            product.SetInventory(_inventory);
+            _inventory.AddProduct(product);
+        }
+        
         await _inventoryBasicRepository?.InsertAsync(_inventory)!;
     }
 

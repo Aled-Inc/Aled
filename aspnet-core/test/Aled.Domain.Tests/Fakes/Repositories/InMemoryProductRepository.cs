@@ -19,7 +19,7 @@ public class InMemoryProductRepository : InMemoryRepository<Product, Guid>, IPro
     public async Task<List<Product>> GetInventoryProductsAsync(Guid userId, string? sorting = null, int maxResultCount = Int32.MaxValue,
         int skipCount = 0, string? filter = null, CancellationToken cancellationToken = default)
     {
-        var query = _entities.AsQueryable();
+        var query = _entities.AsQueryable().Where(p => p.Inventory.UserId == userId);
         
         var filterOnTag = int.TryParse(filter, out var tagFilterValue);
         
@@ -40,10 +40,11 @@ public class InMemoryProductRepository : InMemoryRepository<Product, Guid>, IPro
         return await Task.FromResult(result).ConfigureAwait(false);
     }
 
-    public async Task<long> GetCountAsync(string? filter, CancellationToken cancellationToken = default)
+    public async Task<long> GetCountAsync(Guid userId, string? filter, CancellationToken cancellationToken = default)
     {
         var query = _entities.AsQueryable();
-        var result = query.WhereIf(!filter.IsNullOrWhiteSpace(),
+        var result = query.Where(p => p.Inventory.UserId == userId)
+            .WhereIf(!filter.IsNullOrWhiteSpace(),
             x => x.ProductName.Contains(filter) ||
                  x.Brands.Contains(filter)).LongCount();
         

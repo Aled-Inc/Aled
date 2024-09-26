@@ -176,4 +176,9 @@ public class Product : Entity<Guid>
     {
         return ProductCategoryTag == ProductCategoryTagsEnum.Freezer || CategoryTags != null && CategoryTags.Any(tag => _expectedFreezerCategoryTags.Contains(tag));
     }
+
+    public void SetInventory(Inventory inventory)
+    {
+        Inventory = inventory;
+    }
 }
