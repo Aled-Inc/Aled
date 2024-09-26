@@ -2,6 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import ProductCardComponent from '../../../../../presentation/components/Cards/ProductCards/ProductCardComponent';
 import { NativeBaseProvider } from 'native-base';
+import { toDate } from '../../../../../common/utils/CommonUtils';
 
 jest.mock('i18n-js', () => ({
   t: jest.fn(key => key),
@@ -56,6 +57,9 @@ describe('ProductCardComponent', () => {
 
     expect(mockNavigate).toHaveBeenCalledWith('ProductDetails', {
       code: '123',
+      expiredDate: toDate(productMock.expirationDate).toLocaleDateString(
+        'fr-FR',
+      ),
     });
   });
 });
