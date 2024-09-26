@@ -25,7 +25,6 @@ function ProductDetailScreen() {
       setLoading(true);
       try {
         const response = await ProductService.getProductDetails(code);
-        console.log('Response : ', response.data);
         setProduct(response.data);
       } catch (err) {
         setError(err.message);

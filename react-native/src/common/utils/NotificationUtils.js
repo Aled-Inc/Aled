@@ -1,44 +1,34 @@
 import * as Notifications from 'expo-notifications';
-import { Platform } from 'react-native';
 
-// Demande de permission pour les notifications
-export const requestNotificationPermissions = async () => {
+const hasPermission = async () => {
   const { status } = await Notifications.getPermissionsAsync();
-  if (status !== 'granted') {
+  return status === 'granted';
+};
+
+export async function requestPermission() {
+  const permissionGranted = await hasPermission();
+
+  if (!permissionGranted) {
     await Notifications.requestPermissionsAsync();
   }
-};
+}
 
-// Fonction pour planifier une notification
-export const scheduleNotification = async product => {
-  const expirationDate = new Date(product.expirationDate);
-  const today = new Date();
-
-  const differenceInDays = Math.ceil(
-    (expirationDate - today) / (1000 * 3600 * 24),
-  );
-
-  if (differenceInDays === 3) {
-    const notificationDate = new Date(expirationDate);
-    notificationDate.setDate(notificationDate.getDate() - 3); // Date de notification (J-3)
-
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: 'Expiration de produit',
-        body: `Le produit ${product.productName} expire dans 3 jours.`,
-        data: { productId: product.id },
-      },
-      trigger: {
-        date: notificationDate,
-      },
-    });
-  }
-};
-
-// Gérer les notifications reçues
-export const handleNotificationResponse = navigation => {
-  Notifications.addNotificationResponseReceivedListener(response => {
-    const { productId } = response.notification.request.content.data;
-    navigation.navigate('ProductDetails', { id: productId });
+export async function scheduleNotification(product, difference) {
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: 'Expiration Approaching',
+      body: `${product.productName} expires in ${difference} days.`,
+      data: { productId: product.id },
+    },
+    trigger: { seconds: difference * 86400, repeats: false },
   });
-};
+}
+
+export async function cancelNotification(productId) {
+  const notifications = await Notifications.getAllScheduledNotificationsAsync();
+  notifications.forEach(notification => {
+    if (notification.content.data.productId === productId) {
+      Notifications.cancelScheduledNotificationAsync(notification.identifier);
+    }
+  });
+}
