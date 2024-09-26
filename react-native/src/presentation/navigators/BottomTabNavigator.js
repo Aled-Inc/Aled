@@ -11,6 +11,7 @@ import ProductDetailScreen from '../screens/ProductDetails/ProductDetailScreen';
 import EmailConfirmationScreen from '../screens/EmailConfirmation/EmailConfirmationScreen';
 import Wrapper from '../components/Wrapper/Wrapper';
 import { Colors } from '../styles/CommonStyle';
+import ComingSoon from '../screens/ComingSoon/ComingSoon';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -57,7 +58,7 @@ function BottomTabs() {
       />
       <Tab.Screen
         name="Chat"
-        component={HomeScreen}
+        component={ComingSoon}
         options={{
           title: I18n.t('Aled::Menu:Chat'),
           tabBarIcon: ({ focused }) => (
