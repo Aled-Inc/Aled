@@ -2,6 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import ProductImageCardComponent from '../../../../../presentation/components/Cards/ProductCards/ProductImageCardComponent';
 import { NativeBaseProvider } from 'native-base';
+import { toDate } from '../../../../../common/utils/CommonUtils';
 
 const mockNavigate = jest.fn();
 
@@ -17,7 +18,6 @@ jest.mock('react-native-safe-area-context', () => ({
   SafeAreaProvider: ({ children }) => children,
   useSafeAreaInsets: jest.fn(() => ({ top: 0, left: 0, right: 0, bottom: 0 })),
 }));
-
 
 const productMock = {
   code: '456',
@@ -56,6 +56,9 @@ describe('ProductImageCardComponent', () => {
     // Vérifier que la navigation est déclenchée avec le bon paramètre
     expect(mockNavigate).toHaveBeenCalledWith('ProductDetails', {
       code: '456',
+      expiredDate: toDate(productMock.expirationDate).toLocaleDateString(
+        'fr-FR',
+      ),
     });
   });
 });

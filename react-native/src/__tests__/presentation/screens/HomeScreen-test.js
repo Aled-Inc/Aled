@@ -4,20 +4,30 @@ import HomeScreen from '../../../presentation/screens/Home/HomeScreen';
 import { NativeBaseProvider } from 'native-base';
 import { Provider } from 'react-redux';
 import createMockStore from 'redux-mock-store';
+import * as Notifications from 'expo-notifications';
 
+jest.mock('expo-notifications', () => ({
+  getPermissionsAsync: jest.fn(() => Promise.resolve({ status: 'granted' })),
+  scheduleNotificationAsync: jest.fn(),
+  cancelNotificationAsync: jest.fn(),
+  addNotificationReceivedListener: jest.fn(),
+}));
 jest.mock('i18n-js', () => ({
-  t: jest.fn((key) => key),
+  t: jest.fn(key => key),
 }));
 jest.mock('react-native-safe-area-context', () => ({
   SafeAreaProvider: ({ children }) => children,
   useSafeAreaInsets: () => ({ top: 0, left: 0, right: 0, bottom: 0 }),
 }));
-jest.mock('../../../presentation/components/Caroussels/SimpleProductCaroussel', () => {
-  const { Text } = require('react-native');
-  return function MockedSimpleProductCarouselComponent() {
-    return <Text>Mocked SimpleProductCarouselComponent</Text>;
-  };
-});
+jest.mock(
+  '../../../presentation/components/Caroussels/SimpleProductCaroussel',
+  () => {
+    const { Text } = require('react-native');
+    return function MockedSimpleProductCarouselComponent() {
+      return <Text>Mocked SimpleProductCarouselComponent</Text>;
+    };
+  },
+);
 
 jest.mock('../../../presentation/components/Search/SearchProduct', () => {
   const { Text } = require('react-native');
@@ -31,11 +41,11 @@ const mockStore = createMockStore([]);
 const setup = (user, inventory) => {
   const store = mockStore({
     auth: {
-      user: user
+      user: user,
     },
     inventory: {
-      inventory
-    }
+      inventory,
+    },
   });
 
   return render(
@@ -43,7 +53,7 @@ const setup = (user, inventory) => {
       <Provider store={store}>
         <HomeScreen user={user} inventory={inventory} />
       </Provider>
-    </NativeBaseProvider>
+    </NativeBaseProvider>,
   );
 };
 
@@ -55,7 +65,7 @@ describe('HomeScreen', () => {
     jest.clearAllMocks();
   });
 
-  it('should render user information correctly', async() => {
+  it('should render user information correctly', async () => {
     const { getByText } = setup(user, inventory);
 
     expect(getByText('Test User')).toBeTruthy();
@@ -70,7 +80,10 @@ describe('HomeScreen', () => {
   });
 
   it('should render SimpleProductCarouselComponent', () => {
-    const products = [{ id: 1, name: 'Product 1' }, { id: 2, name: 'Product 2' }];
+    const products = [
+      { id: 1, name: 'Product 1' },
+      { id: 2, name: 'Product 2' },
+    ];
     const { getByText } = setup(user, { products });
 
     expect(getByText('Mocked SimpleProductCarouselComponent')).toBeTruthy();
