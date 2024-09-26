@@ -20,7 +20,7 @@ export async function scheduleNotification(product, difference) {
       body: `${product.productName} expires in ${difference} days.`,
       data: { productId: product.id },
     },
-    trigger: { seconds: difference * 86400, repeats: false },
+    trigger: { seconds: 5 },
   });
 }
 
