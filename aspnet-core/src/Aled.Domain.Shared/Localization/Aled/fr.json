@@ -18,7 +18,7 @@
     "Menu:Home": "Accueil",
     "Menu:Fridge": "Frigo",
     "Menu:Profile": "Profil",
-    
+
     "Inventory:MyProducts": "Mes produits",
     "Inventory:Filters:1": "Tous",
     "Inventory:Filters:2": "Expirés",
@@ -27,10 +27,10 @@
     "Inventory:Search:Placeholder": "Rechercher...",
     "Inventory:Search": "Rechercher",
     "Inventory:FilterBy": "Filtrer par",
-    
+
     "Product:DLC": "DLC",
     "Product:Quantity": "Quantité",
-    
+
     "Home:Subtitle": "Y'a quoi dans ton frigo ?",
     "Home:TheyExpireSoon": "Ils expirent bientôt",
 
@@ -87,6 +87,7 @@
 
     "Email:ConfirmEmailTitle": "Confirmation de votre adresse e-mail",
 
+    "Product:Expiration:Date": "Date d'expiration",
     "Product:Details": "Détails",
     "Product:Details:Health": "Santé",
     "Product:Details:Informations": "Informations générales",
