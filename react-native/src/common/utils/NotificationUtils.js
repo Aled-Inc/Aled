@@ -2,6 +2,7 @@ import * as Notifications from 'expo-notifications';
 
 const hasPermission = async () => {
   const { status } = await Notifications.getPermissionsAsync();
+
   return status === 'granted';
 };
 
@@ -20,7 +21,7 @@ export async function scheduleNotification(product, difference) {
       body: `${product.productName} expires in ${difference} days.`,
       data: { productId: product.id },
     },
-    trigger: { seconds: 5 },
+    trigger: { seconds: 2 },
   });
 }
 
