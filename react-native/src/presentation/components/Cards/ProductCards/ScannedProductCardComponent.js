@@ -14,6 +14,9 @@ function ScannedProductCardComponent({ product }) {
       onPress={() => {
         navigation.navigate('ProductDetails', {
           code: product.code,
+          expiredDate: toDate(product.expirationDate).toLocaleDateString(
+            'fr-FR',
+          ),
         });
       }}>
       <Box style={styles.productCardLess}>

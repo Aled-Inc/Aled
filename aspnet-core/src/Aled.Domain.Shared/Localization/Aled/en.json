@@ -13,6 +13,7 @@
     "Low": "Low",
     "None": "None",
     "NotDefined": "Not defined",
+    "ComingSoon":  "Coming soon ...",
     
     "Menu:Scan": "Scan",
     "Menu:Chat": "Chat",
@@ -24,6 +25,7 @@
     "Home:TheyExpireSoon": "They expire soon",
     
     "Inventory:MyProducts": "My products",
+    "Inventory:Expired": "Expired",
     "Inventory:Filters:1": "All",
     "Inventory:Filters:2": "Expired",
     "Inventory:Filters:3": "Latest",
@@ -88,6 +90,7 @@
 
     "Email:ConfirmEmailTitle": "Email confirmation request",
 
+    "Product:Expiration:Date": "Expiration date",
     "Product:Details": "Details",
     "Product:Details:Health": "Health",
     "Product:Details:Informations": "General Informations",

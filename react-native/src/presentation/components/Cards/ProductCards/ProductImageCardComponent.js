@@ -2,6 +2,7 @@ import { Image, Pressable } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../../styles/CommonStyle';
 import { useNavigation } from '@react-navigation/native';
+import { toDate } from '../../../../common/utils/CommonUtils';
 
 function ProductImageCardComponent({ product }) {
   const navigation = useNavigation();
@@ -12,6 +13,9 @@ function ProductImageCardComponent({ product }) {
       onPress={() => {
         navigation.navigate('ProductDetails', {
           code: product.code,
+          expiredDate: toDate(product.expirationDate).toLocaleDateString(
+            'fr-FR',
+          ),
         });
       }}>
       <Image

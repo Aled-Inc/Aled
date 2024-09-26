@@ -16,6 +16,7 @@ function ProductDetailScreen() {
   const regexBalise = /<\/?[^>]+(>|$)|[_]/g;
   const route = useRoute();
   const { code } = route.params;
+  const { expiredDate } = route.params;
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -95,7 +96,9 @@ function ProductDetailScreen() {
         <Text bold fontSize="xl" mt="5" color={Colors.Text}>
           {product.productName}
         </Text>
-        <Text color={Colors.LightText}>Expiration Date: N/A</Text>
+        <Text color={Colors.LightText}>
+          {I18n.t('Aled::Product:Expiration:Date')}: {expiredDate}
+        </Text>
         <HStack mt={5}>
           <Box marginTop={1}>
             <NutriscoreImage nutriscore={product.nutriscore} />
