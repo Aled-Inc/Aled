@@ -25,6 +25,7 @@ import ActionStatusModal from './src/presentation/components/Modals/ActionStatus
 import * as Linking from 'expo-linking';
 import BaseModal from './src/presentation/components/Modals/BaseModal';
 import { useFonts } from 'expo-font';
+import * as Notifications from 'expo-notifications';
 
 const { localization } = getEnvVars();
 
@@ -42,6 +43,14 @@ i18n.t = (key, ...args) => {
 
 enableScreens();
 initAPIInterceptor(store);
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 export default function App() {
   const language = createLanguageSelector()(store.getState());

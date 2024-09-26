@@ -46,27 +46,27 @@ function HomeScreen({ user, inventory }) {
       await requestPermission();
 
       const today = new Date();
-      const expiring = [];
-      const expired = [];
+      const expiring = expiringSoonProducts;
+      const expired = expiringProducts;
 
-      for (const product of inventory.products) {
-        const expiration = new Date(product.expirationDate);
-        const difference = Math.ceil((expiration - today) / (1000 * 3600 * 24));
+      const product = inventory.products[0];
+      const expiration = new Date(product.expirationDate);
+      const difference = Math.ceil((expiration - today) / (1000 * 3600 * 24));
 
-        if (difference <= 3 && difference >= 0) {
-          await scheduleNotification(product, difference);
-          expiring.push(product);
-        } else if (difference < 0) {
-          expired.push(product);
-          await cancelNotification(product.id);
-        }
+      if (difference <= 3 && difference >= 0) {
+        await scheduleNotification(product, difference);
+        expiring.push(product);
+      } else if (difference < 0) {
+        expired.push(product);
+        await cancelNotification(product.id);
       }
+
       setExpiringSoonProducts(expiring);
       setExpiringProducts(expired);
       setNotificationCount(expiring.length + expired.length);
     };
     checkExpiringProducts();
-  }, [inventory]);
+  }, [inventory.products]);
 
   return (
     <View style={homeStyle.homeContainer} px="3">
