@@ -5,6 +5,7 @@ import { Avatar, Box, Center, Text, View } from 'native-base';
 import { profileStyle } from '../../styles/ProfileStyle';
 import { haveValidCommonName } from '../../../common/utils/UserUtils';
 import { Colors } from '../../styles/CommonStyle';
+import ComingSoon from '../ComingSoon/ComingSoon';
 
 function ProfileScreen({ user }) {
   const userCommonName = () => {
@@ -34,7 +35,7 @@ function ProfileScreen({ user }) {
           </View>
         </View>
       </Box>
-      <Box style={profileStyle.identityBox}>
+      {/* <Box style={profileStyle.identityBox}>
         <View style={profileStyle.scoreRow}>
           <View style={profileStyle.scoreCol}>
             <Text style={profileStyle.scoreNumber}>36</Text>
@@ -53,7 +54,9 @@ function ProfileScreen({ user }) {
             <Text style={profileStyle.scoreLabel}>loosed</Text>
           </View>
         </View>
-      </Box>
+      </Box> */}
+
+      <ComingSoon />
     </View>
   );
 }
