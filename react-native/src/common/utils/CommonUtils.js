@@ -9,6 +9,7 @@ export function firstLetterUpper(str) {
 }
 
 export function toPascalCase(str) {
+  if (!isString(str)) return 'NotDefined';
   return str
     .toLowerCase()
     .split(/[\s-_]+/)

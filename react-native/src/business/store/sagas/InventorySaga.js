@@ -14,6 +14,9 @@ export function* addProduct({ payload: { barcode } }) {
   yield put(InventoryActions.addProductToInventory(response.data));
   yield put(InventoryActions.addProductToScannedProducts(response.data));
 
+  const inventoryDetailsResponse = yield call(InventoryService.getInventoryDetails);
+  yield put(InventoryActions.setInventoryDetails(inventoryDetailsResponse.data));
+
   yield put(LoadingActions.stop({ key: 'addProduct' }));
 }
 

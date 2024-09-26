@@ -59,25 +59,31 @@ describe('App Sagas', () => {
   describe('logout', () => {
     it('should logout successfully with loading', () => {
       const persistentStorage = { token: { access_token: 'access', refresh_token: 'refresh' } };
+      const data = { client_id: 'clientId', token: 'access', token_type_hint: 'refresh_token' };
+
+      jest.spyOn(AuthService, 'logout').mockReturnValue(data);
 
       return expectSaga(logout, { payload: { showLoading: true } })
         .provide([
           [select(getPersistentStorage), persistentStorage],
-          [call(AuthService.logout, { client_id: 'clientId', token: 'access' }), {}],
-          [call(AuthService.logout, { client_id: 'clientId', token: 'refresh', token_type_hint: 'refresh_token' }), {}],
+          [call(AuthService.logout, data), {}],
         ])
         .put(LoadingActions.start({ key: 'logout', opacity: 0.7 }))
+        .put(PersistentStorageActions.setToken({}))
         .put(LoadingActions.stop({ key: 'logout' }))
         .run();
     });
 
     it('should logout successfully without loading', () => {
       const persistentStorage = { token: { access_token: 'access' } };
+      const data = { client_id: 'clientId', token: 'access', token_type_hint: 'refresh_token' };
+
+      jest.spyOn(AuthService, 'logout').mockReturnValue(data);
 
       return expectSaga(logout, { payload: { showLoading: false } })
         .provide([
           [select(getPersistentStorage), persistentStorage],
-          [call(AuthService.logout, { client_id: 'clientId', token: 'access' }), {}],
+          [call(AuthService.logout, data), {}],
         ])
         .put(PersistentStorageActions.setToken({}))
         .run();

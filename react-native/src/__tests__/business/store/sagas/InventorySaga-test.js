@@ -14,8 +14,10 @@ describe('Inventory Saga', () => {
     it('should handle adding a product', () => {
       const payload = { barcode: '123456789' };
       const response = { data: { id: 1, code: '123456789' } };
+      const inventoryDetails = { data: { unknownProductsCount : 1, cupboardProductsCount: 2, fridgeProductsCount: 3, freezerProductsCount: 4, totalProductsCount: 5 } };
 
       jest.spyOn(InventoryService, 'addProduct').mockReturnValue(response);
+      jest.spyOn(InventoryService, 'getInventoryDetails').mockReturnValue(inventoryDetails);
 
       return expectSaga(addProduct, { payload })
         .provide([
@@ -24,6 +26,7 @@ describe('Inventory Saga', () => {
         .put(LoadingActions.start({ key: 'addProduct', opacity: 0.4 }))
         .put(InventoryActions.addProductToInventory(response.data))
         .put(InventoryActions.addProductToScannedProducts(response.data))
+        .put(InventoryActions.setInventoryDetails(inventoryDetails.data))
         .put(LoadingActions.stop({ key: 'addProduct' }))
         .run();
     });
