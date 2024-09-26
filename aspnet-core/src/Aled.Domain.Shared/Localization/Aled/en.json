@@ -3,11 +3,11 @@
   "texts": {
     "Aled": "Aled.",
     "Welcome": "Hello",
-    "Username" : "Username",
-    "Email" : "Email",
-    "Password" : "Password",
-    "PhoneNumber" : "Phone",
-    "SeeMyFridge" : "See my fridge !",
+    "Username": "Username",
+    "Email": "Email",
+    "Password": "Password",
+    "PhoneNumber": "Phone",
+    "SeeMyFridge": "See my fridge !",
     "High": "High",
     "Moderate": "Moderate",
     "Low": "Low",
@@ -20,10 +20,10 @@
     "Menu:Home": "Home",
     "Menu:Fridge": "Fridge",
     "Menu:Profile": "Profile",
-    
+
     "Home:Subtitle": "What's in your fridge ?",
     "Home:TheyExpireSoon": "They expire soon",
-    
+
     "Inventory:MyProducts": "My products",
     "Inventory:Filters:1": "All",
     "Inventory:Filters:2": "Expired",
@@ -35,7 +35,7 @@
 
     "Product:DLC": "ED",
     "Product:Quantity": "Quantity",
-    
+
     "Register:Title": "Registration",
     "Register:Register": "Register",
     "Register:SubPhrase": "Register to create your virtual fridge",
@@ -89,6 +89,7 @@
 
     "Email:ConfirmEmailTitle": "Email confirmation request",
 
+    "Product:Expiration:Date": "Expiration date",
     "Product:Details": "Details",
     "Product:Details:Health": "Health",
     "Product:Details:Informations": "General Informations",
