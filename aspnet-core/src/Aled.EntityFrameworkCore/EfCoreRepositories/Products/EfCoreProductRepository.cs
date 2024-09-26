@@ -30,7 +30,7 @@ public class EfCoreProductRepository: EfCoreRepository<AledDbContext, Product, G
         CancellationToken cancellationToken = default)
     {
         var ctx = await GetDbSetAsync();
-        var query = ctx.AsQueryable();
+        var query = ctx.AsQueryable().Where(p => p.Inventory.UserId == userId);
 
         var filterOnTag = int.TryParse(filter, out var tagFilterValue);
         
@@ -49,11 +49,12 @@ public class EfCoreProductRepository: EfCoreRepository<AledDbContext, Product, G
             .ToListAsync(GetCancellationToken(cancellationToken));
     }
 
-    public async Task<long> GetCountAsync(string? filter, CancellationToken cancellationToken = default)
+    public async Task<long> GetCountAsync(Guid userId, string? filter, CancellationToken cancellationToken = default)
     {
         var ctx = await GetDbSetAsync();
 
         return await ctx
+            .Where(p => p.Inventory.UserId == userId)
             .WhereIf(!filter.IsNullOrWhiteSpace(),
                 x => x.ProductName.Contains(filter) ||
                      x.Brands.Contains(filter))

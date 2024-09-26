@@ -65,7 +65,10 @@ function HomeScreen({ user, inventory }) {
       setExpiringProducts(expired);
       setNotificationCount(expiring.length + expired.length);
     };
-    checkExpiringProducts();
+
+    if (inventory.products.length > 0) {
+      checkExpiringProducts();
+    }
   }, [inventory.products]);
 
   return (

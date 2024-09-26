@@ -17,5 +17,5 @@ public interface IProductRepository : IRepository<Product, Guid>
         string? filter = null,
         CancellationToken cancellationToken = default);
 
-    Task<long> GetCountAsync(string? filter, CancellationToken cancellationToken = default);
+    Task<long> GetCountAsync(Guid userId, string? filter, CancellationToken cancellationToken = default);
 }

@@ -104,7 +104,7 @@ public class InventoryManager : DomainService, IInventoryManager
     
     public async Task<long> GetCountAsync(string? filter = null, CancellationToken cancellationToken = default)
     {
-        return await _efCoreProductRepository.GetCountAsync(filter, cancellationToken);
+        return await _efCoreProductRepository.GetCountAsync(_currentUser.GetId(), filter, cancellationToken);
     }
 
     private async Task<Inventory> GetInventoryWithFullDetailsAsync()
